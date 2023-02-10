@@ -8,7 +8,42 @@ from customer import  Customer
 from booking import Booking
 from bson import json_util
 
+from room import Room
+
+
+
 app = Flask(__name__)
+
+
+@app.route('/api/room/<int:room_no>',methods=['GET'])
+def get_room(room_no):
+    room= Room()
+    room_resp=room.get_room_details(room_no)
+    res = {
+          'room_no': room_resp["room_no"],
+          'room_type': room_resp["room_type"],
+          'price': room_resp["price"],
+          'capacity': room_resp["capacity"],
+          'amenities': room_resp["amenities"],
+          'images' : room_resp["images"]
+           }
+     
+    print(res)
+    return Response(json.dumps(res), mimetype='application/json', status=200)
+
+@app.route('/api/add-ons',methods=['GET'])
+def get_add_ons():
+    add_on_data=add_on_actions.get_all_add_ons()
+    return Response(json.dumps(add_on_data), mimetype='application/json', status=200)
+
+
+
+
+
+
+
+
+
 
 @app.route("/api/search", methods = ['GET'])
 def get_all_rooms():
