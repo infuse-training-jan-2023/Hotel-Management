@@ -1,4 +1,4 @@
-from model.room import Room
+from model.room import room_schema
 from services.room_services import RoomService
 class RoomController:
     def get_room_details(self,room_no):
