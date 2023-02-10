@@ -8,3 +8,6 @@
   border: 1px solid blue;
   padding: 5px;
 }
+fieldset > *{
+  padding:0px 10px;
+}
