@@ -1,6 +1,7 @@
 from flask import Flask, request, Response
 import json
 from datetime import datetime
+from pprint import pprint
 
 import sys
 sys.path.insert(0, './DB')
@@ -22,13 +23,14 @@ def get_all_rooms():
     if price:
         price = {"$gt":int(price)}
     
-    if checkin:
+    if checkin and checkout:
         checkin = datetime.strptime(checkin, '%Y-%m-%d')
-
-    if checkout:
         checkout = datetime.strptime(checkout, '%Y-%m-%d')
+    else:
+        checkin=checkout=None
+
     #print(f'checkin: {type(checkin)} checkout: {type(checkout)} room_type: {type(room_type)} price: {type(price)}')
-    data = {'checkin':checkin, 'checkout':checkout, 'room_type':room_type, 'price':price}
+    data = {'checkin':checkin, 'checkout':checkout, 'type':room_type, 'price':price}
     filtered = {k: v for k, v in data.items() if v is not None}
     data.clear()
     data.update(filtered)
@@ -37,11 +39,13 @@ def get_all_rooms():
     return Response(json_util.dumps(rooms), status=200, mimetype="application/json")
 
 @app.route("/api/loyalty-discount", methods = ['GET'])
-def add_one_room():
+def calc_discount():
     booking = Booking()
     id = request.args.get('id')
     discount = booking.calculate_discount(id)
     return Response(json.dumps({"discount":discount}), status=200, mimetype="application/json")
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
