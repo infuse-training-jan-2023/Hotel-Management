@@ -6,3 +6,4 @@ class Connection:
     customer = db.customer
     room = db.room
     booking = db.booking
+    review = db.review
