@@ -1,89 +1,123 @@
-import React, {useState, useEffect} from "react";
-import './App.css';
-function App(){
-  const [rooms, setRooms] = useState([])
-//   const [discount, setDiscount] = useState(0)
-  const [loading, setLoading] = useState(true)
-  const [filters, setFilters] = useState({checkin: null, checkout: null , room_type:null, price:null })
-  let getRooms = async ()=>{
-    try{
-      const res = await fetch("/api/search",{
-        method:"POST", 
-        body:JSON.stringify(filters),
-        headers: {'Content-type': 'application/json; charset=UTF-8',}
-      })
-      const msg = await res.json()
-      setRooms(msg)
-      console.log(msg);
-      return msg
-    }
-    catch(e)
-      {console.log(e)}
-  }
-
-//   let getDiscount = async ()=>{
+// import React, {useState, useEffect} from "react";
+// import './App.css';
+// function App(){
+//   const [rooms, setRooms] = useState([])
+// //   const [discount, setDiscount] = useState(0)
+//   const [loading, setLoading] = useState(true)
+//   const [filters, setFilters] = useState({checkin: null, checkout: null , room_type:null, price:null })
+//   let getRooms = async ()=>{
 //     try{
-//       const res = await fetch('/api/loyalty-discount?id=63e52044ba29b6d46527fe8b', {method: "GET"} )
+//       const res = await fetch("/api/search",{
+//         method:"POST", 
+//         body:JSON.stringify(filters),
+//         headers: {'Content-type': 'application/json; charset=UTF-8',}
+//       })
 //       const msg = await res.json()
-//       setDiscount(msg)
+//       setRooms(msg)
 //       console.log(msg);
+//       return msg
 //     }
 //     catch(e)
 //       {console.log(e)}
 //   }
 
-  function applyFilters(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    setFilters({...filters, [name]: value})
-    //getRooms()
-  }
+// //   let getDiscount = async ()=>{
+// //     try{
+// //       const res = await fetch('/api/loyalty-discount?id=63e52044ba29b6d46527fe8b', {method: "GET"} )
+// //       const msg = await res.json()
+// //       setDiscount(msg)
+// //       console.log(msg);
+// //     }
+// //     catch(e)
+// //       {console.log(e)}
+// //   }
 
-  useEffect(()=>{
-    setLoading(true)
-    getRooms()
-    setLoading(false)
-    console.log()
-  }, [filters])
+//   function applyFilters(e) {
+//     const name = e.target.name;
+//     const value = e.target.value;
+//     setFilters({...filters, [name]: value})
+//     //getRooms()
+//   }
 
-  if(loading) 
-    return <p>loading</p>
-  return(
-    <div className="App">
-        <fieldset>
-            <legend>Filter</legend>
-            <label for="price">Price above: </label><input type="range" id="price" name="price" min="1000" max="10000" onChange={applyFilters} step='100' />
-            <label for="room_type">Room type:</label>
-            <select name="room_type" id="room_type" onChange={applyFilters}>
-                <option value="single">single</option>
-                <option value="double">double</option>
-                <option value="penthouse">penthouse</option>
-            </select>
-            <label for="checkin">Start Date:</label>
-            <input
-                type="date"
-                name="checkin"
-                min={new Date().toISOString().split("T")[0]}
-                onChange={applyFilters}
-                required
-            />
-            <label for="checkout">End Date:</label>
-            <input
-                type="date"
-                name="checkout"
-                disabled={filters.startdate === "" ? true: false}
-                min={filters.startdate ? new Date(filters.startdate).toISOString().split("T")[0]: ""}
-                onChange={applyFilters}
-                required
-            />
-        </fieldset>
-        <p>{JSON.stringify(filters)}</p>  
-        <div>
-            {rooms.map((room, id)=>{
-                return <div className="card" key="{id}">{JSON.stringify(room)}</div>
-            })}
-        </div>
+//   useEffect(()=>{
+//     setLoading(true)
+//     getRooms()
+//     setLoading(false)
+//     console.log()
+//   }, [filters])
+
+//   if(loading) 
+//     return <p>loading</p>
+//   return(
+//     <div className="App">
+//         <fieldset>
+//             <legend>Filter</legend>
+//             <label for="price">Price above: </label><input type="range" id="price" name="price" min="1000" max="10000" onChange={applyFilters} step='100' />
+//             <label for="room_type">Room type:</label>
+//             <select name="room_type" id="room_type" onChange={applyFilters}>
+//                 <option value="single">single</option>
+//                 <option value="double">double</option>
+//                 <option value="penthouse">penthouse</option>
+//             </select>
+//             <label for="checkin">Start Date:</label>
+//             <input
+//                 type="date"
+//                 name="checkin"
+//                 min={new Date().toISOString().split("T")[0]}
+//                 onChange={applyFilters}
+//                 required
+//             />
+//             <label for="checkout">End Date:</label>
+//             <input
+//                 type="date"
+//                 name="checkout"
+//                 disabled={filters.startdate === "" ? true: false}
+//                 min={filters.startdate ? new Date(filters.startdate).toISOString().split("T")[0]: ""}
+//                 onChange={applyFilters}
+//                 required
+//             />
+//         </fieldset>
+//         <p>{JSON.stringify(filters)}</p>  
+//         <div>
+//             {rooms.map((room, id)=>{
+//                 return <div className="card" key="{id}">{JSON.stringify(room)}</div>
+//             })}
+//         </div>
+//     </div>
+//   )
+// }
+// export default App
+
+
+
+
+import React, { useState } from 'react';
+
+function App() {
+  const [loading, setLoading] = useState(false);
+
+  const handleDownloadPDF = () => {
+    setLoading(true);
+    fetch('/api/pdf')
+      .then(response => response.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(new Blob([blob], { type: 'application/pdf' }));
+        window.open(url, '_blank');
+
+        setLoading(false);
+      })
+      .catch(error => {
+        console.log(error);
+        setLoading(false);
+      });
+  };
+
+  return (
+    <div>
+      <button onClick={handleDownloadPDF} disabled={loading}>Download PDF</button>
+      {loading && <p>Loading...</p>}
     </div>
-  )
+  );
 }
-export default App
+
+export default App;

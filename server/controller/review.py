@@ -9,3 +9,11 @@ class ReviewController:
             return review
         except Exception as e:
             return str(e)
+    
+    def get_all_reviews(self):
+        try:
+            all_reviews = Review.get_all_reviews()
+            return all_reviews
+        except Exception as e:
+            return str(e)
+            

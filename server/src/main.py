@@ -4,12 +4,14 @@ from flask import Flask
 from customer_review import review_bp
 from customer_booking import booking_bp
 from search import search_bp
+from generate_pdf import pdf_bp
 
 app = Flask(__name__)
 
 app.register_blueprint(review_bp)
 app.register_blueprint(booking_bp)	
 app.register_blueprint(search_bp)
+app.register_blueprint(pdf_bp)
 
 
 if __name__ == "__main__":
