@@ -1,7 +1,7 @@
-Feature: User Review
-    As a user i can give review to a hotel room
+Feature: Customer Review
+    As a customer i can give review to a hotel room
 
-    Scenario: User Review
-        When User gives a review
-        Then User review should be saved to database
-        Then api api status code should be 201
+    Scenario: Customer Review
+        When Customer gives a review
+        Then Customer review should be saved to database
+        Then Api status code should be 201
