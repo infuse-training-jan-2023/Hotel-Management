@@ -1,0 +1,138 @@
+import Container from 'react-bootstrap/esm/Container';
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
+import React, {useState, useEffect, useId} from "react"
+import Carousel from 'react-bootstrap/Carousel';
+
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Form from 'react-bootstrap/Form'
+import Badge from 'react-bootstrap/Badge';
+import Card from 'react-bootstrap/Card';
+import '../App.css'
+import Button  from 'react-bootstrap/Button';
+function Viewroom(){
+    const navigate = useNavigate();
+    let { rid } = useParams(); 
+    const location = useLocation(); 
+    const [room, setRoom] = useState({})
+    const [checkin, setCheckin] = useState(0)
+    const [checkout, setCheckout] = useState(0)
+    const [loading, setLoading] = useState(true)
+    const [reviews, setReviews] = useState([])
+    const [images, setImgs] = useState([])
+    const [amenities, setAmenities] = useState([])
+    const [uid, setUid] = useState('')
+    let getRoom = async ()=>{
+        try{
+          const res = await fetch(`/api/room/${rid}`)
+          const msg = await res.json()
+          setRoom(msg[0])
+          setAmenities(msg[0].facilities)
+          setImgs(msg[0].img)
+          console.log(msg[0])
+          console.log(msg[0].facilities)
+          console.log(msg[0].img)
+          return msg
+        }
+        catch(e)
+          {console.log(e)}
+      }
+
+    let getRoomReviews = async ()=>{
+        try{
+          //const res = await fetch(`/api/reviews/${rid}`)
+          //const msg = await res.json()
+          let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
+          setReviews(msg)
+        }
+        catch(e)
+          {console.log(e)}
+      }
+      useEffect(()=>{
+        setLoading(true)
+        setCheckin(location.state.checkin);
+        setCheckout(location.state.checkout);
+        getRoom()
+        getRoomReviews()
+        setLoading(false)
+        const uid = JSON.parse(localStorage.getItem('uid'));
+        console.log(uid)
+        if (uid) 
+            setUid(uid);
+            
+      }, [])
+
+    let performBooking = async ()=>{
+        try{
+            
+            console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
+
+            let data = {room_id:rid, user_id: uid, checkin: checkin, checkout: checkout}
+            const res = await fetch(`/api/booking`,{
+                method:"POST", 
+                body:data,
+                headers: {'Content-type': 'application/json charset=UTF-8',}
+            })
+            const msg = await res.json()
+            console.log(msg)
+            navigate('/')
+          }
+          catch(e)
+            {console.log(e)}
+    }
+
+    if(loading) 
+      return <p>loading</p>
+    return(
+        <Container className='min-vh-100'>
+            <Row xs={1} lg={2} className="g-4 py-2">
+            
+            <Col>
+            <Carousel >
+                {images.map((item, idx)=>{
+                    return (<Carousel.Item key={idx}>
+                    <img
+                    className="d-block"
+                    src={item}
+                    alt={idx}
+                    style={{height: "80vh"}}
+                    />
+                    <Carousel.Caption>
+                    <h2>{item.msg}</h2>
+                    </Carousel.Caption>
+                </Carousel.Item>)
+                })}
+            </Carousel> 
+            </Col>
+            <Col>
+                <h3>{room.type}</h3>
+                <p><span>Room price: </span>{room.price}</p>
+                <p><span>Room capacity: </span>{room.capacity}</p>
+                <p><span>Amenities: </span>
+                    {amenities.map((item, idx)=><><Badge key={idx} bg="info">{item} </Badge><span> </span></>)}
+                </p>
+                <Button className='my-3' onClick={performBooking}>Book now</Button>
+                    
+                <h5>Reviews</h5>
+                {
+                    reviews.map((item, idx)=>{
+                        return(
+                            <Card  key={idx} className='my-2'>
+                                <Card.Body>
+                                    <Card.Title>{item.customer_name}</Card.Title>
+                                    <Card.Subtitle className="mb-2 text-muted">{item.rating}<span> stars</span></Card.Subtitle>
+                                    <Card.Text>{item.feedback}</Card.Text>
+                                </Card.Body>
+                            </Card>
+                        )
+                    })   
+                    
+                }
+            </Col>
+        </Row>
+        </Container>
+
+    );
+}
+
+export default Viewroom

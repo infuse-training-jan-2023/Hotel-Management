@@ -38,6 +38,14 @@ def get_all_rooms():
     rooms = room.get_all_rooms(data)
     return Response(json_util.dumps(rooms), status=200, mimetype="application/json")
 
+@app.route("/api/room/<string:id>", methods = ['GET'])
+def get_one_room(id):
+    room = Room()
+    room_doc = room.get_one_room(id)
+    return Response(json_util.dumps(room_doc), status=200, mimetype="application/json")
+
+
+
 @app.route("/api/loyalty-discount", methods = ['GET'])
 def calc_discount():
     booking = Booking()

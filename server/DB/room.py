@@ -1,7 +1,7 @@
 import json
 from bson import json_util
 from booking import Booking
-
+from bson.objectid import ObjectId
 from connect import Connection
 
 class Room:
@@ -29,4 +29,6 @@ class Room:
         available = Connection.room.find(filters)
         return available
 
+    def get_one_room(self, id):
+      return Connection.room.find({'_id':ObjectId(id)}) 
     
