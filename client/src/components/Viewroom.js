@@ -15,13 +15,12 @@ function Viewroom(){
     let { rid } = useParams(); 
     const location = useLocation(); 
     const [room, setRoom] = useState({})
-    const [checkin, setCheckin] = useState(0)
-    const [checkout, setCheckout] = useState(0)
     const [loading, setLoading] = useState(true)
     const [reviews, setReviews] = useState([])
     const [images, setImgs] = useState([])
     const [amenities, setAmenities] = useState([])
-    const [uid, setUid] = useState('')
+    const [checkin, setCheckin] = useState(0)
+    const [checkout, setCheckout] = useState(0)
     let getRoom = async ()=>{
         try{
           const res = await fetch(`/api/room/${rid}`)
@@ -55,31 +54,8 @@ function Viewroom(){
         getRoom()
         getRoomReviews()
         setLoading(false)
-        const uid = JSON.parse(localStorage.getItem('uid'));
-        console.log(uid)
-        if (uid) 
-            setUid(uid);
-            
       }, [])
 
-    let performBooking = async ()=>{
-        try{
-            
-            console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
-
-            let data = {room_id:rid, user_id: uid, checkin: checkin, checkout: checkout}
-            const res = await fetch(`/api/booking`,{
-                method:"POST", 
-                body:data,
-                headers: {'Content-type': 'application/json charset=UTF-8',}
-            })
-            const msg = await res.json()
-            console.log(msg)
-            navigate('/')
-          }
-          catch(e)
-            {console.log(e)}
-    }
 
     if(loading) 
       return <p>loading</p>
@@ -111,7 +87,7 @@ function Viewroom(){
                 <p><span>Amenities: </span>
                     {amenities.map((item, idx)=><><Badge key={idx} bg="info">{item} </Badge><span> </span></>)}
                 </p>
-                <Button className='my-3' onClick={performBooking}>Book now</Button>
+                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, checkin: checkin, checkout: checkout}})}}>Book now</Button>
                     
                 <h5>Reviews</h5>
                 {

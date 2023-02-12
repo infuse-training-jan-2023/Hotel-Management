@@ -77,7 +77,7 @@ function App(){
                 <Route path="/search" element={<Search/>} />
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/viewroom/:rid" element={<Viewroom/>} />
-                <Route path="/bookroom/:rid" element={<Bookroom />} />
+                <Route path="/bookroom/" element={<Bookroom />} />
                 <Route path="/review/:rid" element={<Review />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="*" element={<Error/>} />
