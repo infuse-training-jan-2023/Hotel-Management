@@ -15,7 +15,7 @@ function App(){
 
   let getRooms = async ()=>{
     try{
-      const res = await fetch("/api/search")
+      const res = await fetch("/api/book")
       const msg = await res.json()
       setRooms(msg)
       console.log(msg);

@@ -1,8 +1,10 @@
-import datetime
-from datetime import date
+
+from datetime import datetime
 import sys
+from bson.objectid import ObjectId
+
 sys.path.insert(0, './DB')
-from room import Room
+
 
 class Bookings:
 
@@ -10,11 +12,10 @@ class Bookings:
          self.booking_data = request_data
 
     def create_booking_record(self):
-      
-        room = Room()
-
+            
         id = self.booking_data.get("room_id")
-        room_price =room.get_room_price(id)
+      #  room_price =room.get_room_price(id) #to be implemented   get room price form room table using ref id
+        room_price=1000
         room_cost = room_price*self.get_no_of_days()
         add_ons_cost = self.get_add_ons_cost(self.booking_data.get("add_ons"))
         print("total cost", add_ons_cost+room_cost)
@@ -22,8 +23,9 @@ class Bookings:
         return self.format_booking_record(total_amount , room_price)
 
     def get_no_of_days(self):
-        chk_in_date = self.booking_data.get("check_in")
-        chk_out_date = self.booking_data.get("check_out")
+        
+        chk_in_date = datetime.strptime(self.booking_data.get("check_in"), '%Y/%m/%d')
+        chk_out_date = datetime.strptime(self.booking_data.get("check_out"), '%Y/%m/%d')
         delta_days = chk_out_date - chk_in_date
         return delta_days.days
     
@@ -34,14 +36,14 @@ class Bookings:
         return addons_cost
 
     def format_booking_record(self, total_amount, room_price):
-        check_in = self.booking_data.get("check_in")
-        check_out = self.booking_data.get("check_out")
+        check_in = datetime.strptime(self.booking_data.get("check_in"), '%Y/%m/%d')
+        check_out = datetime.strptime(self.booking_data.get("check_out"), '%Y/%m/%d')
         add_on = self.booking_data.get("add_ons")
         customer_id = self.booking_data.get("customer_id")
         room_id = self.booking_data.get("room_id")
         cancel_status = False
 
-        return {"check_in":check_in, "check_out":check_out, "add_ons":add_on ,"total_amount":total_amount, "room_price":room_price, "customer_id":customer_id, "room_id":room_id, "cancel_status":cancel_status }
+        return {"check_in":check_in, "check_out":check_out, "add_ons":add_on ,"total_amount":total_amount, "room_price":room_price, "customer_id":ObjectId(customer_id), "room_id":ObjectId(room_id), "cancel_status":cancel_status }
         
 
 
