@@ -19,18 +19,15 @@ function Viewroom(){
     const [reviews, setReviews] = useState([])
     const [images, setImgs] = useState([])
     const [amenities, setAmenities] = useState([])
-    const [checkin, setCheckin] = useState(0)
-    const [checkout, setCheckout] = useState(0)
+    const [check_in, setCheckin] = useState(0)
+    const [check_out, setCheckout] = useState(0)
     let getRoom = async ()=>{
         try{
-          const res = await fetch(`/api/room/${rid}`)
+          const res = await fetch(`/api/room?room_id=${rid}`)
           const msg = await res.json()
-          setRoom(msg[0])
-          setAmenities(msg[0].facilities)
-          setImgs(msg[0].img)
-          console.log(msg[0])
-          console.log(msg[0].facilities)
-          console.log(msg[0].img)
+          setRoom(msg)
+          setAmenities(msg.amenities)
+          setImgs(msg.images)
           return msg
         }
         catch(e)
@@ -49,8 +46,8 @@ function Viewroom(){
       }
       useEffect(()=>{
         setLoading(true)
-        setCheckin(location.state.checkin);
-        setCheckout(location.state.checkout);
+        setCheckin(location.state.check_in);
+        setCheckout(location.state.check_out);
         getRoom()
         getRoomReviews()
         setLoading(false)
@@ -87,7 +84,7 @@ function Viewroom(){
                 <p><span>Amenities: </span>
                     {amenities.map((item, idx)=><><Badge key={idx} bg="info">{item} </Badge><span> </span></>)}
                 </p>
-                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, checkin: checkin, checkout: checkout}})}}>Book now</Button>
+                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out}})}}>Book now</Button>
                     
                 <h5>Reviews</h5>
                 {

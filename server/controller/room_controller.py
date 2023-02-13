@@ -2,11 +2,11 @@ import sys
 sys.path.insert(0, './service')
 from room_services import RoomService
 class RoomController:
-    def get_room_details(self,room_no):
+    def get_room_details(self,room_id):
       try:
-        room=RoomService.get_room(room_no)
+        room=RoomService.get_room(room_id)
         resp = {
-          'room_no': room["room_no"],
+          '_id': room["_id"],
           'room_type': room["room_type"],
           'price': room["price"],
           'capacity': room["capacity"],

@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form'
 function Bookroom(){
     const navigate = useNavigate();
     const location = useLocation(); 
-    const [uid, setUid] = useState('')
+    let uid = JSON.parse(localStorage.getItem('uid')) || ""
     const [checkin, setCheckin] = useState(0)
     const [checkout, setCheckout] = useState(0)
     const [rid, setRid] = useState(0)
@@ -54,20 +54,15 @@ function Bookroom(){
 
     let getDiscount = async ()=>{
         try{
-        const res = await fetch('/api/loyalty-discount?id=63e670f601343886816b44c7', {method: "GET"} )
+        const res = await fetch(`/api/loyalty-discount?id=${uid}`)
         const msg = await res.json()
-        setDiscount(msg)
-        console.log(msg)
+        setDiscount(msg.discount)
         }
         catch(e)
         {console.log(e)}
     }
 
     useEffect(()=>{
-        const uid = JSON.parse(localStorage.getItem('uid'));
-        console.log(uid)
-        if (uid) 
-            setUid(uid);
         console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
         setCheckin(location.state.checkin);
         setCheckout(location.state.checkout);
