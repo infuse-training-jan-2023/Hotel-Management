@@ -14,6 +14,7 @@ function Bookroom(){
     const [checkout, setCheckout] = useState(0)
     const [rid, setRid] = useState(0)
     const [addons, setAddons] = useState([])
+    const [discount, setDiscount] = useState(0)
     const [select_addons, setSelectAddons] = useState([])
     let performBooking = async ()=>{
         try{
@@ -51,6 +52,17 @@ function Bookroom(){
         setSelectAddons(arr => [...arr, addons[idx]])
     }
 
+    let getDiscount = async ()=>{
+        try{
+        const res = await fetch('/api/loyalty-discount?id=63e670f601343886816b44c7', {method: "GET"} )
+        const msg = await res.json()
+        setDiscount(msg)
+        console.log(msg)
+        }
+        catch(e)
+        {console.log(e)}
+    }
+
     useEffect(()=>{
         const uid = JSON.parse(localStorage.getItem('uid'));
         console.log(uid)
@@ -61,6 +73,7 @@ function Bookroom(){
         setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
+        getDiscount()
     },[])
 
     return(
@@ -127,7 +140,7 @@ function Bookroom(){
         <h4>Payment details</h4>
             <Col xs="auto">
                 <p><span>Total amount:</span></p>
-                <p><span>Discount(if applicable): -</span></p> 
+                <p><span>Discount(if applicable):</span>{discount}</p> 
                 <p><span>Grand total:</span></p>
                 <Button onClick={performBooking}>Confirm booking</Button>
             </Col>  

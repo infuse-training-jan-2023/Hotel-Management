@@ -25,7 +25,7 @@ def get_all_rooms():
         check_in=check_out=None
 
     #print(f'checkin: {type(checkin)} checkout: {type(checkout)} room_type: {type(room_type)} price: {type(price)}')
-    data = {'check_in':check_in, 'check_out':check_out, 'type':room_type, 'price':price}
+    data = {'check_in':check_in, 'check_out':check_out, 'room_type':room_type, 'price':price}
     filtered = {k: v for k, v in data.items() if v is not None}
     data.clear()
     data.update(filtered)

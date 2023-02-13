@@ -12,7 +12,7 @@ function App(){
   const [rooms, setRooms] = useState([])
   const [discount, setDiscount] = useState(0)
   const [loading, setLoading] = useState(true)
-  const [filters, setFilters] = useState({checkin: null, checkout: null , room_type:null, price:null })
+  const [filters, setFilters] = useState({})
   const navigate = useNavigate();
   
   let getRooms = async ()=>{
@@ -30,17 +30,6 @@ function App(){
     catch(e)
       {console.log(e)}
   }
-
-//   let getDiscount = async ()=>{
-//     try{
-//       const res = await fetch('/api/loyalty-discount?id=63e52044ba29b6d46527fe8b', {method: "GET"} )
-//       const msg = await res.json()
-//       setDiscount(msg)
-//       console.log(msg)
-//     }
-//     catch(e)
-//       {console.log(e)}
-//   }
 
   function applyFilters(e) {
     const name = e.target.name
@@ -80,7 +69,7 @@ function App(){
           <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
 
           <Form.Control type="date"
-              name="checkin"
+              name="check_in"
               min={new Date().toISOString().split("T")[0]}
               onChange={applyFilters}
               required />
@@ -90,7 +79,7 @@ function App(){
           <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
 
           <Form.Control type="date"
-              name="checkout"
+              name="check_out"
               disabled={filters.startdate === "" ? true: false}
               min={filters.startdate ? new Date(filters.startdate).toISOString().split("T")[0]: ""}
               onChange={applyFilters}

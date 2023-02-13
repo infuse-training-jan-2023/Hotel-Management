@@ -10,18 +10,21 @@ class Room:
             if filters.keys() >= {'check_in', 'check_out'}:
                 from_date = filters.get('check_in')
                 to_date = filters.get('check_out')
+                #print(f'from {from_date} to {to_date}')
                 date_filters ={'$or': [
-                { 'start': { '$gte': from_date, '$lte': to_date } },
-                { 'end': { '$gte': from_date, '$lte': to_date }},
+                { 'check_in': { '$gte': from_date, '$lte': to_date } },
+                { 'check_out': { '$gte': from_date, '$lte': to_date }},
                 { '$and': [
-                    { 'start': { '$lte': from_date } }, 
-                    { 'end': { '$gte': to_date } }
+                    { 'check_in': { '$lte': from_date } }, 
+                    { 'check_out': { '$gte': to_date } }
                     ]
                 },
                 ]}
                 del filters["check_in"], filters['check_out']
                 unavailable = Connection.booking.find(date_filters)
-                unavailable_ids = [x.get('room') for x in unavailable]
+                unavailable_ids = [x.get('room_id') for x in unavailable]
+                # for x in unavailable_ids:
+                #     print(x)
                 filters['_id'] =  { '$nin': unavailable_ids }
                 available = Connection.room.find(filters)
 
