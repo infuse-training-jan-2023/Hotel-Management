@@ -6,7 +6,7 @@ from routes.generate_pdf import pdf_bp
 from routes.room_routes import room_bp
 from routes.add_on_routes import add_on_bp
 from routes.bookings_routes import bookings_bp
-
+from routes.customer_routes import customer_bp
 app = Flask(__name__)
 
 app.register_blueprint(review_bp)
@@ -16,10 +16,10 @@ app.register_blueprint(pdf_bp)
 app.register_blueprint(room_bp)
 app.register_blueprint(add_on_bp)
 app.register_blueprint(bookings_bp)
+app.register_blueprint(customer_bp)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+# if __name__ == "__main__":
+#     app.run(debug=True)
 # from flask import Flask, Response, request
 # import json
 # from routes.room_routes import room_bp
@@ -38,16 +38,16 @@ if __name__ == "__main__":
 
 if __name__=='__main__':
     app.run(debug=True,port=5000,host='0.0.0.0')
-from flask import Flask, request, Response, jsonify
-from flask_mongoengine import MongoEngine
+# from flask import Flask, request, Response, jsonify
+# from flask_mongoengine import MongoEngine
 
-from routes.bookings_routes import booking_bp
-
-
-app = Flask(__name__)
-
-app.register_blueprint(booking_bp)
+# from routes.bookings_routes import booking_bp
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# app = Flask(__name__)
+
+# app.register_blueprint(booking_bp)
+
+
+# if __name__ == "__main__":
+#     app.run(debug=True)
