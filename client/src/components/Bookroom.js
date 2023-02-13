@@ -37,9 +37,9 @@ function Bookroom(){
 
     let getAddons = async ()=>{
         try{
-            // const res = await fetch(`/api/addons`)
-            // const msg = await res.json()
-            const msg=[{name:'swimming pool', cost:300}, {name:'gym', cost:200}, {name:'sauna', cost:500}]
+            const res = await fetch(`/api/add_ons`)
+            const msg = await res.json()
+            //const msg=[{name:'swimming pool', cost:300}, {name:'gym', cost:200}, {name:'sauna', cost:500}]
             console.log(msg)
             setAddons(msg)
         }
@@ -98,7 +98,7 @@ function Bookroom(){
             <Col xs="auto">
                 <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
                 {addons.map((item, idx)=>{
-                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.cost}</span></p>
+                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.price}</span></p>
                 })}
             </Col>
         </Row>

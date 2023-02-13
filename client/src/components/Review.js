@@ -23,7 +23,7 @@ function Review(){
         try{
           let data = {...reviewParams, room_id:rid, user_id: localStorage.get('uid')}
           console.log(data)
-          const res = await fetch(`/api/revice/${rid}`,{
+          const res = await fetch(`/api/review`,{
             method:"POST", 
             body:JSON.stringify(data),
             headers: {'Content-type': 'application/json charset=UTF-8',}
