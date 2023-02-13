@@ -1,4 +1,3 @@
-
 from flask import Flask
 from routes.customer_review import review_bp
 from routes.customer_booking import booking_bp
@@ -17,8 +16,8 @@ app.register_blueprint(room_bp)
 app.register_blueprint(add_on_bp)
 
 
-# if __name__ == "__main__":
-#     app.run(debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)
 # from flask import Flask, Response, request
 # import json
 # from routes.room_routes import room_bp
@@ -29,7 +28,7 @@ app.register_blueprint(add_on_bp)
 # # room_actions=RoomAction()
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
 
 

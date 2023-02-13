@@ -1,7 +1,9 @@
-from model.add_on import add_on_schema
-from services.add_on_services import AddonService
+import sys
+sys.path.insert(0, './service')
+from add_on_services import AddonService
 class AddonController:
     def get_all_add_ons(self):
+      try:
         add_on_list=AddonService.get_all_add_ons()
         resp=[]
         for add_on in add_on_list:  
@@ -10,5 +12,6 @@ class AddonController:
           'name': add_on["name"],
           'price' : add_on["price"]
         })
-     
         return resp
+      except Exception as e:
+        return str(e)
