@@ -61,13 +61,13 @@ function Bookroom(){
         setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
-    })
+    },[])
 
     return(
         <Container className='min-vh-100'>
 
             <Row className="align-items-center border border-secondary rounded p-2 my-3 justify-content-center">
-        
+            <h4>Booking details</h4>
             <Col xs="auto">
             <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
                 <Form.Control type="date"
@@ -87,17 +87,44 @@ function Bookroom(){
                     defaultValue={checkout}
                     required />
             </Col>
-
             <Col xs="auto">
-            <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
-            {addons.map((item, idx)=>{
-                return <Form.Check key={idx} label={item.name} name={idx} type='checkbox'  id='radio-1' onChange={addAddons}/>
-            })}
+                <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
+                {addons.map((item, idx)=>{
+                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.cost}</span></p>
+                })}
             </Col>
-
         </Row>
 
         <Row className="align-items-center border border-secondary rounded p-2 my-3">
+            <h4>Guest details</h4>
+            <Col xs="auto">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control type="text" placeholder="name" />
+                </Form.Group>
+            </Col>
+            <Col xs="auto">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" placeholder="name@example.com" />
+                </Form.Group>
+            </Col>
+            <Col xs="auto">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Phone number</Form.Label>
+                    <Form.Control type="phone" placeholder="985xxx2358" />
+                </Form.Group>
+            </Col>
+            <Col xs="auto">
+                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                    <Form.Label>Special request</Form.Label>
+                    <Form.Control type="text" placeholder="any special needs" />
+                </Form.Group>
+            </Col>
+        </Row>
+
+        <Row className="align-items-center border border-secondary rounded p-2 my-3">
+        <h4>Payment details</h4>
             <Col xs="auto">
                 <p><span>Total amount:</span></p>
                 <p><span>Discount(if applicable): -</span></p> 
@@ -105,14 +132,7 @@ function Bookroom(){
                 <Button onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
-
-            
-            
         </Container>
-
-        
-
-
     );
 }
 
