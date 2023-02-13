@@ -23,7 +23,13 @@ def book_room():
             "check_out":"2023/2/28",
             "room_id":"63e68ea543eefbbf88459d29",
             "customer_id":"63e6743305e14504ac5a50e3",
-            "add_ons":[{"service":"break fast", "price":200}]
+            "add_ons":[{"service":"break fast", "price":200}],
+            "room_price":2000,
+
+            "guest_name": "bob dsouza",
+            "email": "bob@gmail.com",
+            "phone_number": "1234653789",
+            "special_request": "required valet"
             }
    
     booking_controller=BookingController()

@@ -13,9 +13,9 @@ class Bookings:
 
     def create_booking_record(self):
             
-        id = self.booking_data.get("room_id")
+       # id = self.booking_data.get("room_id")
       #  room_price =room.get_room_price(id) #to be implemented   get room price form room table using ref id
-        room_price=1000
+        room_price= int(self.booking_data.get("room_price"))
         room_cost = room_price*self.get_no_of_days()
         add_ons_cost = self.get_add_ons_cost(self.booking_data.get("add_ons"))
         print("total cost", add_ons_cost+room_cost)
@@ -41,9 +41,25 @@ class Bookings:
         add_on = self.booking_data.get("add_ons")
         customer_id = self.booking_data.get("customer_id")
         room_id = self.booking_data.get("room_id")
+        guest_name = self.booking_data.get("guest_name")
+        email =  self.booking_data.get("email")
+        phone_number =  self.booking_data.get("phone_number")
+        special_request =  self.booking_data.get("special_request")
         cancel_status = False
 
-        return {"check_in":check_in, "check_out":check_out, "add_ons":add_on ,"total_amount":total_amount, "room_price":room_price, "customer_id":ObjectId(customer_id), "room_id":ObjectId(room_id), "cancel_status":cancel_status }
+
+        return {"check_in":check_in, 
+                "check_out":check_out, 
+                "add_ons":add_on ,
+                "total_amount":total_amount, 
+                "room_price":room_price, 
+                "customer_id":ObjectId(customer_id), 
+                "room_id":ObjectId(room_id),
+                "cancel_status":cancel_status,
+                "guest_name":guest_name,
+                "email":email,
+                "phone_number":phone_number,
+                "special_request":special_request }
         
 
 
