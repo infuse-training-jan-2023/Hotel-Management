@@ -30,7 +30,6 @@ def book_room():
             "phone_number": "1234653789",
             "special_request": "required valet"
             }
-   
     booking_controller=BookingController()
     booking_data=booking_controller.book_room(request_data)
     return Response(json.dumps(booking_data), mimetype='application/json', status=201)
