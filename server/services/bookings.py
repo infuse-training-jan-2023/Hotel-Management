@@ -13,12 +13,9 @@ class Bookings:
 
     def create_booking_record(self):
             
-       # id = self.booking_data.get("room_id")
-      #  room_price =room.get_room_price(id) #to be implemented   get room price form room table using ref id
         room_price= int(self.booking_data.get("room_price"))
         room_cost = room_price*self.get_no_of_days()
         add_ons_cost = self.get_add_ons_cost(self.booking_data.get("add_ons"))
-        print("total cost", add_ons_cost+room_cost)
         total_amount= add_ons_cost+room_cost
         return self.format_booking_record(total_amount , room_price)
 
@@ -41,6 +38,8 @@ class Bookings:
         add_on = self.booking_data.get("add_ons")
         customer_id = self.booking_data.get("customer_id")
         room_id = self.booking_data.get("room_id")
+
+
         guest_name = self.booking_data.get("guest_name")
         email =  self.booking_data.get("email")
         phone_number =  self.booking_data.get("phone_number")
@@ -61,19 +60,6 @@ class Bookings:
                 "phone_number":phone_number,
                 "special_request":special_request }
         
-
-
-
-# request_data ={
-#                "check_in":datetime.datetime(2023, 2, 10),
-#                "check_out":datetime.datetime(2023, 2, 16),
-#                "room_id":"63e523f1964c58b41d4dc86f",
-#                "customer_id":"63e52044ba29b6d46527fe93",
-#                "add_ons":[{"service":"gym", "price":500},{"service":"break fast", "price":700}]
-#                }
-# obj =Bookings(request_data)
-# record = obj.create_booking_record()
-# print(record)
 
 
 

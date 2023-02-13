@@ -34,7 +34,6 @@ def book_room():
    
     booking_controller=BookingController()
     booking_data=booking_controller.book_room(request_data)
-    print(booking_data)
     return Response(json.dumps(booking_data), mimetype='application/json', status=201)
 
 

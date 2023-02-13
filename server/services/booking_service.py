@@ -14,10 +14,13 @@ class BookingService:
         obj =Bookings(request_data)
         record = obj.create_booking_record()
         print(record)
-        result= collection.insert_one(record)
-        if(result.acknowledged):
-            return {"msg": "booking succesfull"}
-        return {"msg": "booking failed"}
+        try:
+            result= collection.insert_one(record)
+            if(result.acknowledged):
+                return {"msg": "booking succesfull"}
+            return {"msg": "booking failed"}
+        except pymongo.errors.WriteError as e:
+            raise Exception("Error:", e.__class__)
     
     @staticmethod
     def cancel_booking(self, id):
@@ -25,14 +28,20 @@ class BookingService:
         collection=db["booking"]
         target_booking_record = { "_id":ObjectId(id) }
         newvalues = { "$set": { "cancel_status": True } }
-        updateResult= collection.update_one(target_booking_record, newvalues)
-        if(updateResult.modified_count == 1):
-            return {"msg" : "booking canceled"}
-        return {"msg" : "booking cancellation failed "}
-    
+        try:
+            updateResult= collection.update_one(target_booking_record, newvalues)
+            if(updateResult.modified_count == 1):
+                return {"msg" : "booking canceled"}
+            return {"msg" : "booking cancellation failed "}
+        except pymongo.errors.WriteError as e:
+            raise Exception("Error:", e.__class__)
+        
     @staticmethod
     def get_user_booking(self, customer_id):
         db=Database.connect_to_db()
         collection=db["booking"]
-        Result= collection.find({"customer_id":ObjectId(customer_id)})
-        return Result
+        try:
+            Result= collection.find({"customer_id":ObjectId(customer_id)})
+            return Result
+        except pymongo.errors.WriteError as e:
+            raise Exception("Error:", e.__class__)
