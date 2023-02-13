@@ -1,4 +1,4 @@
-from flask import Blueprint, Response
+from flask import Blueprint, Response,request
 from bson.objectid import ObjectId
 import sys
 sys.path.insert(0, './controller')
@@ -9,8 +9,12 @@ review_bp=Blueprint('review_bp',__name__)
 @review_bp.route("/api/review", methods = ['POST'])
 def customer_review():
     review = ReviewController()
-    data = {"rating":2,"feedback":"recommended","name":"rohan","_id":ObjectId('63e68ea543eefbbf88459d29')}
-    customer = review.customer_review(data)        
+    request_data = request.get_json()
+    rating = request_data.get('rating')
+    feedback = request_data.get('feedback')
+    name = request_data.get('name')
+    _id = request_data.get('_id')
+    customer = review.customer_review(rating,feedback,name,_id)        
     return Response(json_util.dumps(customer), status=201, mimetype="application/json")
 
 @review_bp.route("/api/get_all_review", methods = ['GET'])

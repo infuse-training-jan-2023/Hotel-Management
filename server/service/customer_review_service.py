@@ -1,15 +1,16 @@
 import sys
 sys.path.insert(0, './DB')
 from connect import Connection
+from bson.objectid import ObjectId
 import pymongo
 
 class Review:
     @staticmethod
-    def customer_review(data):
+    def customer_review(rating,feedback,name,_id):
         try:
-            customer_name = Connection.customer.find_one({"name":data["name"]})
-            room_id  = Connection.room.find_one(data["_id"])
-            review = Connection.review.insert_one({"rating":data["rating"],"feedback":data["feedback"],"customer_name":customer_name.get("name"),"room_id":room_id.get("_id")})
+            customer_name = Connection.customer.find_one({"name":name})
+            room_id  = Connection.room.find_one(ObjectId(_id))
+            review = Connection.review.insert_one({"rating":rating,"feedback":feedback,"customer_name":customer_name.get("name"),"room_id":room_id.get("_id")})
             return review.inserted_id
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)

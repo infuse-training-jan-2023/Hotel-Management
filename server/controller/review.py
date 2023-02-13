@@ -3,9 +3,9 @@ sys.path.insert(0, './service')
 from customer_review_service import Review
 
 class ReviewController:
-    def customer_review(self,data):
+    def customer_review(self,rating,feedback,name,_id):
         try:
-            review = Review.customer_review(data)
+            review = Review.customer_review(rating,feedback,name,_id)
             return review
         except Exception as e:
             return str(e)
