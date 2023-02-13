@@ -31,4 +31,4 @@ def get_all_rooms():
     data.update(filtered)
     
     rooms = room.get_all_rooms(data)
-    return Response(json_util.dumps(rooms), status=200, mimetype="application/json")
+    return Response(json_util.dumps(rooms), status=201, mimetype="application/json")
