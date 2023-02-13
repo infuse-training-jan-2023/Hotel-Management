@@ -7,3 +7,4 @@ class Connection:
     room = db.room
     booking = db.booking
     review = db.review
+    add_ons = db.add_ons
