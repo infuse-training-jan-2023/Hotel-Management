@@ -68,7 +68,7 @@ function App(){
   if(loading) 
     return <p>loading</p>
   return(
-    <Container fluid className="bg-warning">
+    <Container fluid >
         <NavigationBar/>
         <BrowserRouter>
             <Routes>

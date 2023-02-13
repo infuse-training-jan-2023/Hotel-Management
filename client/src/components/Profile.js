@@ -7,7 +7,8 @@ import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/esm/Container';
 function Profile(){
     const navigate = useNavigate();
-    let [uid, setUid] = useState(JSON.parse(localStorage.getItem('uid')))
+    let email = JSON.parse(localStorage.getItem('email')) || ""
+    let [uid, setUid] = useState('')
     let downloadInvoice = async ()=> {
         console.log('get bill')
     }
@@ -19,12 +20,31 @@ function Profile(){
         window.location.reload()
     }
 
+    let getUserDetail = async ()=>{
+        try{
+            console.log(email)
+            const res = await fetch(`/api/user?email=${email}`)
+            const msg = await res.json()
+            console.log(JSON.stringify(msg))
+            setUid(msg._id['$oid'])
+            localStorage.setItem('uid', JSON.stringify(uid));
+            console.log(msg)
+            return msg
+        }
+        catch(e)
+            {console.log(e)}
+          
+    }
+    useEffect(() => {
+        getUserDetail()
+      }, [uid]);
+
     return(
         <Container className="min-vh-100">
             <Row className='my-2'>
                 <Col xs={10}><h3>Bookings</h3></Col>
                 <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col>
-            
+            {uid}
             <h4>Current booking</h4>
             </Row>
             {
