@@ -29,6 +29,13 @@ class Invoice:
             c.drawString(100, 525 , f"Add-Ons: {', '.join([str(add_on) for add_on in cb.get('add_ons')])}")
             c.drawString(100, 500 , f"Room Price: {cb.get('room_price')}")
             c.drawString(100, 475 , f"Total Amount: {cb.get('total_amount')}")
+            c.setFont("Helvetica-Bold", 15)
+            c.drawString(100,425, "Guest Details")
+            c.setFont("Helvetica", 11)
+            c.drawString(100, 400 , f"Guest Name: {cb.get('guest_name')}")
+            c.drawString(100, 375 , f"Email: {cb.get('email')}")
+            c.drawString(100, 350 , f"Phone No: {cb.get('phone_number')}")
+            c.drawString(100, 325 , f"Special Request: {cb.get('special_request')}")
             c.save()
             pdf = buffer.getvalue()
             return pdf
