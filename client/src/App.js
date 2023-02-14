@@ -78,6 +78,7 @@ function App(){
                 <Route path="/bookroom/" element={<Bookroom />} />
                 <Route path="/review/:rid" element={<Review />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/about" element={<About />} />
                 <Route path="*" element={<Error/>} />
             </Routes>
         </BrowserRouter>

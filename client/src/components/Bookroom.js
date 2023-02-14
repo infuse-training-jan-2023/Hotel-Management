@@ -37,7 +37,7 @@ function Bookroom(){
 
     let getAddons = async ()=>{
         try{
-            const res = await fetch(`/api/add_ons`)
+            const res = await fetch(`/api/addons`)
             const msg = await res.json()
             //const msg=[{name:'swimming pool', cost:300}, {name:'gym', cost:200}, {name:'sauna', cost:500}]
             console.log(msg)
