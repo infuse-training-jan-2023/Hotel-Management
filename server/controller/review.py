@@ -10,9 +10,9 @@ class ReviewController:
         except Exception as e:
             return str(e)
     
-    def get_all_reviews(self):
+    def get_all_reviews(self,_id):
         try:
-            all_reviews = Review.get_all_reviews()
+            all_reviews = Review.get_all_reviews(_id)
             return all_reviews
         except Exception as e:
             return str(e)

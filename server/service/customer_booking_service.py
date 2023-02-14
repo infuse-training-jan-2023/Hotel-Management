@@ -14,9 +14,9 @@ class Booking:
             raise Exception("Error:", e.__class__)
 
     @staticmethod
-    def get_all_bookings():
+    def get_all_bookings(id):
         try:
-            bookings = Connection.booking.find({})
+            bookings = Connection.booking.find({"customer_id":ObjectId(id)})
             return bookings
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
