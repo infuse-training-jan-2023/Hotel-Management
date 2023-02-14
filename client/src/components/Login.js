@@ -15,12 +15,12 @@ function Login(){
     }, [email]);
 
     return (
-      <Row className='vh-100 justify-content-center' >
-        <Form className='w-50 mx-auto p-5 m-5'>
-            <h3>Login</h3>
+      <Row className='vh-10 justify-content-center' >
+        <Form className='w-50 mx-auto p-5 m-5 bg-light shadow-5 text-center'>
+            <h3 className='text-center'>LOG IN</h3>
           <Form.Group className="mb-3 align-middle" controlId="formBasicEmail" >
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="email"  onChange={(e)=>setEmail(e.target.value)}/>
+            {/* <Form.Label>Email</Form.Label> */}
+            <Form.Control type="email" placeholder="Email"  size={2} onChange={(e)=>setEmail(e.target.value)}/>
           </Form.Group>
           <Button variant="primary" type="submit" onClick={()=> {navigate('/profile');window.location.reload()}}>Login</Button>
         </Form>

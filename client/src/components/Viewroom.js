@@ -10,6 +10,13 @@ import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import '../App.css'
 import Button  from 'react-bootstrap/Button';
+
+
+
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+
 function Viewroom(){
     const navigate = useNavigate();
     let { rid } = useParams(); 
@@ -21,7 +28,6 @@ function Viewroom(){
     const [amenities, setAmenities] = useState([])
     const [check_in, setCheckin] = useState(0)
     const [check_out, setCheckout] = useState(0)
-    
     let getRoom = async ()=>{
         try{
           const res = await fetch(`/api/room?room_id=${rid}`)
@@ -37,9 +43,9 @@ function Viewroom(){
 
     let getRoomReviews = async ()=>{
         try{
-          const res = await fetch(`/api/get_all_review?room_id=${rid}`)
-          const msg = await res.json()
-          //let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
+          //const res = await fetch(`/api/reviews/${rid}`)
+          //const msg = await res.json()
+          let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
           setReviews(msg)
         }
         catch(e)
@@ -94,8 +100,14 @@ function Viewroom(){
                             <Card  key={idx} className='my-2 bg-light shadow-5'>
                                 <Card.Body>
                                     <Card.Title>{item.customer_name}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">{item.rating}<span> stars</span></Card.Subtitle>
-                                    <Card.Text className='fw-light'>{item.feedback}</Card.Text>
+                                    <Card.Subtitle className="mb-2 text-muted">
+
+                                      {
+                                        [...Array(item.rating)].map((e, i) => <FontAwesomeIcon className='text-warning' icon={faStar} />)
+                                      }
+
+                                    </Card.Subtitle>
+                                    <Card.Text className='fw-lighter'>{item.feedback}</Card.Text>
                                 </Card.Body>
                             </Card>
                         )
