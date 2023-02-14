@@ -35,7 +35,7 @@ def book_room():
     return Response(json.dumps(booking_data), mimetype='application/json', status=201)
 
 
-@bookings_bp.route('/api/book',methods=['PUT'])
+@bookings_bp.route('/book',methods=['PUT'])
 def cancel_booking():
     id="63e52044ba29b6d46527fe93"
     booking_controller=BookingController()

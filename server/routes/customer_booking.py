@@ -13,7 +13,7 @@ def calc_discount():
     discount = booking.calculate_discount(id)
     return Response(json.dumps({"discount":discount}), status=200, mimetype="application/json")
 
-@booking_bp.route("/api/customer_booking", methods = ['GET'])
+@booking_bp.route("/customer_booking", methods = ['GET'])
 def get_all_bookings():
     booking = BookingController()
     id = request.args.get('id')

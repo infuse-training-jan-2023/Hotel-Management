@@ -22,9 +22,12 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-
+            
           </Nav>
-          <Nav className="fs-5">
+          <Nav>
+            <Nav.Link>About Us</Nav.Link>
+          </Nav>
+          <Nav>
             {uid ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
