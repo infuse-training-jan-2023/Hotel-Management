@@ -22,8 +22,7 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href='/services'>Services</Nav.Link>
-            <Nav.Link href="/search" >Search</Nav.Link>
+
           </Nav>
           <Nav>
             {uid ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}

@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 import NavigationBar from './components/NavigationBar'
-import Search from "./components/Search"
 import Viewroom from "./components/Viewroom"
 import Error from "./components/Error"
 import Home from "./components/Home"
@@ -74,7 +73,6 @@ function App(){
             <Routes>
                 <Route exact path='/' element={<Home/>} />
                 <Route path="/login" element={<Login/>} />
-                <Route path="/search" element={<Search/>} />
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/viewroom/:rid" element={<Viewroom/>} />
                 <Route path="/bookroom/" element={<Bookroom />} />
