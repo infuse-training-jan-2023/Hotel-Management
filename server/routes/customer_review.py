@@ -1,9 +1,8 @@
 from flask import Blueprint, Response,request
 from bson.objectid import ObjectId
-import sys
-sys.path.insert(0, './controller')
+
 from bson import json_util
-from review import ReviewController
+from controller.review import ReviewController
 
 review_bp=Blueprint('review_bp',__name__)
 @review_bp.route("/review", methods = ['POST'])
