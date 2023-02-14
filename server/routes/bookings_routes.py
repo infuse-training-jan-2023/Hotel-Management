@@ -35,14 +35,14 @@ def book_room():
     return Response(json.dumps(booking_data), mimetype='application/json', status=201)
 
 
-@bookings_bp.route('/api/book',methods=['PUT'])
+@bookings_bp.route('/book',methods=['PUT'])
 def cancel_booking():
     id="63e52044ba29b6d46527fe93"
     booking_controller=BookingController()
     booking_data=booking_controller.cancel_booking(id)
     return Response(json.dumps(booking_data), mimetype='application/json', status=200)
 
-@bookings_bp.route('/api/book',methods=['GET'])
+@bookings_bp.route('/book',methods=['GET'])
 def get_user_booking():
     #id="63e6743305e14504ac5a50e3"
     print("++++++++")

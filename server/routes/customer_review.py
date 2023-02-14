@@ -17,7 +17,7 @@ def customer_review():
     customer = review.customer_review(rating,feedback,name,_id)        
     return Response(json_util.dumps(customer), status=201, mimetype="application/json")
 
-@review_bp.route("/api/get_all_review", methods = ['GET'])
+@review_bp.route("/get_all_review", methods = ['GET'])
 def get_all_review():
     review = ReviewController()
     _id =request.args.get('_id')
