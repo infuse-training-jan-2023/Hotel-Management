@@ -15,6 +15,8 @@ import Login from "./components/Login"
 import Profile from "./components/Profile"
 import Review from "./components/Review"
 import Services from "./components/Services"
+import About from "./components/About"
+
 
 import Container from "react-bootstrap/esm/Container"
 function App(){
