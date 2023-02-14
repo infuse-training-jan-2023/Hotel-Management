@@ -61,23 +61,21 @@ function App(){
                 className="d-block"
                 src={item.url}
                 alt={item.key}
-                style={{height: "80vh", width:"100vw"}}
+                style={{height: "80vh", width:"100vw", filter:'blur(2px)'}}
               />
-              <Carousel.Caption>
-                <h2>{item.msg}</h2>
-              </Carousel.Caption>
             </Carousel.Item>)
           })}
         </Carousel>  
-      <h3 className="my-3">Find room</h3>
-      <Row className="align-items-center border border-secondary rounded p-2 my-3 justify-content-center">
+      
+      <Row className="align-items-center p-2 my-3 justify-content-center position-absolute bottom-0 start-50 translate-middle  bg-dark p-2 text-light bg-opacity-25 w-75">
+      <div className="my-3 text-center fs-4">Find room</div>
         
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
           <Form.Range id="price" name="price" min="1000" max="7000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Room type </Form.Label>
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Room type </Form.Label>
           <Form.Select aria-label="room type" name="room_type" id="room_type" onClick={applyFilters}>
             <option value="single">Single</option>
             <option value="double">Double</option>
@@ -86,7 +84,7 @@ function App(){
         </Col>
 
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Check-in date</Form.Label>
 
           <Form.Control type="date"
               name="check_in"
@@ -95,8 +93,8 @@ function App(){
               required />
         </Col>
 
-        <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
+        <Col xs="auto my-3">
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Check-out date</Form.Label>
 
           <Form.Control type="date"
               name="check_out"

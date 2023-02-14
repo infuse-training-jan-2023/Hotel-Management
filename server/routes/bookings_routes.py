@@ -44,8 +44,11 @@ def cancel_booking():
 
 @bookings_bp.route('/api/book',methods=['GET'])
 def get_user_booking():
-    id="63e6743305e14504ac5a50e3"
+    #id="63e6743305e14504ac5a50e3"
+    print("++++++++")
+    id = request.args.get('id')
+    print(f'length: {len(id)} value: {id}')
     booking_controller=BookingController()
     booking_data_cursor=booking_controller.get_user_booking(id)
-    booking_data = list(booking_data_cursor)
-    return Response(json_util.dumps(booking_data), mimetype='application/json', status=200)
+    #booking_data = list(booking_data_cursor)
+    return Response(json_util.dumps(booking_data_cursor), mimetype='application/json', status=200)
