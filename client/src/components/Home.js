@@ -71,7 +71,7 @@ function App(){
       <div className="my-3 text-center fs-4">Find room</div>
         
         <Col xs="auto">
-          <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
+          <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
           <Form.Range id="price" name="price" min="1000" max="7000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
@@ -104,8 +104,8 @@ function App(){
               required />
         </Col>
       </Row>
-      <p>{JSON.stringify(filters)}</p>  
-
+      {/* <p>{JSON.stringify(filters)}</p>   */}
+      {/* <h3 className="my-3">Available Rooms</h3> */}
       <Row xs={1} md={3} lg={4} className="g-4">
         {rooms.map((room, idx) => (
           <Col>
@@ -113,8 +113,17 @@ function App(){
               <Card.Img variant="top" src={placeholder} />
               <Card.Body>
                 <Card.Title>{room.type}</Card.Title>
-                <Card.Text>
-                  {JSON.stringify(room)}
+                <Card.Text >
+                  {/* {JSON.stringify(room)} */}
+                  <h4 className="text-uppercase">{
+                      room["room_type"]
+                  }</h4>
+                  {<p>Capacity: {room["capacity"]}</p>}
+                  {
+                    <p>Amenities: {room["amenities"].map(amenity => (
+                      <span>{amenity}, </span>
+                    ))}</p>
+                  }
                 </Card.Text>
               </Card.Body>
             </Card>

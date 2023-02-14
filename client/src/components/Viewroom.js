@@ -10,6 +10,13 @@ import Badge from 'react-bootstrap/Badge';
 import Card from 'react-bootstrap/Card';
 import '../App.css'
 import Button  from 'react-bootstrap/Button';
+
+
+
+import ReactDOM from 'react-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+
 function Viewroom(){
     const navigate = useNavigate();
     let { rid } = useParams(); 
@@ -21,7 +28,6 @@ function Viewroom(){
     const [amenities, setAmenities] = useState([])
     const [check_in, setCheckin] = useState(0)
     const [check_out, setCheckout] = useState(0)
-    
     let getRoom = async ()=>{
         try{
           const res = await fetch(`/api/room?room_id=${rid}`)
@@ -57,7 +63,7 @@ function Viewroom(){
     if(loading) 
       return <p>loading</p>
     return(
-        <Container className='min-vh-100'>
+        <Container className='min-vh-120'>
             <Row xs={1} lg={2} className="g-4 py-2">
             
             <Col>
@@ -68,7 +74,7 @@ function Viewroom(){
                     className="d-block"
                     src={item}
                     alt={idx}
-                    style={{height: "80vh"}}
+                    style={{height: "90vh", width: "100vh"}}
                     />
                     <Carousel.Caption>
                     <h2>{item.msg}</h2>
@@ -78,23 +84,29 @@ function Viewroom(){
             </Carousel> 
             </Col>
             <Col>
-                <h3>{room.type}</h3>
-                <p><span>Room price: </span>{room.price}</p>
-                <p><span>Room capacity: </span>{room.capacity}</p>
-                <p><span>Amenities: </span>
-                    {amenities.map((item, idx)=><><Badge key={idx} bg="info">{item} </Badge><span> </span></>)}
+                <h4 className="fw-bold text-uppercase">{room.room_type}</h4>
+                <p className='fs-5'><span> Room price: </span> Rs. {room.price}/-</p>
+                <p className='fs-5'><span> Room capacity: </span>{room.capacity}</p>
+                <p className='fs-5'><span> Amenities: </span>
+                    {amenities.map((item, idx)=><><Badge key={idx} bg="info"> {item} </Badge><span> </span></>)}
                 </p>
                 <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out}})}}>Book now</Button>
                     
-                <h5>Reviews</h5>
+                <p className='fs-5 fw-bold'>Reviews</p>
                 {
                     reviews.map((item, idx)=>{
                         return(
-                            <Card  key={idx} className='my-2'>
+                            <Card  key={idx} className='my-2 bg-light shadow-5'>
                                 <Card.Body>
                                     <Card.Title>{item.customer_name}</Card.Title>
-                                    <Card.Subtitle className="mb-2 text-muted">{item.rating}<span> stars</span></Card.Subtitle>
-                                    <Card.Text>{item.feedback}</Card.Text>
+                                    <Card.Subtitle className="mb-2 text-muted">
+
+                                      {
+                                        [...Array(item.rating)].map((e, i) => <FontAwesomeIcon className='text-warning' icon={faStar} />)
+                                      }
+
+                                    </Card.Subtitle>
+                                    <Card.Text className='fw-lighter'>{item.feedback}</Card.Text>
                                 </Card.Body>
                             </Card>
                         )

@@ -74,7 +74,7 @@ function Bookroom(){
     return(
         <Container className='min-vh-100'>
 
-            <Row className="align-items-center border border-secondary rounded p-2 my-3 justify-content-center">
+            <Row className="align-items-center bg-light shadow-5 p-2 my-3 justify-content-center">
             <h4>Booking details</h4>
             <Col xs="auto">
             <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
@@ -103,7 +103,7 @@ function Bookroom(){
             </Col>
         </Row>
 
-        <Row className="align-items-center border border-secondary rounded p-2 my-3">
+        <Row className="align-items-center bg-light shadow-5 p-2 my-3">
             <h4>Guest details</h4>
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -131,7 +131,7 @@ function Bookroom(){
             </Col>
         </Row>
 
-        <Row className="align-items-center border border-secondary rounded p-2 my-3">
+        <Row className="align-items-center bg-light shadow-5 p-2 my-3">
         <h4>Payment details</h4>
             <Col xs="auto">
                 <p><span>Total amount:</span></p>
