@@ -21,6 +21,7 @@ function Viewroom(){
     const [amenities, setAmenities] = useState([])
     const [check_in, setCheckin] = useState(0)
     const [check_out, setCheckout] = useState(0)
+    
     let getRoom = async ()=>{
         try{
           const res = await fetch(`/api/room?room_id=${rid}`)
@@ -36,9 +37,9 @@ function Viewroom(){
 
     let getRoomReviews = async ()=>{
         try{
-          //const res = await fetch(`/api/reviews/${rid}`)
-          //const msg = await res.json()
-          let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
+          const res = await fetch(`/api/get_all_review?room_id=${rid}`)
+          const msg = await res.json()
+          //let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
           setReviews(msg)
         }
         catch(e)

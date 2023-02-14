@@ -63,40 +63,46 @@ function Profile(){
             </Row>
             {
                 userBookings.map((item, idx)=>{
-                    
-                    return (<Card  className='my-2' height="2rem">
+                    return (<Card  className='my-2' height="2rem"  key={idx}>
                     <Card.Body>
                         <Row>
                             <Col sm={10}>
-                                <Card.Title>room_type</Card.Title>
-                                <Card.Text>checkin checkout</Card.Text>
+                            <Card.Title>{item.room_id}</Card.Title>
+                                <Card.Text>{item.total_amount}</Card.Text>
+                                <Card.Text>{JSON.stringify(item.add_ons)}</Card.Text>
+                                <Card.Text>{item.special_request}</Card.Text>
+                                <Card.Text>{item.check_in}</Card.Text>
+                                <Card.Text>{item.check_out}</Card.Text>
                             </Col>
                            <Col ><Button variant="danger" className='my-3' onClick={alert("cancel")}>Cancel</Button></Col>
-                           <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col>
-                            
+                           <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col> 
                         </Row>
-                        
                     </Card.Body>
                 </Card>)
-                })     
+                })   
                 
             }
             <hr/>
             <h4>Past bookings</h4>
             {
-                <Card  className='my-2' height="2rem">
+                userBookings.map((item, idx)=>{
+                    return (<Card  className='my-2' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
                             <Col sm={10}>
-                                <Card.Title>room_type</Card.Title>
-                                <Card.Text>checkin checkout</Card.Text>
+                                <Card.Title>{item.room_id}</Card.Title>
+                                <Card.Text>{item.total_amount}</Card.Text>
+                                <Card.Text>{JSON.stringify(item.add_ons)}</Card.Text>
+                                <Card.Text>{item.special_request}</Card.Text>
+                                <Card.Text>{item.check_in}</Card.Text>
+                                <Card.Text>{item.check_out}</Card.Text>
                             </Col>
-                           <Col ><Button variant="info" className='my-3' onClick={()=>navigate('/review')}>Review</Button></Col>
+                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item.room_id['$oid']}`)}>Review</Button></Col>
                            <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
-                        
                     </Card.Body>
-                </Card>
+                </Card>)
+                }) 
             }
         </Container>
     );

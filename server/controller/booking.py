@@ -10,9 +10,9 @@ class BookingController:
         except Exception as e:
             return str(e)
     
-    def get_all_bookings(self):
+    def get_all_bookings(self,id):
         try:
-            booking = Booking.get_all_bookings()
+            booking = Booking.get_all_bookings(id)
             return booking
         except Exception as e:
             return str(e)
