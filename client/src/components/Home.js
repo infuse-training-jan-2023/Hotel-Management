@@ -111,7 +111,7 @@ function App(){
       <Row xs={1} md={3} lg={4} className="g-4">
         {rooms.map((room, idx) => (
           <Col>
-            <Card role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.checkin, check_out: filters.checkout}})}}>
+            <Card role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.check_in, check_out: filters.check_out}})}}>
               <Card.Img variant="top" src={placeholder} />
               <Card.Body>
                 <Card.Title>{room.type}</Card.Title>
