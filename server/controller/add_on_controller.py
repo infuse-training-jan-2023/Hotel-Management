@@ -1,6 +1,7 @@
 
 from service.add_on_services import AddonService
 class AddonController:
+    @staticmethod
     def create_response(add_on_list):
       resp=[]
       for add_on in add_on_list:  
@@ -12,9 +13,9 @@ class AddonController:
       return resp
 
     @staticmethod
-    def get_all_add_ons(self):
+    def get_all_add_ons():
       try:  
-        return create_response(AddonService.get_all_add_ons())
+        return AddonController.create_response(AddonService.get_all_add_ons())
       except Exception as e:
         return str(e)
 
