@@ -6,7 +6,7 @@ from booking import BookingController
 from bson import json_util
 
 booking_bp=Blueprint('booking_bp',__name__)
-@booking_bp.route("/api/loyalty-discount", methods = ['GET'])
+@booking_bp.route("/loyalty-discount", methods = ['GET'])
 def calc_discount():
     booking = BookingController()
     id = request.args.get('id')

@@ -5,7 +5,7 @@ sys.path.insert(0, './controller')
 from room_controller import RoomController
 room_bp = Blueprint('room_bp', __name__)
 
-@room_bp.route('/api/room',methods=['GET'])
+@room_bp.route('/room',methods=['GET'])
 def get_room():
     room_id = request.args.get('room_id')
     room_controller=RoomController()

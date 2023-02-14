@@ -6,7 +6,7 @@ from bson import json_util
 from  customer_controller import CustomerController
 
 customer_bp=Blueprint('customer_bp',__name__)
-@customer_bp.route("/api/user", methods = ['GET'])
+@customer_bp.route("/user", methods = ['GET'])
 def customer_details():
     email = request.args.get('email')
     print(email)
