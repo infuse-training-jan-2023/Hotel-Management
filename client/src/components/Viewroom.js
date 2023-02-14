@@ -45,7 +45,6 @@ function Viewroom(){
         try{
           const res = await fetch(`/api/get_all_review?_id=${rid}`)
           const msg = await res.json()
-          // let  msg=[{customer_name:"bob", rating: 4, feedback: "good service"}, {customer_name:"harry", rating: 5, feedback: "luxurious stay"}, {customer_name:"tom", rating: 2, feedback: "expensive"}]
           setReviews(msg)
         }
         catch(e)
