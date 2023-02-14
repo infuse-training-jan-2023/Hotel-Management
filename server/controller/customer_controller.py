@@ -1,9 +1,10 @@
-import sys
-sys.path.insert(0, './service')
-from customer_service import CustomerService
+from service.customer_service import CustomerService
+from flask import  request
+
 class CustomerController:
-    def get_customer_details(email):
+    def get_customer_details():
       try:
+        email = request.args.get('email')
         customer=CustomerService.get_customer(email)
         resp = {
           '_id': customer["_id"],
@@ -13,7 +14,6 @@ class CustomerController:
           'address': customer["address"]
         
            }
-        # print(resp)
         return resp
       except Exception as e:
         return str(e) 

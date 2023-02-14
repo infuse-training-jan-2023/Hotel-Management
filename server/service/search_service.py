@@ -1,16 +1,30 @@
-import sys
 import pymongo
-sys.path.insert(0, './DB')
-from connect import Connection
-
+from DB.connect import Connection
+from datetime import datetime
 class Room:
     @staticmethod
     def get_all_rooms(filters):
+        check_in = filters.get('check_in')
+        check_out = filters.get('check_out')
+        room_type = filters.get('room_type')
+        price = filters.get('price')
         try:
-            if filters.keys() >= {'check_in', 'check_out'}:
-                from_date = filters.get('check_in')
-                to_date = filters.get('check_out')
-                #print(f'from {from_date} to {to_date}')
+            if price:
+                price = {"$gt":int(price)}
+            if check_in and check_out:
+                check_in = datetime.strptime(check_in, '%Y-%m-%d')
+                check_out = datetime.strptime(check_out, '%Y-%m-%d')
+            else:
+                check_in=check_out=None
+            print(f'checkin: {check_in} checkout: {check_out} room_type: {room_type} price: {price}')
+            data = {'check_in':check_in, 'check_out':check_out, 'room_type':room_type, 'price':price}
+            filtered = {k: v for k, v in data.items() if v is not None}
+            data.clear()
+            data.update(filtered)            
+
+            if data.keys() >= {'check_in', 'check_out'}:
+                from_date = data.get('check_in')
+                to_date = data.get('check_out')
                 date_filters ={'$or': [
                 { 'check_in': { '$gte': from_date, '$lte': to_date } },
                 { 'check_out': { '$gte': from_date, '$lte': to_date }},
@@ -20,16 +34,12 @@ class Room:
                     ]
                 },
                 ]}
-                del filters["check_in"], filters['check_out']
-                unavailable = Connection.booking.find(date_filters)
+                del data["check_in"], data['check_out']
+                unavailable = Connection.db.booking.find(date_filters)
                 unavailable_ids = [x.get('room_id') for x in unavailable]
-                # for x in unavailable_ids:
-                #     print(x)
-                filters['_id'] =  { '$nin': unavailable_ids }
-                available = Connection.room.find(filters)
-
-            print(filters)
-            available = Connection.room.find(filters)
+                data['_id'] =  { '$nin': unavailable_ids }
+                available = Connection.db.room.find(data)
+            available = Connection.db.room.find(data)
             return available
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)

@@ -1,6 +1,4 @@
-import sys
-sys.path.insert(0, './service')
-from add_on_services import AddonService
+from service.add_on_services import AddonService
 class AddonController:
     def get_all_add_ons(self):
       try:

@@ -1,7 +1,7 @@
 rooms_validator = {
     "$jsonSchema": {
     "bsonType": "object",
-    "required": ["room_no", "room_type","price","capacity","amenities","images"],
+    "required": ["room_no", "room_type","price","capacity","amenities","images","description"],
     "properties":{
         "room_no": {
             "bsonType": "number",
@@ -20,7 +20,10 @@ rooms_validator = {
             },
         "images": {
             "bsonType": "array"
-            }
+            },
+        "description": {
+            "bsonType": "string"
+            } 
         }
     }         
 }
