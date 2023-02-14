@@ -6,7 +6,7 @@ from bson import json_util
 from review import ReviewController
 
 review_bp=Blueprint('review_bp',__name__)
-@review_bp.route("/api/review", methods = ['POST'])
+@review_bp.route("/review", methods = ['POST'])
 def customer_review():
     review = ReviewController()
     request_data = request.get_json()

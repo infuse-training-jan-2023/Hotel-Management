@@ -7,7 +7,7 @@ from bson import json_util
 
 bookings_bp = Blueprint('bookings_bp', __name__)
 
-@bookings_bp.route('/api/book',methods=['POST'])
+@bookings_bp.route('/book',methods=['POST'])
 def book_room():
     # request_data ={
     #            "check_in":"2023/2/25",

@@ -5,7 +5,7 @@ from invoice import InvoiceController
 
 pdf_bp=Blueprint('pdf_bp',__name__)
 
-@pdf_bp.route("/api/pdf", methods=['GET'])
+@pdf_bp.route("/pdf", methods=['GET'])
 def invoice():
     bill = InvoiceController()
     id = request.args.get('id')
