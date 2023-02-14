@@ -69,11 +69,11 @@ function App(){
             </Carousel.Item>)
           })}
         </Carousel>  
-      <h3 className="my-3">Find room</h3>
-      <Row className="align-items-center border border-secondary rounded p-2 my-3 justify-content-center">
+      
+      <Row className="align-items-center p-2 my-3 justify-content-center bg-light shadow-5">
         
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
+          <Form.Label htmlFor="inlineFormInput">Price<span>{filters.price}</span></Form.Label>
           <Form.Range id="price" name="price" min="1000" max="7000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
@@ -106,17 +106,26 @@ function App(){
               required />
         </Col>
       </Row>
-      <p>{JSON.stringify(filters)}</p>  
-
+      {/* <p>{JSON.stringify(filters)}</p>   */}
+      {/* <h3 className="my-3">Available Rooms</h3> */}
       <Row xs={1} md={3} lg={4} className="g-4">
         {rooms.map((room, idx) => (
           <Col>
-            <Card role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.checkin, check_out: filters.checkout}})}}>
-              <Card.Img variant="top" src={placeholder} />
+            <Card className="bg-light shadow-5" role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.checkin, check_out: filters.checkout}})}}>
+              <Card.Img variant="top" src={room["images"][0]} />
               <Card.Body>
                 <Card.Title>{room.type}</Card.Title>
-                <Card.Text>
-                  {JSON.stringify(room)}
+                <Card.Text >
+                  {/* {JSON.stringify(room)} */}
+                  <h4 className="text-uppercase">{
+                      room["room_type"]
+                  }</h4>
+                  {<p>Capacity: {room["capacity"]}</p>}
+                  {
+                    <p>Amenities: {room["amenities"].map(amenity => (
+                      <span>{amenity}, </span>
+                    ))}</p>
+                  }
                 </Card.Text>
               </Card.Body>
             </Card>

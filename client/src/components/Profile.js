@@ -63,7 +63,8 @@ function Profile(){
             </Row>
             {
                 userBookings.map((item, idx)=>{
-                    <Card  className='my-2' height="2rem">
+                    
+                    return (<Card  className='my-2' height="2rem">
                     <Card.Body>
                         <Row>
                             <Col sm={10}>
@@ -76,8 +77,8 @@ function Profile(){
                         </Row>
                         
                     </Card.Body>
-                </Card>
-                })   
+                </Card>)
+                })     
                 
             }
             <hr/>
