@@ -115,8 +115,9 @@ function Profile(){
                         </Row>
                     </Card.Body>
                 </Card>)
-                }) 
-            }
+                })
+            } 
+            
 
         </Container>
     );

@@ -28,12 +28,16 @@ function NavigationBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant='dark'>
       <Container>
-        <Navbar.Brand href="/">THE NEW VIEW</Navbar.Brand>
+        <Navbar.Brand href="/" className="fst-italic fw-bold">THE NEW VIEW</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href='/services'>Services</Nav.Link>
+  
+           
+          </Nav>
+          <Nav>
             <Nav.Link href="/about" >About Us</Nav.Link>
+            <Nav.Link href='/services'>Services</Nav.Link>
           </Nav>
           <Nav>
             {email ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
