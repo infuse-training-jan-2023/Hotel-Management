@@ -117,6 +117,7 @@ function Profile(){
                 </Card>)
                 })
             } 
+            {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
             
 
         </Container>

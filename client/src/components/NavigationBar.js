@@ -32,10 +32,6 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-  
-           
-          </Nav>
-          <Nav>
             <Nav.Link href="/about" >About Us</Nav.Link>
             <Nav.Link href='/services'>Services</Nav.Link>
           </Nav>
