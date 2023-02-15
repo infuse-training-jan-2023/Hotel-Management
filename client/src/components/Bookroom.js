@@ -18,6 +18,7 @@ function Bookroom(){
     const [discount, setDiscount] = useState(10)
     const [select_addons, setSelectAddons] = useState([])
     const [total_amount, setTotalAmount] = useState(0)
+    const [ chk_in, setChkIn ]= useState(new Date())
     let performBooking = async ()=>{
         try{
 
@@ -69,7 +70,7 @@ function Bookroom(){
 
     let getDiscount = async ()=>{
         try{
-        const res = await fetch(`/api/loyalty-discount?customer_email=${uid}`)
+        const res = await fetch(`/api/loyalty-discount?customer_email=${email}`)
         const msg = await res.json()
         setDiscount(msg.discount)
         }
@@ -84,11 +85,12 @@ function Bookroom(){
 
         const date1 = new Date(check_in);
         const date2 = new Date(check_out);
-        if(date1 == date2){
+        const diffTime = Math.abs(date2 - date1);
+        if(diffTime==0){
             diffDays =1
+            console.log("diffDays: "+diffDays)
         }
         else{
-           const diffTime = Math.abs(date2 - date1);
           diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         }
         //return location.state.room_price
@@ -109,8 +111,9 @@ function Bookroom(){
         setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
-       // getDiscount()
+        getDiscount()
         get_total_amount()
+       
     },[total_amount , select_addons])
 
     return(
@@ -124,7 +127,8 @@ function Bookroom(){
                     name="checkin"
                     min={new Date().toISOString().split("T")[0]}
                     onChange={(e)=>setCheckin(e.target.value)}
-                    defaultValue={checkin}
+                    defaultValue={chk_in}
+                   // value={chk_in}
                     required />
             </Col>
             <Col xs="auto">
@@ -134,7 +138,8 @@ function Bookroom(){
                     disabled={checkin === "" ? true: false}
                     min={checkin ? new Date(checkin).toISOString().split("T")[0]: ""}
                     onChange={(e)=>setCheckout(e.target.value)}
-                    defaultValue={checkout}
+                    defaultValue={"22-02-2023"} 
+                    value="22-02-2023"
                     required />
             </Col>
             <Col xs="auto">

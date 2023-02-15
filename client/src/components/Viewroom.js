@@ -30,7 +30,7 @@ function Viewroom(){
     const [check_out, setCheckout] = useState(0)
     let getRoom = async ()=>{
         try{
-          const res = await fetch(`/api/room?room_id=${rid}`)
+          const res = await fetch(`/api/rooms?room_id=${rid}`)
           const msg = await res.json()
           setRoom(msg)
           setAmenities(msg.amenities)
