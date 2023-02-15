@@ -1,4 +1,6 @@
 from service.add_on_services import AddonService
+from flask import Response
+import json
 class AddonController:
     @staticmethod
     def create_response(add_on_list):
@@ -13,7 +15,8 @@ class AddonController:
     @staticmethod
     def get_all_add_ons():
       try:  
-        return AddonController.create_response(AddonService.get_all_add_ons())
+        addons = AddonController.create_response(AddonService.get_all_add_ons())
+        return Response(json.dumps(addons), mimetype='application/json', status=200)
       except Exception as e:
         return str(e)
 
