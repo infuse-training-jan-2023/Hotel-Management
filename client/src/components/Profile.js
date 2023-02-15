@@ -73,13 +73,15 @@ function Profile(){
     return(
         <Container className="min-vh-100">
             <Row className='my-2'>
-                <Col xs={10}><h3>Bookings</h3></Col>
+                <Col xs={10} style={{padding : '10px'}}><h3></h3></Col>
                 <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col>
             {uid}
             </Row>
 
-            <h4>Past bookings</h4>
-            {
+            <h3>Previous Booking</h3>
+            {   
+            
+                
                 userBookings.map((item, idx)=>{
                     return (<Card  className='my-2' height="2rem" key={idx}>
                     <Card.Body>
@@ -94,8 +96,9 @@ function Profile(){
                         </Row>
                     </Card.Body>
                 </Card>)
-                }) 
-            }
+                })
+            } 
+            
 
         </Container>
     );
