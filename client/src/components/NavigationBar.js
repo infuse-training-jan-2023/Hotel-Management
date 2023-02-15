@@ -30,7 +30,7 @@ function NavigationBar() {
             <Nav.Link href="/about" >About Us</Nav.Link>
             <Nav.Link href='/services'>Services</Nav.Link>
           </Nav>
-          <Nav className="fs-5">
+          <Nav>
             {email ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
           </Nav>
         </Navbar.Collapse>

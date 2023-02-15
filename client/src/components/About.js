@@ -20,13 +20,13 @@ function About(){
        
         <Container className='min-vh-100'>   
         <Row> 
-           <Image src="https://static01.nyt.com/images/2019/07/21/travel/29checkin-vancouver1/17f45183dc304c8a80697200b69b45a9-articleLarge.jpg?quality=75&auto=webp&disable=upscale" width='100%'></Image>
+           <Image src='https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202103161731226897-549d5be89b9a11ec8bdd0a58a9feac02.jpg?&output-quality=75&downsize=520:350&crop=520:350;2,0&output-format=jpg&downsize=821:550&crop=821:550' width='100%'></Image>
          
         </Row>
         
             <div style={myStyle}>
             <h5>Our Story</h5>    
-            <p >
+            <p>
                 Our journey began in 1985, with a simple goal of providing a relaxing space for travellers. But with time, with everyone's support we are where we are today.
                 We at THE NEW VIEW hotels are committed to providing our guests with best in class services in the industry. Acknowledged and praised, we aspire to continously improve experiences of the guests that stay with us.
             </p>
