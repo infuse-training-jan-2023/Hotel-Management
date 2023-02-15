@@ -9,7 +9,7 @@ review_validator = {
         "feedback": {
             "bsonType": "string",
             },
-        "customer_name": {
+        "guest_name": {
             "bsonType": "string",
             },
         "room_id": {

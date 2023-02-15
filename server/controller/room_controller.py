@@ -1,9 +1,10 @@
-import sys
-sys.path.insert(0, './service')
-from room_services import RoomService
+from service.room_services import RoomService
+from flask import request
+
 class RoomController:
-    def get_room_details(self,room_id):
+    def get_room_details(self):
       try:
+        room_id = request.args.get('room_id')
         room=RoomService.get_room(room_id)
         resp = {
           '_id': room["_id"],
@@ -16,3 +17,11 @@ class RoomController:
         return resp
       except Exception as e:
         return str(e) 
+    
+    def get_all_rooms(self):
+      try:
+          request_data = request.get_json()
+          room = RoomService.get_all_rooms(request_data)
+          return room
+      except Exception as e:
+          return str(e)
