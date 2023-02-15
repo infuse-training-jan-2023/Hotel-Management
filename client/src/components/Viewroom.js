@@ -43,7 +43,11 @@ function Viewroom(){
         }
         catch(e)
           {console.log(e)}
-      }
+    }
+
+    let amenities_components = {
+      "tv": faTv, 
+    }
 
     let getRoomReviews = async ()=>{
         try{
@@ -92,7 +96,7 @@ function Viewroom(){
                 <p className='fs-5'><span> Room capacity: </span>{room.capacity}</p>
                 <p className='fs-5'><span> Amenities: </span>
                     {amenities.map((item, idx)=>{
-                      return (<FontAwesomeIcon  icon={item} />)
+                      return (<FontAwesomeIcon icon={amenities_components[item]} />)
                     })
                     }
                 </p>

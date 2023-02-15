@@ -11,6 +11,7 @@ import { useParams, useLocation } from 'react-router-dom'
 function Review(){
     const navigate = useNavigate();
     let { bid } = useParams(); 
+    console.log(bid)
     let [reviewParams, setReviewParams] = useState({})
 
     function addReviewParams(e) {
@@ -21,7 +22,7 @@ function Review(){
 
     let sendFeedback = async ()=>{
         try{
-          alert(bid)
+          console.log(reviewParams)
           let data = {...reviewParams, booking_id:bid}
           console.log(data)
           const res = await fetch(`/api/review`,{
@@ -31,7 +32,7 @@ function Review(){
           })
           const msg = await res.json()
           console.log(msg)
-          navigate('/')
+          // /navigate('/')
         }
         catch(e)
           {console.log(e)}
@@ -46,13 +47,13 @@ function Review(){
             <Form.Control type="text" placeholder="feedback" name="feedback" onChange={addReviewParams}/>
           </Form.Group>
             <div key='inline-radio' className="mb-3">
-            <Form.Check inline label="1" name="stars" type='radio' value ='1' id='inline-radio-1' onChange={addReviewParams}/>
-            <Form.Check inline label="3" name="stars" type='radio' value ='2' id='inline-radio-3' onChange={addReviewParams}/>
-            <Form.Check inline label="2" name="stars" type='radio' value ='3' id='inline-radio-2' onChange={addReviewParams}/>
-            <Form.Check inline label="4" name="stars" type='radio' value ='4' id='inline-radio-4' onChange={addReviewParams}/>
-            <Form.Check inline label="5" name="stars" type='radio' value ='5' id='inline-radio-5' onChange={addReviewParams}/>
+            <Form.Check inline label="1" name="rating" type='radio' value ='1' id='inline-radio-1' onChange={addReviewParams}/>
+            <Form.Check inline label="3" name="rating" type='radio' value ='2' id='inline-radio-3' onChange={addReviewParams}/>
+            <Form.Check inline label="2" name="rating" type='radio' value ='3' id='inline-radio-2' onChange={addReviewParams}/>
+            <Form.Check inline label="4" name="rating" type='radio' value ='4' id='inline-radio-4' onChange={addReviewParams}/>
+            <Form.Check inline label="5" name="rating" type='radio' value ='5' id='inline-radio-5' onChange={addReviewParams}/>
             </div>
-          <Button variant="primary" type="submit" onClick={sendFeedback}>Add review</Button>
+          <Button variant="primary" onClick={sendFeedback}>Add review</Button>
         </Form>
         <p>{JSON.stringify(reviewParams)}</p>
         </Row>

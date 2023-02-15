@@ -67,8 +67,7 @@ function App(){
           })}
         </Carousel>  
       
-      <Row className="align-items-center p-2 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
-      <div className="my-3 text-center fs-4">Find room</div>
+      <Row className="align-items-center mx-1 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
         
         <Col xs="auto">
           <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>

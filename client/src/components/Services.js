@@ -16,11 +16,7 @@ function Services(){
         
     }
     return(
-        <div style={{backgroundColor : '#f4f6f6', height : '900px'}}>
-        <Container className='min-vh-120'>
-            <Row>
-                <h2 className='text-center'>Services & Add Ons</h2>
-            </Row>
+        <Container className='min-vh-100 px-0'>
             <Row>
                 <Col style={myStyle}>
                 <Figure>
@@ -71,7 +67,6 @@ function Services(){
             </Row>
                 
         </Container>
-        </div>   
 
     );
 }

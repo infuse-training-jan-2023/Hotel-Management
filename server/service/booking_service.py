@@ -16,8 +16,8 @@ class BookingService:
     @staticmethod
     def get_no_of_days(booking_data):
         
-        chk_in_date = datetime.strptime(booking_data.get("check_in"), '%Y/%m/%d')
-        chk_out_date = datetime.strptime(booking_data.get("check_out"), '%Y/%m/%d')
+        chk_in_date = datetime.strptime(booking_data.get("check_in"), '%Y-%m-%d')
+        chk_out_date = datetime.strptime(booking_data.get("check_out"), '%Y-%m-%d')
         delta_days = chk_out_date - chk_in_date
         return delta_days.days
     
@@ -30,8 +30,9 @@ class BookingService:
 
     @staticmethod
     def format_booking_record( total_amount, room_price ,booking_data):
-        check_in = datetime.strptime(booking_data.get("check_in"), '%Y/%m/%d')
-        check_out = datetime.strptime(booking_data.get("check_out"), '%Y/%m/%d')
+        print(f'type(booking_data.get("check_in"))   type(booking_data.get("check_out"))')
+        check_in = datetime.strptime(booking_data.get("check_in"), '%Y-%m-%d')
+        check_out = datetime.strptime(booking_data.get("check_out"), '%Y-%m-%d')
         add_on = booking_data.get("add_ons")
         room_id = booking_data.get("room_id")
 
