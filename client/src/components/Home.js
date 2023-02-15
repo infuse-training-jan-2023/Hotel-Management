@@ -7,6 +7,10 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Form from 'react-bootstrap/Form'
 import Carousel from 'react-bootstrap/Carousel';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTv, faWifi, faMusic,  faWineGlass, faCouch, faHotTub, faAirFreshener } from '@fortawesome/free-solid-svg-icons'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import placeholder from'../placeholder.png'
 
@@ -14,11 +18,21 @@ function App(){
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({})
-  let images = [{msg:"Awesome rooms", url:"https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?cs=srgb&dl=pexels-terry-magallanes-2635038.jpg&fm=jpg&w=1920&h=1282 "},
-        {msg:"Stunning view", url:"https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?cs=srgb&dl=pexels-dmitry-zvolskiy-2082087.jpg&fm=jpg&w=1920&h=1281"},
-        {msg:"Best service", url:"https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?cs=srgb&dl=pexels-jean-van-der-meulen-1457842.jpg&fm=jpg&w=1920&h=1165"}
+  let images = [{msg:"Relaxation at a beautiful peak", url:"https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?cs=srgb&dl=pexels-terry-magallanes-2635038.jpg&fm=jpg&w=1920&h=1282 "},
+        {msg:"It's a home away from home.", url:"https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?cs=srgb&dl=pexels-dmitry-zvolskiy-2082087.jpg&fm=jpg&w=1920&h=1281"},
+        {msg:"Impeccable service.", url:"https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?cs=srgb&dl=pexels-jean-van-der-meulen-1457842.jpg&fm=jpg&w=1920&h=1165"}
     ]
   const navigate = useNavigate();
+
+  let amenities_components = {
+    tv: faTv,  
+    speaker:faMusic,
+    couch:faCouch,
+    wifi:faWifi,
+    jacuzzi:faHotTub,
+    wine:faWineGlass,
+    ac: faAirFreshener
+  }
   
   let getRooms = async ()=>{
     try{
@@ -63,6 +77,7 @@ function App(){
                 alt={item.key}
                 style={{height: "80vh", width:"100vw"}}
               />
+              <Carousel.Caption><span className="display-3 " >{item.msg}</span >     </Carousel.Caption>
             </Carousel.Item>)
           })}
         </Carousel>  
@@ -70,7 +85,7 @@ function App(){
       <Row className="align-items-center mx-1 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
         
         <Col xs="auto">
-          <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
           <Form.Range id="price" name="price" min="1000" max="10000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
@@ -109,20 +124,19 @@ function App(){
         {rooms.map((room, idx) => (
           <Col>
             <Card role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.check_in, check_out: filters.check_out}})}}>
-              <Card.Img variant="top" src={placeholder} />
+              <Card.Img variant="top" src={room.images[0]} />
               <Card.Body>
-                <Card.Title>{room.type}</Card.Title>
+                <Card.Title className="text-capitalize">{room.room_type}</Card.Title>
                 <Card.Text >
-                  {/* {JSON.stringify(room)} */}
-                  <h4 className="text-uppercase">{
-                      room["room_type"]
-                  }</h4>
-                  {<p>Capacity: {room["capacity"]}</p>}
-                  {
-                    <p>Amenities: {room["amenities"].map(amenity => (
-                      <span>{amenity}, </span>
-                    ))}</p>
-                  }
+                  <p>Capacity: {room["capacity"]}</p>
+                  <p>Amenities: 
+                    {room['amenities'].map((item, idx)=>{
+                      return ( 
+                        <OverlayTrigger placement="bottom" overlay={<Tooltip>{item}</Tooltip>} >
+                          <FontAwesomeIcon fade className='px-2'icon={amenities_components[item]} size="sm" />
+                        </OverlayTrigger>)
+                    })}
+                  </p>
                 </Card.Text>
               </Card.Body>
             </Card>

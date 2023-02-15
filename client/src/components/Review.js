@@ -32,7 +32,7 @@ function Review(){
           })
           const msg = await res.json()
           console.log(msg)
-          // /navigate('/')
+          navigate('/profile')
         }
         catch(e)
           {console.log(e)}
