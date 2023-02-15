@@ -1,4 +1,3 @@
-
 from service.add_on_services import AddonService
 class AddonController:
     @staticmethod
@@ -6,7 +5,6 @@ class AddonController:
       resp=[]
       for add_on in add_on_list:  
             resp.append({
-          # 'id': add_on["id"],
           'name': add_on["name"],
           'price' : add_on["price"]
         })

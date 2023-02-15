@@ -23,7 +23,7 @@ function NavigationBar() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href='/services'>Services</Nav.Link>
-            <Nav.Link href="/search" >About us</Nav.Link>
+            <Nav.Link href="/about" >About Us</Nav.Link>
           </Nav>
           <Nav className="fs-5">
             {uid ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
