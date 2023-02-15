@@ -15,7 +15,7 @@ function Services(){
         display: 'flex'
     }
     return(
-        <Container className='min-vh-120'>
+        <Container className='min-vh-100 px-0'>
             <Row>
                 <Col style={myStyle}>
                 <Figure>

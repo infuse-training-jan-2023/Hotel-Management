@@ -114,7 +114,7 @@ function Bookroom(){
     },[total_amount , select_addons])
 
     return(
-        <Container className='min-vh-100'>
+        <Container className='min-vh-100 px-0'>
 
             <Row className="align-items-center bg-light shadow-5 p-2 my-3 justify-content-center">
             <h4>Booking details</h4>
@@ -157,7 +157,7 @@ function Bookroom(){
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" />
+                    <Form.Control disabled type="email" defaultValue={email} placeholder="name@example.com" />
                 </Form.Group>
             </Col>
             <Col xs="auto">
