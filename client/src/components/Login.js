@@ -15,7 +15,7 @@ function Login(){
     }, [email]);
 
     return (
-      <Row className='vh-10 justify-content-center' >
+      <Row className='vh-10 justify-content-center px-0' >
         <Form className='w-50 mx-auto p-5 m-5 bg-light shadow-5 text-center'>
             <h3 className='text-center'>LOG IN</h3>
           <Form.Group className="mb-3 align-middle" controlId="formBasicEmail" >

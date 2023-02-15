@@ -7,51 +7,52 @@ import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/esm/Container';
 function Profile(){
     const navigate = useNavigate();
-    let email = JSON.parse(localStorage.getItem('email')) || ""
+    // let email = JSON.parse(localStorage.getItem('email')) || ""
     let [uid, setUid] = useState('')
+    let [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')) || "")
     const [userBookings, setUserBookings] = useState([])
-    let downloadInvoice = async ()=> {
-        console.log('get bill')
-    }
 
     let handleLogout = () => {
-        setUid('')
-        localStorage.removeItem('uid');
+        //setUid('')
+        setEmail('')
+        // localStorage.removeItem('uid');
+        
+        localStorage.removeItem('email');
         navigate('/')
         window.location.reload()
     }
 
-    let getUserDetail = async ()=>{
-        try{
-            if (localStorage.getItem("uid") === null) {
-                // alert('new')
-                console.log(email)
-                const res = await fetch(`/api/user?email=${email}`)
-                const msg = await res.json()
-                // alert(msg._id['$oid'])
-                setUid(msg._id['$oid'])
-                localStorage.setItem('uid', JSON.stringify(msg._id['$oid']));
-                console.log(msg)
-                return msg
-            }
-            else{
-                console.log(JSON.parse(localStorage.getItem('uid')))
-            setUid(JSON.parse(localStorage.getItem('uid')))
-            // alert('old')
-            }
-        }
-        catch(e)
-            {console.log(e)}
+    // let getUserDetail = async ()=>{
+    //     try{
+    //         if (localStorage.getItem("uid") === null) {
+    //             // alert('new')
+    //             console.log(email)
+    //             const res = await fetch(`/api/user?email=${email}`)
+    //             const msg = await res.json()
+    //             // alert(msg._id['$oid'])
+    //             setUid(msg._id['$oid'])
+    //             localStorage.setItem('uid', JSON.stringify(msg._id['$oid']));
+    //             console.log(msg)
+    //             return msg
+    //         }
+    //         else{
+    //             console.log(JSON.parse(localStorage.getItem('uid')))
+    //         setUid(JSON.parse(localStorage.getItem('uid')))
+    //         // alert('old')
+    //         }
+    //     }
+    //     catch(e)
+    //         {console.log(e)}
           
-    }
+    // }
 
     let getAllUserBookings = async ()=>{
         try{
             // alert(uid)
-            console.log(uid)
+            //console.log(uid)
             console.log('in fetch')
             
-            const res = await fetch(`/api/book?id=${uid}`)
+            const res = await fetch(`/api/booking?customer_email=${email}`)
             const msg = await res.json()
             // console.log(uid)
             console.log(msg)
@@ -62,23 +63,43 @@ function Profile(){
         catch(e)
             {console.log(e)}
     }
+    // useEffect(() => {
+    //     getUserDetail()
+    //   }, []);
+    // useEffect(() => {
+    //     uid && getAllUserBookings()
+    //   }, [uid]);
     useEffect(() => {
-        getUserDetail()
-      }, []);
-    useEffect(() => {
-        uid && getAllUserBookings()
-      }, [uid]);
+        email && getAllUserBookings()
+      }, [email]);
 
+    // let downloadInvoice = async ()=> {
+    //     console.log('get bill')
+    //     const res = await fetch(`/api/invoice?id=${email}`)
+    //     const msg = await res.json()
+    // }
+
+    async function downloadInvoice(e) {
+        try{
+            const bid = e.target.name
+            //alert(bid)
+            const res = await fetch(`/api/invoice?id=${bid}`)
+            const blob = await res.blob()
+            const url = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}))
+            window.open(url, '_blank')
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
 
     return(
-        <Container className="min-vh-100">
+        <Container className="min-vh-100 px-0">
             <Row className='my-2'>
                 <Col xs={10}><h3>Bookings</h3></Col>
-                <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col>
-            {uid}
+                {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             </Row>
-
-            <h4>Past bookings</h4>
+            <h4 className='my-3'>Current booking</h4>
             {
                 userBookings.map((item, idx)=>{
                     return (<Card  className='my-2' height="2rem" key={idx}>
@@ -88,14 +109,17 @@ function Profile(){
                                 <Card.Title>{item.guest_name}</Card.Title>
                                 <Card.Text>{item.total_amount}</Card.Text>
                                 <Card.Text>{item.special_request}</Card.Text>
-                            </Col>
-                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item.room_id['$oid']}`)}>Review</Button></Col>
-                           <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col>
+                            </Col>  
+                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
+                           <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
                     </Card.Body>
                 </Card>)
-                }) 
-            }
+                })
+            } 
+            
+            {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
+            
 
         </Container>
     );
