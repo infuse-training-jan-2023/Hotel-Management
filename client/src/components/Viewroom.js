@@ -34,7 +34,7 @@ function Viewroom(){
     const [check_out, setCheckout] = useState(0)
     let getRoom = async ()=>{
         try{
-          const res = await fetch(`/api/room?room_id=${rid}`)
+          const res = await fetch(`/api/rooms?room_id=${rid}`)
           const msg = await res.json()
           setRoom(msg)
           setAmenities(msg.amenities)
@@ -47,7 +47,7 @@ function Viewroom(){
 
     let getRoomReviews = async ()=>{
         try{
-          const res = await fetch(`/api/get_all_review?_id=${rid}`)
+          const res = await fetch(`/api/reviews_of_room?room_id=${rid}`)
           const msg = await res.json()
           setReviews(msg)
         }
@@ -104,7 +104,7 @@ function Viewroom(){
                         return(
                             <Card  key={idx} className='my-2 bg-light shadow-5'>
                                 <Card.Body>
-                                    <Card.Title>{item.customer_name}</Card.Title>
+                                    <Card.Title>{item.guest_name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">
 
                                       {

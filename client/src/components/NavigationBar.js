@@ -6,12 +6,13 @@ import Navbar from 'react-bootstrap/Navbar';
 
 function NavigationBar() {
   let [uid, setUid] = useState('')
+  let [email, setEmail] = useState('')
 
   useEffect(()=>{
-    const uid = JSON.parse(localStorage.getItem('uid'));
-    console.log(uid)
-    if (uid) 
-      setUid(uid);
+    const email = JSON.parse(localStorage.getItem('email'));
+    console.log(email)
+    if (email) 
+      setEmail(email);
         
   }, [])
 
@@ -26,7 +27,7 @@ function NavigationBar() {
             <Nav.Link href="/about" >About Us</Nav.Link>
           </Nav>
           <Nav className="fs-5">
-            {uid ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
+            {email ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
           </Nav>
         </Navbar.Collapse>
       </Container>
