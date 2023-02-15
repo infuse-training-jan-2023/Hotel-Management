@@ -96,7 +96,7 @@ function Viewroom(){
                     })
                     }
                 </p>
-                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out}})}}>Book now</Button>
+                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
                     
                 <p className='fs-5 fw-bold'>Reviews</p>
                 {
