@@ -27,7 +27,15 @@ function Bookroom(){
         try{
 
 
-            let data = {room_id:rid, customer_email: email, check_in: location.state.check_in, check_out: location.state.check_out, addons: select_addons, guest_name: guest_name, phone_number: phone_number, special_request:special_request}
+            let data = {room_id:rid, 
+                customer_email: email, 
+                check_in: location.state.check_in, 
+                check_out: location.state.check_out, 
+                add_ons: select_addons, 
+                guest_name: guest_name, 
+                phone_number: phone_number, 
+                special_request:special_request, 
+                room_price:location.state.room_price}
             console.log(data)
             const res = await fetch(`/api/booking`,{
                 method:"POST", 
@@ -36,7 +44,7 @@ function Bookroom(){
             })
             const msg = await res.json()
             console.log(msg)
-            //navigate('/profile')
+            navigate('/profile')
           }
           catch(e)
             {console.log(e)}

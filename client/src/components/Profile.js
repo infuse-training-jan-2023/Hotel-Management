@@ -99,7 +99,7 @@ function Profile(){
                 <Col xs={10}><h3>Bookings</h3></Col>
                 {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             </Row>
-            <h4 className='my-3'>Past bookings</h4>
+            <h4 className='my-3'>Current booking</h4>
             {
                 userBookings.map((item, idx)=>{
                     return (<Card  className='my-2' height="2rem" key={idx}>
@@ -117,6 +117,7 @@ function Profile(){
                 </Card>)
                 })
             } 
+            
             {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
             
 
