@@ -41,11 +41,12 @@ class BookingService:
         phone_number =  booking_data.get("phone_number")
         special_request =  booking_data.get("special_request")
         customer_email = booking_data.get("customer_email")
+        discount = booking_data.get("discount")
         iscancelled = False
         return {"check_in":check_in, 
                 "check_out":check_out, 
                 "add_ons":add_on ,
-                "total_amount":total_amount, 
+                "total_amount":total_amount-discount, 
                 "room_price":room_price, 
                 "customer_email":customer_email, 
                 "room_id":ObjectId(room_id),

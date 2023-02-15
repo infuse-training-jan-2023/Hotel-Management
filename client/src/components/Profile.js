@@ -95,7 +95,7 @@ function Profile(){
 
     return(
         <Container className="min-vh-100 px-0">
-            <Row className='my-2'>
+            <Row className='my-2 px-0' >
                 <Col xs={10}><h3>Bookings</h3></Col>
                 {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             </Row>

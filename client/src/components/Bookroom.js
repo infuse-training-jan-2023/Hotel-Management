@@ -192,7 +192,7 @@ function Bookroom(){
                 <p><span>Total Amount:{total_amount}</span></p>
                 <p><span>Discount(if applicable):</span>{discount}</p> 
                 <p><span>Grand Total:{total_amount - discount}</span></p>
-                <Button onClick={performBooking}>Confirm booking</Button>
+                <Button className='btn-lg btn-success' onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
         </Container>

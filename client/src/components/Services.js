@@ -17,11 +17,11 @@ function Services(){
     }
     return(
         <Container className='min-vh-100 px-0'>
-            <Row>
+            <Row className='my-3'>
                 <Col style={myStyle}>
                 <Figure>
                 <Figure.Image
-                        src='https://media.istockphoto.com/id/1189884884/vector/free-electromagnetic-wave-internet-wi-fi.jpg?s=1024x1024&w=is&k=20&c=OXpWcGVeQqIzMVtNLqZkaS_NqWT0nxFcTGY6MS51fpg='
+                        src='https://img.freepik.com/free-photo/high-angle-wi-fi-router-with-vacuum-cleaner_23-2148779238.jpg'
                 />
                 <Figure.Caption className='text-center'>FREE WIFI</Figure.Caption>
                 </Figure>
@@ -39,7 +39,7 @@ function Services(){
                 <Col style={myStyle}>
                 <Figure>
                 <Figure.Image
-                        src='https://media.istockphoto.com/id/1325095289/photo/still-life-closeup-of-a-tranquil-spa-arrangement.jpg?s=612x612&w=is&k=20&c=Cf7dJPP8bxzX8e76ayb5pEDhndUSOwnKY8c_l2s2hjs='
+                        src='https://img.freepik.com/free-photo/spa-composition-with-aromatherapy-body-care-items_169016-2261.jpg'
                 />
                 <Figure.Caption className='text-center'>SPA</Figure.Caption>
                 </Figure>
@@ -50,7 +50,7 @@ function Services(){
             <Col style={myStyle}>
                 <Figure>
                 <Figure.Image
-                        src='https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1075&q=80'
+                        src='https://img.freepik.com/free-photo/cast-iron-dumbbell-weights_1048-11523.jpg'
                 />
                 <Figure.Caption className='text-center'>GYM</Figure.Caption>
                 </Figure>
@@ -59,7 +59,7 @@ function Services(){
                 <Col style={myStyle}>
                 <Figure>
                 <Figure.Image
-                        src='https://media.istockphoto.com/id/871756822/photo/car-park.jpg?s=612x612&w=is&k=20&c=c92errOkGhImXTF-rw8n3sOAilbvL8fdqCFU4ddjp4Q='
+                        src='https://img.freepik.com/free-photo/parking_1127-2914.jpg'
                 />
                 <Figure.Caption className='text-center'>PARKING AREA</Figure.Caption>
                 </Figure>
