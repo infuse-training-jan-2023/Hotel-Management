@@ -6,7 +6,8 @@ class Review:
     @staticmethod
     def add_review(request_data):
         try:
-            review = Connection.db.review.insert_one({"rating":request_data["rating"],"feedback":request_data["feedback"],"customer_name":request_data["name"],"room_id":ObjectId(request_data["room_id"])})
+            booking  = Connection.db.booking.find({"_id": ObjectId(request_data["booking_id"])})
+            review = Connection.db.review.insert_one({"rating":request_data["rating"],"feedback":request_data["feedback"],"guest_name":booking[0]["guest_name"],"room_id":ObjectId(booking[0]["room_id"])})
             return review.inserted_id
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)

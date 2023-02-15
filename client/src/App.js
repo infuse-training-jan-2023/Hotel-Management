@@ -15,6 +15,8 @@ import Login from "./components/Login"
 import Profile from "./components/Profile"
 import Review from "./components/Review"
 import Services from "./components/Services"
+import About from "./components/About"
+
 
 import Container from "react-bootstrap/esm/Container"
 function App(){
@@ -78,6 +80,7 @@ function App(){
                 <Route path="/bookroom/" element={<Bookroom />} />
                 <Route path="/review/:rid" element={<Review />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/about" element={<About />} />
                 <Route path="*" element={<Error/>} />
             </Routes>
         </BrowserRouter>

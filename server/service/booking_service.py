@@ -67,29 +67,29 @@ class BookingService:
             raise Exception("Error:", e.__class__)
     
     @staticmethod
-    def cancel_booking(id):
-        target_booking_record = { "_id":ObjectId(id) }
-        newvalues = { "$set": { "cancel_status": True } }
+    def cancel_booking(booking_id):
+        target_booking_record = { "_id":ObjectId(booking_id["id"]) }
+        newvalues = { "$set": { "isCancelled": True } }
         try:
             updateResult= Connection.db.booking.update_one(target_booking_record, newvalues)
             if(updateResult.modified_count == 1):
-                return {"msg" : "booking canceled"}
+                return {"msg" : "booking cancelled"}
             return {"msg" : "booking cancellation failed "}
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
         
     @staticmethod
-    def get_user_booking_by_id(customer_id):
+    def get_user_booking_by_email(customer_email):
         try:
-            Result= Connection.db.booking.find({"customer_id":ObjectId(customer_id)})
+            Result= Connection.db.booking.find({"customer_email":customer_email})
             return Result
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
     
     @staticmethod
-    def calculate_discount(id):
+    def calculate_discount(customer_email):
         try:
-            bookings = Connection.db.booking.count_documents({'customer_id':ObjectId(id)})
+            bookings = Connection.db.booking.count_documents({'customer_email':customer_email})
             return bookings*10
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)

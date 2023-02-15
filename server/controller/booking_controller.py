@@ -17,18 +17,18 @@ class BookingController:
         except Exception as e:
             return str(e)   
     
-    def get_user_booking_by_id(self):
+    def get_user_booking_by_email(self):
         try:
-            customer_id = request.args.get(id)
-            DB_operation_result=BookingService.get_user_booking_by_id(customer_id)
+            customer_email = request.args.get('customer_email')
+            DB_operation_result=BookingService.get_user_booking_by_email(customer_email)
             return DB_operation_result
         except Exception as e:
             return str(e)
     
     def calculate_discount(self):
         try:
-            id = request.args.get('id')
-            booking = BookingService.calculate_discount(id)
+            customer_email = request.args.get('customer_email')
+            booking = BookingService.calculate_discount(customer_email)
             return booking
         except Exception as e:
             return str(e)

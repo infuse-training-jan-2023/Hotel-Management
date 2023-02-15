@@ -17,3 +17,11 @@ class RoomController:
         return resp
       except Exception as e:
         return str(e) 
+    
+    def get_all_rooms(self):
+      try:
+          request_data = request.get_json()
+          room = RoomService.get_all_rooms(request_data)
+          return room
+      except Exception as e:
+          return str(e)
