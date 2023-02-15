@@ -13,9 +13,14 @@ function Services(){
         height : '300px ',
         width :'20%',
         display: 'flex'
+        
     }
     return(
+        <div style={{backgroundColor : '#f4f6f6', height : '900px'}}>
         <Container className='min-vh-120'>
+            <Row>
+                <h2 className='text-center'>Services & Add Ons</h2>
+            </Row>
             <Row>
                 <Col style={myStyle}>
                 <Figure>
@@ -64,8 +69,9 @@ function Services(){
                 </Figure>
                 </Col>
             </Row>
-                        
+                
         </Container>
+        </div>   
 
     );
 }

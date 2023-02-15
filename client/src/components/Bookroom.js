@@ -9,19 +9,21 @@ import Form from 'react-bootstrap/Form'
 function Bookroom(){
     const navigate = useNavigate();
     const location = useLocation(); 
-    let uid = JSON.parse(localStorage.getItem('uid')) || ""
+    // let uid = JSON.parse(localStorage.getItem('uid')) || ""
+    let email = JSON.parse(localStorage.getItem('email')) || ""
     const [checkin, setCheckin] = useState(0)
     const [checkout, setCheckout] = useState(0)
     const [rid, setRid] = useState(0)
     const [addons, setAddons] = useState([])
-    const [discount, setDiscount] = useState(0)
+    const [discount, setDiscount] = useState(10)
     const [select_addons, setSelectAddons] = useState([])
+    const [total_amount, setTotalAmount] = useState(0)
     let performBooking = async ()=>{
         try{
 
-            console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
+            //console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
 
-            let data = {room_id:rid, user_id: uid, checkin: checkin, checkout: checkout, addons: select_addons}
+            let data = {room_id:rid, customer_email: email, checkin: checkin, checkout: checkout, addons: select_addons}
             const res = await fetch(`/api/booking`,{
                 method:"POST", 
                 body:JSON.stringify(data),
@@ -49,12 +51,25 @@ function Bookroom(){
 
     function addAddons(e) {
         const idx = e.target.name
-        setSelectAddons(arr => [...arr, addons[idx]])
+
+        if(e.target.checked)
+        {
+            setSelectAddons(arr => [...arr,addons[idx]])    
+            console.log("add")
+        }
+        else{
+         //   select_addons.splice(select_addons.findIndex(({name}) => name == addons[idx].name), 1)   
+           console.log("remove")
+           setSelectAddons(select_addons.filter(function(service){return service.name !=  addons[idx].name;}))
+          
+        }
     }
+
+    
 
     let getDiscount = async ()=>{
         try{
-        const res = await fetch(`/api/loyalty-discount?id=${uid}`)
+        const res = await fetch(`/api/loyalty-discount?customer_email=${email}`)
         const msg = await res.json()
         setDiscount(msg.discount)
         }
@@ -62,14 +77,41 @@ function Bookroom(){
         {console.log(e)}
     }
 
+    function get_total_amount(){
+        var check_in =location.state.check_in
+        var check_out =location.state.check_out
+        let diffDays=0
+
+        const date1 = new Date(check_in);
+        const date2 = new Date(check_out);
+        if(date1 == date2){
+            diffDays =1
+        }
+        else{
+           const diffTime = Math.abs(date2 - date1);
+          diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+        }
+        //return location.state.room_price
+       
+        
+        var initialValue=0
+        var add_ons_cost = select_addons.reduce((accumulator, service) => accumulator + service.price,initialValue)
+        
+
+        setTotalAmount((diffDays*location.state.room_price) + add_ons_cost)
+       // return (diffDays*location.state.room_price) + add_ons_cost
+
+    }
+
     useEffect(()=>{
-        console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
+        //console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
         setCheckin(location.state.checkin);
         setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
         getDiscount()
-    },[])
+        get_total_amount()
+    },[total_amount , select_addons])
 
     return(
         <Container className='min-vh-100'>
@@ -83,22 +125,23 @@ function Bookroom(){
                     min={new Date().toISOString().split("T")[0]}
                     onChange={(e)=>setCheckin(e.target.value)}
                     defaultValue={checkin}
+                    disabled
                     required />
             </Col>
             <Col xs="auto">
             <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
                 <Form.Control type="date"
                     name="checkout"
-                    disabled={checkin === "" ? true: false}
                     min={checkin ? new Date(checkin).toISOString().split("T")[0]: ""}
                     onChange={(e)=>setCheckout(e.target.value)}
                     defaultValue={checkout}
+                    disabled
                     required />
             </Col>
             <Col xs="auto">
                 <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
                 {addons.map((item, idx)=>{
-                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.price}</span></p>
+                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.room_price}</span></p>
                 })}
             </Col>
         </Row>
@@ -134,9 +177,9 @@ function Bookroom(){
         <Row className="align-items-center bg-light shadow-5 p-2 my-3">
         <h4>Payment details</h4>
             <Col xs="auto">
-                <p><span>Total amount:</span></p>
+                <p><span>Total Amount:{total_amount}</span></p>
                 <p><span>Discount(if applicable):</span>{discount}</p> 
-                <p><span>Grand total:</span></p>
+                <p><span>Grand Total:{total_amount - discount}</span></p>
                 <Button onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
