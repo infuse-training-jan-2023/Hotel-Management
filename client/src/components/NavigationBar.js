@@ -18,7 +18,7 @@ function NavigationBar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant='dark'>
       <Container>
-        <Navbar.Brand href="/">Hotel management</Navbar.Brand>
+        <Navbar.Brand href="/">THE NEW VIEW</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">

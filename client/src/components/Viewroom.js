@@ -15,7 +15,11 @@ import Button  from 'react-bootstrap/Button';
 
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faTv } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+
+// library.add(faBatteryHalf, faBatteryFull, faPrint);
 
 function Viewroom(){
     const navigate = useNavigate();
@@ -65,7 +69,6 @@ function Viewroom(){
     return(
         <Container className='min-vh-120'>
             <Row xs={1} lg={2} className="g-4 py-2">
-            
             <Col>
             <Carousel >
                 {images.map((item, idx)=>{
@@ -85,10 +88,13 @@ function Viewroom(){
             </Col>
             <Col>
                 <h4 className="fw-bold text-uppercase">{room.room_type}</h4>
-                <p className='fs-5'><span> Room price: </span> Rs. {room.price}/-</p>
+                <p className='fs-5'><span> Room price:</span> Rs. {room.price}/-</p>
                 <p className='fs-5'><span> Room capacity: </span>{room.capacity}</p>
                 <p className='fs-5'><span> Amenities: </span>
-                    {amenities.map((item, idx)=><><Badge key={idx} bg="info"> {item} </Badge><span> </span></>)}
+                    {amenities.map((item, idx)=>{
+                      return (<FontAwesomeIcon  icon={item} />)
+                    })
+                    }
                 </p>
                 <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out}})}}>Book now</Button>
                     

@@ -77,7 +77,24 @@ function Profile(){
                 <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col>
             {uid}
             </Row>
-
+            <h4>Past bookings</h4>
+            {
+                userBookings.filter((item, idx)=>{
+                    return (<Card  className='my-2' height="2rem" key={idx}>
+                    <Card.Body>
+                        <Row>
+                            <Col sm={10}>
+                                <Card.Title>{item.guest_name}</Card.Title>
+                                <Card.Text>{item.total_amount}</Card.Text>
+                                <Card.Text>{item.special_request}</Card.Text>
+                            </Col>
+                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item.room_id['$oid']}`)}>Review</Button></Col>
+                           <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col>
+                        </Row>
+                    </Card.Body>
+                </Card>)
+                }) 
+            }
             <h4>Past bookings</h4>
             {
                 userBookings.map((item, idx)=>{
