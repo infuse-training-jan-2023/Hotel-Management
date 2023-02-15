@@ -9,7 +9,7 @@ import Form from 'react-bootstrap/Form'
 function Bookroom(){
     const navigate = useNavigate();
     const location = useLocation(); 
-    let uid = JSON.parse(localStorage.getItem('uid')) || ""
+    // let uid = JSON.parse(localStorage.getItem('uid')) || ""
     let email = JSON.parse(localStorage.getItem('email')) || ""
     const [checkin, setCheckin] = useState(0)
     const [checkout, setCheckout] = useState(0)
@@ -21,7 +21,7 @@ function Bookroom(){
     let performBooking = async ()=>{
         try{
 
-            console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
+            //console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
 
             let data = {room_id:rid, customer_email: email, checkin: checkin, checkout: checkout, addons: select_addons}
             const res = await fetch(`/api/booking`,{
@@ -69,7 +69,7 @@ function Bookroom(){
 
     let getDiscount = async ()=>{
         try{
-        const res = await fetch(`/api/loyalty-discount?customer_email=${uid}`)
+        const res = await fetch(`/api/loyalty-discount?customer_email=${email}`)
         const msg = await res.json()
         setDiscount(msg.discount)
         }
@@ -104,12 +104,12 @@ function Bookroom(){
     }
 
     useEffect(()=>{
-        console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
+        //console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
         setCheckin(location.state.checkin);
         setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
-       // getDiscount()
+        getDiscount()
         get_total_amount()
     },[total_amount , select_addons])
 
@@ -125,22 +125,23 @@ function Bookroom(){
                     min={new Date().toISOString().split("T")[0]}
                     onChange={(e)=>setCheckin(e.target.value)}
                     defaultValue={checkin}
+                    disabled
                     required />
             </Col>
             <Col xs="auto">
             <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
                 <Form.Control type="date"
                     name="checkout"
-                    disabled={checkin === "" ? true: false}
                     min={checkin ? new Date(checkin).toISOString().split("T")[0]: ""}
                     onChange={(e)=>setCheckout(e.target.value)}
                     defaultValue={checkout}
+                    disabled
                     required />
             </Col>
             <Col xs="auto">
                 <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
                 {addons.map((item, idx)=>{
-                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.price}</span></p>
+                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.room_price}</span></p>
                 })}
             </Col>
         </Row>

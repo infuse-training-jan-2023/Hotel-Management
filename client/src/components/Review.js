@@ -10,7 +10,7 @@ import { useParams, useLocation } from 'react-router-dom'
 
 function Review(){
     const navigate = useNavigate();
-    let { rid } = useParams(); 
+    let { bid } = useParams(); 
     let [reviewParams, setReviewParams] = useState({})
 
     function addReviewParams(e) {
@@ -21,7 +21,8 @@ function Review(){
 
     let sendFeedback = async ()=>{
         try{
-          let data = {...reviewParams, room_id:rid, user_id: localStorage.get('uid')}
+          alert(bid)
+          let data = {...reviewParams, booking_id:bid}
           console.log(data)
           const res = await fetch(`/api/review`,{
             method:"POST", 

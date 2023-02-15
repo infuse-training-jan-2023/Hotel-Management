@@ -61,18 +61,18 @@ function App(){
                 className="d-block"
                 src={item.url}
                 alt={item.key}
-                style={{height: "80vh", width:"100vw", filter:'blur(2px)'}}
+                style={{height: "80vh", width:"100vw"}}
               />
             </Carousel.Item>)
           })}
         </Carousel>  
       
-      <Row className="align-items-center p-2 my-3 justify-content-center position-absolute bottom-0 start-50 translate-middle  bg-dark p-2 text-light bg-opacity-25 w-75">
-      <div className="my-3 text-center fs-4"></div>
+      <Row className="align-items-center p-2 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
+      <div className="my-3 text-center fs-4">Find room</div>
         
         <Col xs="auto">
           <Form.Label htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
-          <Form.Range id="price" name="price" min="1000" max="7000" defaultValue='1000' onChange={applyFilters} step='100'/>
+          <Form.Range id="price" name="price" min="1000" max="10000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
           <Form.Label className="fs-5" htmlFor="inlineFormInput">Room type </Form.Label>

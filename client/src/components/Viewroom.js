@@ -15,7 +15,11 @@ import Button  from 'react-bootstrap/Button';
 
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faTv } from '@fortawesome/free-solid-svg-icons'
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+
+// library.add(faBatteryHalf, faBatteryFull, faPrint);
 
 function Viewroom(){
     const navigate = useNavigate();
@@ -30,7 +34,7 @@ function Viewroom(){
     const [check_out, setCheckout] = useState(0)
     let getRoom = async ()=>{
         try{
-          const res = await fetch(`/api/room?room_id=${rid}`)
+          const res = await fetch(`/api/rooms?room_id=${rid}`)
           const msg = await res.json()
           setRoom(msg)
           setAmenities(msg.amenities)
@@ -43,7 +47,7 @@ function Viewroom(){
 
     let getRoomReviews = async ()=>{
         try{
-          const res = await fetch(`/api/get_all_review?_id=${rid}`)
+          const res = await fetch(`/api/reviews_of_room?room_id=${rid}`)
           const msg = await res.json()
           setReviews(msg)
         }
@@ -65,7 +69,6 @@ function Viewroom(){
     return(
         <Container className='min-vh-120'>
             <Row xs={1} lg={2} className="g-4 py-2">
-            
             <Col>
             <Carousel >
                 {images.map((item, idx)=>{
@@ -85,10 +88,13 @@ function Viewroom(){
             </Col>
             <Col>
                 <h4 className="fw-bold text-uppercase">{room.room_type}</h4>
-                <p className='fs-5'><span> Room price: </span> Rs. {room.price}/-</p>
+                <p className='fs-5'><span> Room price:</span> Rs. {room.price}/-</p>
                 <p className='fs-5'><span> Room capacity: </span>{room.capacity}</p>
                 <p className='fs-5'><span> Amenities: </span>
-                    {amenities.map((item, idx)=><><Badge key={idx} bg="info"> {item} </Badge><span> </span></>)}
+                    {amenities.map((item, idx)=>{
+                      return (<FontAwesomeIcon  icon={item} />)
+                    })
+                    }
                 </p>
                 <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
                     
@@ -98,7 +104,7 @@ function Viewroom(){
                         return(
                             <Card  key={idx} className='my-2 bg-light shadow-5'>
                                 <Card.Body>
-                                    <Card.Title>{item.customer_name}</Card.Title>
+                                    <Card.Title>{item.guest_name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">
 
                                       {
