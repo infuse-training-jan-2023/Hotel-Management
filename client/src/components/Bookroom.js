@@ -34,6 +34,7 @@ function Bookroom(){
                 add_ons: select_addons, 
                 guest_name: guest_name, 
                 phone_number: phone_number, 
+                discount: discount,
                 special_request:special_request, 
                 room_price:location.state.room_price}
             console.log(data)
