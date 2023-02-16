@@ -1,6 +1,6 @@
 
 Feature: Get room details
-  As a user I can get the details of a room
+  As a customer I can get the details of a room
 
   Scenario: Get room details
     When I select a room 

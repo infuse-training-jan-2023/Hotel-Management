@@ -4,7 +4,7 @@ import requests
 
 scenarios('../features/get_room.feature')
 
-get_room_url = "http://127.0.0.1:5000/api/room/101"
+get_room_url = "http://127.0.0.1:5000/api/rooms?room_id=63ea04adcf0530963faef934"
 
 @when('I select a room')
 def get_room():

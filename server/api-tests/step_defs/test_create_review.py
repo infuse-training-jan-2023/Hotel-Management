@@ -6,11 +6,11 @@ from pytest_bdd import scenarios, when, then
 scenarios('../features/create_review.feature')
 
 create_review_url = "http://127.0.0.1:5000/api/review"
-data = {"rating": 6, "feedback": "good", "name": "rohan", "_id": str(ObjectId('63e68ea543eefbbf88459d29'))}
+data = {"booking_id": str(ObjectId('63ee1df084568668124971f6')),"rating": 6, "feedback": "good" }
 
 @when('Customer gives a review')
 def review():
-    pytest.api_response = requests.post(create_review_url, json=data)
+    pytest.api_response = requests.post(create_review_url, json=data)   
 
 @then('Customer review should be saved to database')
 def check_review_retured():
