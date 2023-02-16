@@ -130,7 +130,7 @@ function App(){
             <Card role='button'  key={idx} onClick={() => {navigate(`/viewroom/${room._id['$oid']}`, {state:{check_in: filters.check_in, check_out: filters.check_out}})}}>
               <Card.Img variant="top" src={room.images[0]} />
               <Card.Body>
-                <Card.Title className="text-capitalize">{room.room_type}</Card.Title>
+                <Card.Title className="text-capitalize">{room.title}</Card.Title>
                 <Card.Text >
                   <p>Capacity: {room["capacity"]}</p>
                   <p>Amenities: 

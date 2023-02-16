@@ -31,6 +31,7 @@ function Bookroom(){
     const [special_request, setSpecialRequest] = useState('')
     const [modalShow, setModalShow] = useState(false);
     const [modalData, setModalData] = useState({})
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     let performBooking = async ()=>{
         try{
@@ -44,14 +45,15 @@ function Bookroom(){
                 discount: discount,
                 special_request:special_request, 
                 room_price:location.state.room_price}
-            //console.log(data)
-            // const res = await fetch(`/api/booking`,{
-            //     method:"POST", 
-            //     body:JSON.stringify(data),
-            //     headers: {'Content-type': 'application/json charset=UTF-8',}
-            // })
-            // const msg = await res.json()
-            // console.log(msg)
+            console.log(data)
+            const res = await fetch(`/api/booking`,{
+                method:"POST", 
+                body:JSON.stringify(data),
+                headers: {'Content-type': 'application/json charset=UTF-8',}
+            })
+            const msg = await res.json()
+            console.log(msg)
+            setButtonDisabled(true)
             setModalData(data)
             setModalShow(true)
             //navigate('/profile')
@@ -204,17 +206,20 @@ function Bookroom(){
                 </OverlayTrigger>
                 <p></p> 
                 <p><span>Grand Total: ₹</span>{total_amount - discount}</p>
-                <Button className='btn-lg btn-success' onClick={performBooking}>Confirm booking</Button>
+                <Button className='btn-lg btn-success' disabled={buttonDisabled} onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
-        <Modal show = {modalShow} onHide={() => setModalShow(false)} aria-labelledby="contained-modal-title-vcenter">
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
+        <Modal backdrop="static"  show = {modalShow} aria-labelledby="contained-modal-title-vcenter">
+            <Modal.Header>
+                <Modal.Title id="contained-modal-title-vcenter" className='text-center'>
                 Booking confirmation
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body className="show-grid">
                 <Container>
+                <Row className='my-3 text-center'>
+                    <FontAwesomeIcon beat className='text-success' icon={faCheckCircle} size='5x' />
+                </Row>
                 <Row>
                     <Col >
                         <p><span>Guest name:</span> {modalData.guest_name}</p>
@@ -244,8 +249,7 @@ function Bookroom(){
                 </Container>
             </Modal.Body>
             <Modal.Footer className='justify-content-center'>
-                <Button variant="danger" onClick={()=>navigate('/')}>Go to homepage</Button>
-                <FontAwesomeIcon beat className='text-primary' icon={faCheckCircle} size='lg' /> 
+                <Button variant="danger" onClick={()=>navigate('/')}>Go to homepage</Button> 
             </Modal.Footer>
         </Modal>
         </Container>
