@@ -94,9 +94,9 @@ function Profile(){
     }
 
     return(
-        <Container className="min-vh-100 px-0">
+        <Container className="min-vh-100 px-0 text-center">
             <Row className='my-2 px-0' >
-                <Col xs={10}><h3>Bookings</h3></Col>
+                <Col xs={12}><h3>Bookings</h3></Col>
                 {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             </Row>
             
@@ -124,7 +124,7 @@ function Profile(){
                 }})
             } 
 
-            <h4 className='my-3'>previous booking</h4>
+            <h4 className='my-3'>Previous booking</h4>
             {   
 
               userBookings.map((item, idx)=>{
@@ -146,7 +146,7 @@ function Profile(){
                 }})
             } 
             
-            {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
+            {!userBookings.length  && <h5 className='text-center'>--NONE--</h5>}
             
 
         </Container>

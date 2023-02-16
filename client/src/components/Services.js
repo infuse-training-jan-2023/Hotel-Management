@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 function Services(){
     //const navigate = useNavigate();
     const myStyle={
-        padding : '20px',
+        padding : '50px',
         height : '300px ',
         width :'20%',
         display: 'flex'
@@ -32,7 +32,7 @@ function Services(){
 
                 <Col style={myStyle}>
                 <Figure>
-                <Figure.Image style={{height :'90%'}}
+                <Figure.Image style={{height :'125%', width : '100%'}}
                         src='https://images.pexels.com/photos/221457/pexels-photo-221457.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
                 />
                 <Figure.Caption className='text-center fs-5'>Swimming Pool</Figure.Caption>
