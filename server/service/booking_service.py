@@ -19,7 +19,7 @@ class BookingService:
         chk_in_date = datetime.strptime(booking_data.get("check_in"), '%Y-%m-%d')
         chk_out_date = datetime.strptime(booking_data.get("check_out"), '%Y-%m-%d')
         delta_days = chk_out_date - chk_in_date
-        return delta_days.days
+        return 1 if delta_days.days == 0 else  delta_days.days
     
     @staticmethod
     def get_add_ons_cost( add_ons):
@@ -53,7 +53,8 @@ class BookingService:
                 "isCancelled":iscancelled,
                 "guest_name":guest_name,
                 "phone_number":phone_number,
-                "special_request":special_request }
+                "special_request":special_request,
+                "discount":discount}
 
 
     @staticmethod
@@ -83,7 +84,7 @@ class BookingService:
     @staticmethod
     def get_user_booking_by_email(customer_email):
         try:
-            Result= Connection.db.booking.find({"customer_email":customer_email})
+            Result= Connection.db.booking.find({"customer_email":customer_email}).sort("check_out",-1)
             return Result
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)

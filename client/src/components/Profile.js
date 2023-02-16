@@ -110,48 +110,55 @@ function Profile(){
     return(
         <Container className="w-75">
             <Row className='my-2 px-3 h-50' >
-                <Col className='fs-3 text-center font-weight-bold'><span>Bookings</span></Col>
+                <Col className='fs-3 text-center font-weight-bold '><span>Your Bookings</span></Col>
                 {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
-            <h4 className='my-3 text-center'>Current</h4>
-            {   
+            <h4 className='my-3 text-center'>CURRENT</h4>
+            <hr ></hr>
+                            {   
 
               userBookings.length? userBookings.map((item, idx)=>{
     
                if(Date.parse((item.check_out.$date)) > Date.now() && item.isCancelled==false) {
-                  return (<Card  className='my-2' height="2rem" key={idx}>
+                  return (<Card  className='my-2 bg-light' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
                             <Col sm={6}>
-                                <Card.Title>{item.guest_name}</Card.Title>
-                                <Card.Text>{item.total_amount}</Card.Text>
-                                <Card.Text>{item.special_request}</Card.Text>
-                            </Col>  
+                                <Card.Title>Guest Name: {item.guest_name}</Card.Title>
+                                <Card.Text>Registered Email: {item.customer_email}</Card.Text>
+                                <Card.Text>Check In: {item.check_in.$date.split('T')[0]}</Card.Text>
+                                <Card.Text>Check Out: {item.check_out.$date.split('T')[0]}</Card.Text>
+                                <Card.Text>Total Amount: Rs. {item.total_amount}/-</Card.Text>
+                            </Col>
+                            <Col> </Col>  
+                            <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                             <Col ><Button variant="danger" name={item._id['$oid']} className='my-3' onClick={cancelOrder}>Cancel</Button></Col>
-                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
-                           <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
+                           <Col> </Col>  
                         </Row>
                     </Card.Body>
                 </Card>)
                 }}):<p className='text-center'>None</p>
             }    
-    
 
-            <h4 className='my-3 text-center'>Previous</h4>
+
+            <h4 className='my-3 text-center'>PREVIOUS</h4>
+            <hr></hr>
             {   
 
               userBookings.map((item, idx)=>{
     
                if(Date.parse((item.check_out.$date)) < Date.now() || item.isCancelled==true) {
-                  return (<Card  className='my-2' height="2rem" key={idx}>
+                  return (<Card  className='my-2 bg-light ' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
                             <Col sm={8}>
-                                <Card.Title>{item.guest_name}</Card.Title>
-                                <Card.Text>{item.total_amount}</Card.Text>
-                                <Card.Text>{item.special_request}</Card.Text>
+                            <Card.Title>Guest Name: {item.guest_name}</Card.Title>
+                                <Card.Text>Registered Email: {item.customer_email}</Card.Text>
+                                <Card.Text>Check In: {item.check_in.$date.split('T')[0]}</Card.Text>
+                                <Card.Text>Check Out: {item.check_out.$date.split('T')[0]}</Card.Text>
+                                <Card.Text>Total Amount: Rs. {item.total_amount}/-</Card.Text>
                             </Col>  
                             <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
-                           <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
+                            <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
                     </Card.Body>
                 </Card>)
