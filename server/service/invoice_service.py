@@ -32,12 +32,17 @@ class Invoice:
             c.setFont("Helvetica", 12)
             c.drawString(100, 425 , f"Room Price: + Rs {cb.get('room_price')}")
             add_ons_str = ', '.join([str(add_on) for add_on in cb.get('add_ons')])
-            data = add_ons_str.replace('{','').replace('}','').replace("'","").replace(",","").split(" ")
-            c.drawString(100, 400 , f'{data[1] +": + Rs "+data[3]}')
-            c.drawString(100, 375 , f'{data[5] +": + Rs "+data[7]}')
-            c.drawString(100, 350 , f"Discount: - Rs {cb.get('discount')}") 
+            data = add_ons_str.translate(str.maketrans("", "", "{'},]")).split()
+            data =  data[1::2]
+            value = {10: 275, 8: 300, 6: 325, 4: 350, 2: 375, 0: 400}
+            total_value = {10: 245, 8: 270, 6: 295, 4: 320, 2: 345,0: 375}      
+            for i in range(0, len(data), 2):
+                c.drawString(100, 400 - 12.5*i, f"{data[i]}: + Rs {data[i+1]}") 
+            value = value[len(data)]
+            total_value = total_value[len(data)]
+            c.drawString(100, value, f"Discount: - Rs {cb.get('discount')}")
             c.setFont("Helvetica-Bold", 14)
-            c.drawString(100, 320 , f"Total Amount: Rs {cb.get('total_amount')}")          
+            c.drawString(100, total_value, f"Total Amount: Rs {cb.get('total_amount')}") 
             c.save()
             pdf = buffer.getvalue()
             return pdf
