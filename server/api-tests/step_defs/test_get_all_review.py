@@ -5,11 +5,11 @@ from pytest_bdd import scenarios, when, then
 
 scenarios('../features/get_all_review.feature')
 
-all_review = "http://127.0.0.1:5000/api/get_all_review"
+all_review = "http://127.0.0.1:5000/api/review"
 
 @when('Customer View Room')
 def get_all_review():
-    pytest.api_response = requests.get(all_review)
+    pytest.api_response = requests.post(all_review)
 
 @then('Customer can see All Customer reviews')
 def check_review_returned():

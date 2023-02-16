@@ -1,4 +1,4 @@
-from services.booking_service import BookingService
+from service.booking_service import BookingService
 import pytest
 
 bookingService = BookingService()
@@ -63,13 +63,14 @@ result = [
     
 ]
 
+email="bob@gmail.com"
 def test_get_user_booking_makes_db_call(mocker):
-  mock = mocker.patch('services.booking_service.BookingService.get_user_booking', return_value = [])
-  _ = bookingService.get_user_booking()
+  mock = mocker.patch('service.booking_service.BookingService.get_user_booking_by_email', return_value = [])
+  _ = bookingService.get_user_booking_by_email(email)
   assert mock.call_count == 1
 
 
-def test_get_user_booking(mocker):
-    mock = mocker.patch('services.booking_service.BookingService.get_user_booking', return_value = result)
-    msg_returned = bookingService.get_user_booking()
+def test_get_user_booking_by_email(mocker):
+    mock = mocker.patch('service.booking_service.BookingService.get_user_booking_by_email', return_value = result)
+    msg_returned = bookingService.get_user_booking_by_email(email)
     assert result == msg_returned

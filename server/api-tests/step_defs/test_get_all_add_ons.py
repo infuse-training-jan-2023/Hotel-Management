@@ -4,7 +4,7 @@ import requests
 
 scenarios('../features/get_all_add_ons.feature')
 
-get_all_add_ons_url = "http://127.0.0.1:5000/api/add-ons"
+get_all_add_ons_url = "http://127.0.0.1:5000/api/addons"
 
 @when('I want to see add ons')
 def get_all_add_ons():

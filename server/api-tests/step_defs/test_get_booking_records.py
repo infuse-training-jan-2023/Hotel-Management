@@ -5,11 +5,11 @@ import json
 
 scenarios('../features/get_booking_records.feature')
 
-cancel_booking_url = "http://127.0.0.1:5000/api/book"
+cancel_booking_url = "http://127.0.0.1:5000/api/booking"
 
 
 data ={
-    "customer_id": "63e52044ba29b6d46527fe93"
+    "customer_email": "bob@gmail.com"
     }
 
 @when('I get booking records')

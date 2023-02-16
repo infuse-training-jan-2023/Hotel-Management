@@ -5,12 +5,11 @@ import json
 
 scenarios('../features/cancel_booking.feature')
 
-cancel_booking_url = "http://127.0.0.1:5000/api/book"
+cancel_booking_url = "http://127.0.0.1:5000/api/booking"
 
 
 data ={
-    "booking_id": "63e52044ba29b6d46527fe93"
-    
+    "id": "63e52044ba29b6d46527fe93"    
     }
 
 @when('I cancel booking')

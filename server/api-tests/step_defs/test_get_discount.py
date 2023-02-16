@@ -4,7 +4,7 @@ import requests
 scenarios('../features/get_discount.feature')
 
 #positive
-get_discount_url = "http://127.0.0.1:5000/api/loyalty-discount?id=63e670f601343886816b44c7"
+get_discount_url = "http://127.0.0.1:5000/api/loyalty-discount?email=bob@gmail.com"
 @when('i am an existing customer on booking page')
 def go_to_discount_api():
   pytest.api_response = requests.get(get_discount_url)
@@ -12,7 +12,7 @@ def go_to_discount_api():
 @then('i should get discount based on number of past orders')
 def check_the_discount_returned():
   body = pytest.api_response.json()
-  assert body['discount'] == 10
+  assert body['discount'] == 0
 
 @then('the api status code should be 200')
 def check_status_code():

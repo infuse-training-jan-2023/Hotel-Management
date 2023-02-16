@@ -6,7 +6,7 @@ from pytest_bdd import scenarios, when, then
 
 scenarios('../features/customer_invoice.feature')
 
-get_invoice = "http://127.0.0.1:5000/api/pdf"
+get_invoice = "http://127.0.0.1:5000/api/invoice"
 
 @when('Customer click Download Invoice')
 def get_all_items():

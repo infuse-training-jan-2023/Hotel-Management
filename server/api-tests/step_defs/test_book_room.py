@@ -1,20 +1,26 @@
 import pytest
 from pytest_bdd import scenarios, when , then
 import requests
-import json
 
 scenarios('../features/book_room.feature')
 
-book_room_url = "http://127.0.0.1:5000/api/book"
+book_room_url = "http://127.0.0.1:5000/api/booking"
 
 
-data ={
-        "check_in":"2023/2/26",
-        "check_out":"2023/2/28",
-        "room_id":"63e68ea543eefbbf88459d29",
-        "customer_id":"63e6743305e14504ac5a50e3",
-        "add_ons":[{"service":"break fast", "price":200}]
-        }
+data = {
+    "check_in":"2023-2-26",
+    "check_out":"2023-2-28",
+    "add_ons":[{"name":"Breakfast", "price":200}],
+    "total_amount" : 2600,
+    "room_price" : 2000,
+    "customer_email": "user@gmail.com",
+    "room_id":"63e68ea543eefbbf88459d29",
+    "isCancelled": False,
+    "guest_name" : "tommy",
+    "phone_number" :"1234567890",
+    "special_request" : "none",
+    "discount" : 0
+}
 
 @when('I book a room')
 def book_room():

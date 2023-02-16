@@ -9,6 +9,7 @@ class RoomController:
         room=RoomService.get_room(room_id)
         room_data = {
           '_id': room["_id"],
+          'title' : room["title"],
           'room_type': room["room_type"],
           'price': room["price"],
           'capacity': room["capacity"],

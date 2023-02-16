@@ -1,4 +1,4 @@
-from service.customer_booking_service import Booking
+from service.booking_service import BookingService
 
 booking={
   "_id": {
@@ -39,17 +39,19 @@ neg_status = {
   'discount': 0
 }
 
+email="bob@gmail.com"
+
 
 def test_get_discount_positive(mocker):
-  mock = mocker.patch('service.customer_booking_service.Booking.calculate_discount', return_value = pos_status)
-  discount_returned = Booking.calculate_discount(booking['_id']['$oid'])
+  mock = mocker.patch('service.booking_service.BookingService.calculate_discount', return_value = pos_status)
+  discount_returned = BookingService.calculate_discount(email)
   print(discount_returned)
   assert pos_status == discount_returned
 
 
 def test_get_discount_negative(mocker):
-  mock = mocker.patch('service.customer_booking_service.Booking.calculate_discount', return_value =neg_status)
-  discount_returned = Booking.calculate_discount(booking['_id']['$oid']) 
+  mock = mocker.patch('service.booking_service.BookingService.calculate_discount', return_value =neg_status)
+  discount_returned = BookingService.calculate_discount(email) 
   assert neg_status == discount_returned
 
 
