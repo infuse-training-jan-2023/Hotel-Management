@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/esm/Container';
+import Badge from 'react-bootstrap/Badge'
 function Profile(){
     const navigate = useNavigate();
     // let email = JSON.parse(localStorage.getItem('email')) || ""
@@ -119,20 +120,18 @@ function Profile(){
               userBookings.length? userBookings.map((item, idx)=>{
     
                if(Date.parse((item.check_out.$date)) > Date.now() && item.isCancelled==false) {
-                  return (<Card  className='my-2 bg-light' height="2rem" key={idx}>
+                  return (<Card  className='my-2 bg-light  mx-auto' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
-                            <Col sm={6}>
+                            <Col sm={9}>
                                 <Card.Title>Guest Name: {item.guest_name}</Card.Title>
-                                <Card.Text>Registered Email: {item.customer_email}</Card.Text>
-                                <Card.Text>Check In: {item.check_in.$date.split('T')[0]}</Card.Text>
-                                <Card.Text>Check Out: {item.check_out.$date.split('T')[0]}</Card.Text>
-                                <Card.Text>Total Amount: Rs. {item.total_amount}/-</Card.Text>
+                                <p className='my-1'><span>Registered Email: </span>{item.customer_email}</p>
+                                <p className='my-1'><span>Check In: </span>{item.check_in.$date.split('T')[0]}</p>
+                                <p className='my-1'><span>Check Out: </span>{item.check_out.$date.split('T')[0]}</p>
+                                <p className='my-1'><span>Total Amount: ₹ </span>{item.total_amount}/-</p>
                             </Col>
-                            <Col> </Col>  
                             <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                             <Col ><Button variant="danger" name={item._id['$oid']} className='my-3' onClick={cancelOrder}>Cancel</Button></Col>
-                           <Col> </Col>  
                         </Row>
                     </Card.Body>
                 </Card>)
@@ -155,9 +154,9 @@ function Profile(){
                                 <Card.Text>Registered Email: {item.customer_email}</Card.Text>
                                 <Card.Text>Check In: {item.check_in.$date.split('T')[0]}</Card.Text>
                                 <Card.Text>Check Out: {item.check_out.$date.split('T')[0]}</Card.Text>
-                                <Card.Text>Total Amount: Rs. {item.total_amount}/-</Card.Text>
+                                <Card.Text><span>Total Amount:</span> ₹ {item.total_amount}/-</Card.Text>
                             </Col>  
-                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
+                          {!item.isCancelled ? <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>: <Col><Badge  pill bg='secondary' className='align-middle'>Cancelled</Badge></Col>}
                             <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
                     </Card.Body>

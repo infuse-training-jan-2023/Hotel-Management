@@ -93,7 +93,7 @@ function Viewroom(){
             </Carousel> 
             </Col>
             <Col>
-                <p className="fs-3 text-capitalize"> {room.room_type} room </p>
+                <p className="fs-3 text-capitalize"> {room.title} room </p>
                 <p className='fs-6'> <span>Room price:</span> Rs. {room.price}/-</p>
                 <p className='fs-6'> <span>Room capacity: </span> {room.capacity}</p>
                 <p className='fs-6'> <span>Amenities: </span> 
