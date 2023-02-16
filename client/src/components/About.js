@@ -18,7 +18,7 @@ function About(){
     }
     return(
        
-        <Container className='min-vh-100 px-0'>   
+        <Container className='min-vh-100'>   
         <Row> 
            <Image src="https://static01.nyt.com/images/2019/07/21/travel/29checkin-vancouver1/17f45183dc304c8a80697200b69b45a9-articleLarge.jpg?quality=75&auto=webp&disable=upscale" width='100%'></Image>
          

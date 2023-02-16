@@ -16,7 +16,7 @@ function Services(){
         
     }
     return(
-        <Container className='min-vh-100 px-0'>
+        <Container className='min-vh-100'>
             <Row className='my-3'>
                 <Col style={myStyle}>
                 <Figure>

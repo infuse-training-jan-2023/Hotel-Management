@@ -6,6 +6,13 @@ import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form'
 import Badge from 'react-bootstrap/Badge';
+import Modal from 'react-bootstrap/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle, faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
+
 
 function Bookroom(){
     const navigate = useNavigate();
@@ -22,7 +29,8 @@ function Bookroom(){
     const [guest_name, setGuestName] = useState('')
     const [phone_number, setPhoneNumber] = useState('')
     const [special_request, setSpecialRequest] = useState('')
-
+    const [modalShow, setModalShow] = useState(false);
+    const [modalData, setModalData] = useState({})
 
     let performBooking = async ()=>{
         try{
@@ -36,15 +44,17 @@ function Bookroom(){
                 discount: discount,
                 special_request:special_request, 
                 room_price:location.state.room_price}
-            console.log(data)
-            const res = await fetch(`/api/booking`,{
-                method:"POST", 
-                body:JSON.stringify(data),
-                headers: {'Content-type': 'application/json charset=UTF-8',}
-            })
-            const msg = await res.json()
-            console.log(msg)
-            navigate('/profile')
+            //console.log(data)
+            // const res = await fetch(`/api/booking`,{
+            //     method:"POST", 
+            //     body:JSON.stringify(data),
+            //     headers: {'Content-type': 'application/json charset=UTF-8',}
+            // })
+            // const msg = await res.json()
+            // console.log(msg)
+            setModalData(data)
+            setModalShow(true)
+            //navigate('/profile')
             }
           catch(e)
             {console.log(e)}
@@ -188,12 +198,56 @@ function Bookroom(){
         <Row className="align-items-center bg-light shadow-5 p-2 my-3">
         <h4>Payment details</h4>
             <Col xs="auto">
-                <p><span>Total Amount: </span>{total_amount}</p>
-                <p><span>Discount(if applicable): </span><Badge pill lg bg='success'>{discount}</Badge></p> 
-                <p><span>Grand Total: </span>{total_amount - discount}</p>
+                <p><span>Total Amount: ₹</span>{total_amount}</p>
+                <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/10:0} bookings.</Tooltip>} >
+                    <p><span>Discount(if applicable): </span><Badge pill lg bg='success'>{discount}</Badge> {modalData.discount}<FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
+                </OverlayTrigger>
+                <p></p> 
+                <p><span>Grand Total: ₹</span>{total_amount - discount}</p>
                 <Button className='btn-lg btn-success' onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
+        <Modal show = {modalShow} onHide={() => setModalShow(false)} aria-labelledby="contained-modal-title-vcenter">
+            <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-vcenter">
+                Booking confirmation
+                </Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="show-grid">
+                <Container>
+                <Row>
+                    <Col >
+                        <p><span>Guest name:</span> {modalData.guest_name}</p>
+                        <p><span>Contact:</span> {modalData.phone_number}</p>
+                    </Col>
+                    <Col>
+                        <p><span>Check In:</span> {modalData.check_in}</p>
+                        <p><span>Check Out:</span> {modalData.check_out}</p>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col>
+                    <span>Addons:</span> {
+                        select_addons.map((item, idx)=>{
+                            return <p>{item.name} - ₹{item.price} </p>
+                        })
+                    }
+                    </Col>
+                    <Col xs={6}>
+                    <p><span>Special request: </span>{modalData.special_request}</p>
+                    <p><span>Room price: </span> {modalData.room_price}</p>
+                                       
+                    </Col>
+
+                </Row>
+                </Container>
+            </Modal.Body>
+            <Modal.Footer className='justify-content-center'>
+                <Button variant="danger" onClick={()=>navigate('/')}>Go to homepage</Button>
+                <FontAwesomeIcon beat className='text-primary' icon={faCheckCircle} size='lg' /> 
+            </Modal.Footer>
+        </Modal>
         </Container>
     );
 }
