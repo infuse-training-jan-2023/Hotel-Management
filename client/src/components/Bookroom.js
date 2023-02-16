@@ -198,9 +198,13 @@ function Bookroom(){
         <Row className="align-items-center bg-light shadow-5 p-2 my-3">
         <h4>Payment details</h4>
             <Col xs="auto">
+                <p><span>Room Price: ₹</span>{location.state.room_price}</p>
+                {select_addons.map((item, idx)=>{
+                    return <p><span>{item.name}:  </span>+ ₹{item.price}</p>
+                })}
                 <p><span>Total Amount: ₹</span>{total_amount}</p>
                 <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/10:0} bookings.</Tooltip>} >
-                    <p><span>Discount(if applicable): </span><Badge pill lg bg='success'>{discount}</Badge> {modalData.discount}<FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
+                    <p><span>Discount(if applicable): </span><Badge pill bg='success'>-₹{discount}</Badge><FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
                 </OverlayTrigger>
                 <p></p> 
                 <p><span>Grand Total: ₹</span>{total_amount - discount}</p>
