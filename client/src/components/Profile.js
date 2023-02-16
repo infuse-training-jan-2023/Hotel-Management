@@ -94,18 +94,17 @@ function Profile(){
     }
 
     return(
-        <Container className="min-vh-100 px-0">
-            <Row className='my-2 px-0' >
+        <Container className="">
+            <Row className='my-2 px-3 h-50' >
                 <Col xs={10}><h3>Bookings</h3></Col>
                 {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
-            </Row>
             <h4 className='my-3'>Current booking</h4>
             {
                 userBookings.map((item, idx)=>{
-                    return (<Card  className='my-2' height="2rem" key={idx}>
-                    <Card.Body>
+                    return (<Card  className='mx-auto my-2 w-75 '  key={idx}>
+                    <Card.Body className='py-2'>
                         <Row>
-                            <Col sm={10}>
+                            <Col sm={8}>
                                 <Card.Title>{item.guest_name}</Card.Title>
                                 <Card.Text>{item.total_amount}</Card.Text>
                                 <Card.Text>{item.special_request}</Card.Text>
@@ -117,8 +116,8 @@ function Profile(){
                 </Card>)
                 })
             } 
-            
             {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
+            </Row>
             
 
         </Container>
