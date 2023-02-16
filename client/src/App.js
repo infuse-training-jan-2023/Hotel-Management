@@ -69,7 +69,7 @@ function App(){
   if(loading) 
     return <p>loading</p>
   return(
-    <Container fluid >
+    <Container fluid className="px-0">
         <NavigationBar/>
         <BrowserRouter>
             <Routes>
@@ -78,7 +78,7 @@ function App(){
                 <Route path="/profile" element={<Profile/>} />
                 <Route path="/viewroom/:rid" element={<Viewroom/>} />
                 <Route path="/bookroom/" element={<Bookroom />} />
-                <Route path="/review/:rid" element={<Review />} />
+                <Route path="/review/:bid" element={<Review />} />
                 <Route path="/services" element={<Services />} />
                 <Route path="/about" element={<About />} />
                 <Route path="*" element={<Error/>} />

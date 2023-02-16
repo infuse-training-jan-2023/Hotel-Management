@@ -18,7 +18,7 @@ function About(){
     }
     return(
        
-        <Container className='min-vh-100'>   
+        <Container className='min-vh-100 px-0'>   
         <Row> 
            <Image src='https://r2imghtlak.mmtcdn.com/r2-mmt-htl-image/htl-imgs/202103161731226897-549d5be89b9a11ec8bdd0a58a9feac02.jpg?&output-quality=75&downsize=520:350&crop=520:350;2,0&output-format=jpg&downsize=821:550&crop=821:550' width='100%'></Image>
          

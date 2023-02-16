@@ -16,6 +16,8 @@ function Services(){
         
     }
     return(
+        <Container className='min-vh-100 px-0'>
+            <Row className='my-3'>
         <div style={{backgroundColor : '#f4f6f6', height : '900px',padding :'40px'}}>
         <Container className='min-vh-120'>
             <Row>
@@ -24,8 +26,8 @@ function Services(){
             <Row>
                 <Col style={myStyle}>
                 <Figure>
-                <Figure.Image style={{height :'90%'}}
-                        src='https://cdn.pixabay.com/photo/2021/03/27/12/32/free-wifi-icon-6128369_1280.png'
+                <Figure.Image
+                        src='https://img.freepik.com/free-photo/high-angle-wi-fi-router-with-vacuum-cleaner_23-2148779238.jpg'
                 />
                 <Figure.Caption className='text-center fs-5'>Free WIFI</Figure.Caption>
                 </Figure>
@@ -42,8 +44,8 @@ function Services(){
 
                 <Col style={myStyle}>
                 <Figure>
-                <Figure.Image style={{height :'90%'}}   
-                        src='https://img.freepik.com/free-photo/spa-concept-beauty-fashion-concept-with-spa-set-perfumed-flowers-water-relaxation-zen-spa-setting-flat-lay-with-bowl-bath-salt-flowers-towel-natural-soap-top-view_1150-44593.jpg?w=1060&t=st=1676443664~exp=1676444264~hmac=154dfa4d23baebc76473c171c722bcf11d0aae304c374b536e5a552fe8c948a3'
+                <Figure.Image
+                        src='https://img.freepik.com/free-photo/spa-composition-with-aromatherapy-body-care-items_169016-2261.jpg'
                 />
                 <Figure.Caption className='text-center fs-5'>Spa & Wellness Center</Figure.Caption>
                 </Figure>
@@ -53,8 +55,8 @@ function Services(){
             <Row>
             <Col style={myStyle}>
                 <Figure>
-                <Figure.Image 
-                        src='https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1075&q=80'
+                <Figure.Image
+                        src='https://img.freepik.com/free-photo/cast-iron-dumbbell-weights_1048-11523.jpg'
                 />
                 <Figure.Caption className='text-center fs-5'>Gym & Fitness Studio</Figure.Caption>
                 </Figure>
@@ -62,8 +64,8 @@ function Services(){
 
                 <Col style={myStyle}>
                 <Figure>
-                <Figure.Image style={{height :'135%'}}
-                        src='https://images.unsplash.com/photo-1506521781263-d8422e82f27a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
+                <Figure.Image
+                        src='https://img.freepik.com/free-photo/parking_1127-2914.jpg'
                 />
                 <Figure.Caption className='text-center fs-5'>Parking Area</Figure.Caption>
                 </Figure>
@@ -71,7 +73,6 @@ function Services(){
             </Row>
                 
         </Container>
-        </div>   
 
     );
 }

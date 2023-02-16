@@ -11,9 +11,6 @@ function Profile(){
     let [uid, setUid] = useState('')
     let [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')) || "")
     const [userBookings, setUserBookings] = useState([])
-    let downloadInvoice = async ()=> {
-        console.log('get bill')
-    }
 
     let handleLogout = () => {
         //setUid('')
@@ -76,21 +73,42 @@ function Profile(){
         email && getAllUserBookings()
       }, [email]);
 
+    // let downloadInvoice = async ()=> {
+    //     console.log('get bill')
+    //     const res = await fetch(`/api/invoice?id=${email}`)
+    //     const msg = await res.json()
+    // }
+
+    async function downloadInvoice(e) {
+        try{
+            const bid = e.target.name
+            //alert(bid)
+            const res = await fetch(`/api/invoice?id=${bid}`)
+            const blob = await res.blob()
+            const url = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}))
+            window.open(url, '_blank')
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
 
     return(
-        <Container className="min-vh-100">
-            <Row className='my-2'>
-                <Col xs={10} style={{padding : '10px'}}><h3></h3></Col>
-                <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col>
-            {uid}
+        <Container className="min-vh-100 px-0">
+            <Row className='my-2 px-0' >
+                <Col xs={10}><h3>Bookings</h3></Col>
+                {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             </Row>
-
-            <h3>Previous Booking</h3>
-            {   
             
-                
-                userBookings.map((item, idx)=>{
-                    return (<Card  className='my-2' height="2rem" key={idx}>
+    
+
+            <h4 className='my-3'>Current booking</h4>
+            {   
+
+              userBookings.map((item, idx)=>{
+    
+               if(Date.parse((item.check_out.$date)) > Date.now() && item.isCancelled==false) {
+                  return (<Card  className='my-2' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
                             <Col sm={10}>
@@ -99,12 +117,36 @@ function Profile(){
                                 <Card.Text>{item.special_request}</Card.Text>
                             </Col>  
                             <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
-                           <Col ><Button className='my-3' onClick={downloadInvoice}>Invoice</Button></Col>
+                           <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
                     </Card.Body>
                 </Card>)
-                })
+                }})
             } 
+
+            <h4 className='my-3'>previous booking</h4>
+            {   
+
+              userBookings.map((item, idx)=>{
+    
+               if(Date.parse((item.check_out.$date)) < Date.now() || item.isCancelled==true) {
+                  return (<Card  className='my-2' height="2rem" key={idx}>
+                    <Card.Body>
+                        <Row>
+                            <Col sm={10}>
+                                <Card.Title>{item.guest_name}</Card.Title>
+                                <Card.Text>{item.total_amount}</Card.Text>
+                                <Card.Text>{item.special_request}</Card.Text>
+                            </Col>  
+                            <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
+                           <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
+                        </Row>
+                    </Card.Body>
+                </Card>)
+                }})
+            } 
+            
+            {!userBookings.length  && <h5 className='text-center'>No bookings made</h5>}
             
 
         </Container>

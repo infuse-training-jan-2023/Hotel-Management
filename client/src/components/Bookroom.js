@@ -11,19 +11,33 @@ function Bookroom(){
     const location = useLocation(); 
     // let uid = JSON.parse(localStorage.getItem('uid')) || ""
     let email = JSON.parse(localStorage.getItem('email')) || ""
-    const [checkin, setCheckin] = useState(0)
-    const [checkout, setCheckout] = useState(0)
+    // const [checkin, setCheckin] = useState(0)
+    // const [checkout, setCheckout] = useState(0)
     const [rid, setRid] = useState(0)
     const [addons, setAddons] = useState([])
     const [discount, setDiscount] = useState(10)
     const [select_addons, setSelectAddons] = useState([])
     const [total_amount, setTotalAmount] = useState(0)
+    const [guest_name, setGuestName] = useState('')
+    const [phone_number, setPhoneNumber] = useState('')
+    const [special_request, setSpecialRequest] = useState('')
+
+
     let performBooking = async ()=>{
         try{
 
-            //console.log(`uid: ${uid} rid:${rid} start: ${checkin} end: ${checkout}`)
 
-            let data = {room_id:rid, customer_email: email, checkin: checkin, checkout: checkout, addons: select_addons}
+            let data = {room_id:rid, 
+                customer_email: email, 
+                check_in: location.state.check_in, 
+                check_out: location.state.check_out, 
+                add_ons: select_addons, 
+                guest_name: guest_name, 
+                phone_number: phone_number, 
+                discount: discount,
+                special_request:special_request, 
+                room_price:location.state.room_price}
+            console.log(data)
             const res = await fetch(`/api/booking`,{
                 method:"POST", 
                 body:JSON.stringify(data),
@@ -84,11 +98,12 @@ function Bookroom(){
 
         const date1 = new Date(check_in);
         const date2 = new Date(check_out);
-        if(date1 == date2){
+        const diffTime = Math.abs(date2 - date1);
+        if(diffTime==0){
             diffDays =1
+            console.log("diffDays: "+diffDays)
         }
         else{
-           const diffTime = Math.abs(date2 - date1);
           diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         }
         //return location.state.room_price
@@ -104,17 +119,18 @@ function Bookroom(){
     }
 
     useEffect(()=>{
-        //console.log(`uid: ${uid} rid:${rid} start: ${location.statecheckin} end: ${location.state.checkout}`)
-        setCheckin(location.state.checkin);
-        setCheckout(location.state.checkout);
+        console.log(`start: ${location.state.check_in} end: ${location.state.check_out}`)
+        // setCheckin(location.state.checkin);
+        // setCheckout(location.state.checkout);
         setRid(location.state.room_id);
         getAddons()
         getDiscount()
         get_total_amount()
+       
     },[total_amount , select_addons])
 
     return(
-        <Container className='min-vh-100'>
+        <Container className='min-vh-100 px-0'>
 
             <Row className="align-items-center bg-light shadow-5 p-2 my-3 justify-content-center">
             <h4>Booking details</h4>
@@ -122,9 +138,7 @@ function Bookroom(){
             <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
                 <Form.Control type="date"
                     name="checkin"
-                    min={new Date().toISOString().split("T")[0]}
-                    onChange={(e)=>setCheckin(e.target.value)}
-                    defaultValue={checkin}
+                    value={location.state.check_in}
                     disabled
                     required />
             </Col>
@@ -132,16 +146,14 @@ function Bookroom(){
             <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
                 <Form.Control type="date"
                     name="checkout"
-                    min={checkin ? new Date(checkin).toISOString().split("T")[0]: ""}
-                    onChange={(e)=>setCheckout(e.target.value)}
-                    defaultValue={checkout}
+                    value={location.state.check_out}
                     disabled
                     required />
             </Col>
             <Col xs="auto">
                 <Form.Label htmlFor="inlineFormInput">Add-ons</Form.Label>
                 {addons.map((item, idx)=>{
-                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.room_price}</span></p>
+                    return <p><Form.Check inline key={idx} label={item.name} name={idx} type='checkbox'  id='radio-{idx}' onChange={addAddons}/> <span>₹{item.price}</span></p>
                 })}
             </Col>
         </Row>
@@ -151,25 +163,25 @@ function Bookroom(){
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Name</Form.Label>
-                    <Form.Control type="text" placeholder="name" />
+                    <Form.Control type="text" placeholder="name" required onChange={(e)=>setGuestName(e.target.value)}/>
                 </Form.Group>
             </Col>
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="name@example.com" />
+                    <Form.Control disabled type="email" defaultValue={email} placeholder="name@example.com" />
                 </Form.Group>
             </Col>
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Phone number</Form.Label>
-                    <Form.Control type="phone" placeholder="985xxx2358" />
+                    <Form.Control type="phone" required placeholder="10 digit mobile" pattern='[0-9]{10}' onChange={(e)=>setPhoneNumber(e.target.value)}/>
                 </Form.Group>
             </Col>
             <Col xs="auto">
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Special request</Form.Label>
-                    <Form.Control type="text" placeholder="any special needs" />
+                    <Form.Control type="text" required placeholder="requirements" onChange={(e)=>setSpecialRequest(e.target.value)} />
                 </Form.Group>
             </Col>
         </Row>
@@ -180,7 +192,7 @@ function Bookroom(){
                 <p><span>Total Amount:{total_amount}</span></p>
                 <p><span>Discount(if applicable):</span>{discount}</p> 
                 <p><span>Grand Total:{total_amount - discount}</span></p>
-                <Button onClick={performBooking}>Confirm booking</Button>
+                <Button className='btn-lg btn-success' onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>
         </Container>

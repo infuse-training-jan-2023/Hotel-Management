@@ -2,6 +2,8 @@ import Container from 'react-bootstrap/esm/Container';
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import React, {useState, useEffect, useId} from "react"
 import Carousel from 'react-bootstrap/Carousel';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -11,12 +13,9 @@ import Card from 'react-bootstrap/Card';
 import '../App.css'
 import Button  from 'react-bootstrap/Button';
 
-
-
 import ReactDOM from 'react-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faTv } from '@fortawesome/free-solid-svg-icons'
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { faStar, faTv, faWifi,  faMusic, faWineGlass, faCouch, faHotTub, faAirFreshener } from '@fortawesome/free-solid-svg-icons'
 
 
 // library.add(faBatteryHalf, faBatteryFull, faPrint);
@@ -43,7 +42,17 @@ function Viewroom(){
         }
         catch(e)
           {console.log(e)}
-      }
+    }
+
+    let amenities_components = {
+      tv: faTv,  
+      speaker:faMusic,
+      couch:faCouch,
+      wifi:faWifi,
+      jacuzzi:faHotTub,
+      wine:faWineGlass,
+      ac: faAirFreshener
+    }
 
     let getRoomReviews = async ()=>{
         try{
@@ -56,8 +65,8 @@ function Viewroom(){
       }
       useEffect(()=>{
         setLoading(true)
-        setCheckin(location.state.check_in);
-        setCheckout(location.state.check_out);
+        setCheckin(location.state.check_in || Date.now());
+        setCheckout(location.state.check_out || Date.now());
         getRoom()
         getRoomReviews()
         setLoading(false)
@@ -77,28 +86,29 @@ function Viewroom(){
                     className="d-block"
                     src={item}
                     alt={idx}
-                    style={{height: "90vh", width: "100vh"}}
+                    style={{height: "90vh"}}
                     />
-                    <Carousel.Caption>
-                    <h2>{item.msg}</h2>
-                    </Carousel.Caption>
                 </Carousel.Item>)
                 })}
             </Carousel> 
             </Col>
             <Col>
-                <h4 className="fw-bold text-uppercase">{room.room_type}</h4>
-                <p className='fs-5'><span> Room price:</span> Rs. {room.price}/-</p>
-                <p className='fs-5'><span> Room capacity: </span>{room.capacity}</p>
-                <p className='fs-5'><span> Amenities: </span>
+                <p className="fs-3 text-capitalize"> {room.room_type} room </p>
+                <p className='fs-6'> <span>Room price:</span> Rs. {room.price}/-</p>
+                <p className='fs-6'> <span>Room capacity: </span> {room.capacity}</p>
+                <p className='fs-6'> <span>Amenities: </span> 
                     {amenities.map((item, idx)=>{
-                      return (<FontAwesomeIcon  icon={item} />)
+                      return ( 
+                        <OverlayTrigger placement="bottom" overlay={<Tooltip>{item}</Tooltip>} >
+                          <FontAwesomeIcon fade className='px-2'icon={amenities_components[item]} size="lg" />
+                        </OverlayTrigger>)
                     })
                     }
                 </p>
-                <Button className='my-3' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
+                <p>{room.description}</p>
+                <Button className='my-3 btn-lg btn-success' onClick={() => {navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
                     
-                <p className='fs-5 fw-bold'>Reviews</p>
+                <p className='fs-4 '>Reviews</p>
                 {
                     reviews.map((item, idx)=>{
                         return(
@@ -119,6 +129,7 @@ function Viewroom(){
                     })   
                     
                 }
+                {!reviews.length && <p>No reviews to show</p>}
             </Col>
         </Row>
         </Container>

@@ -8,6 +8,15 @@ function NavigationBar() {
   let [uid, setUid] = useState('')
   let [email, setEmail] = useState('')
 
+  let handleLogout = () => {
+      //setUid('')
+      setEmail('')
+      // localStorage.removeItem('uid');
+      
+      localStorage.removeItem('email');
+      window.location.replace('/')
+  }
+
   useEffect(()=>{
     const email = JSON.parse(localStorage.getItem('email'));
     console.log(email)
@@ -23,15 +32,12 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-  
-           
-          </Nav>
-          <Nav>
             <Nav.Link href="/about" >About Us</Nav.Link>
             <Nav.Link href='/services'>Services</Nav.Link>
           </Nav>
           <Nav>
             {email ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
+            {email ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : ""}
           </Nav>
         </Navbar.Collapse>
       </Container>
