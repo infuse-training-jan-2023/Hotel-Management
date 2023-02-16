@@ -55,7 +55,6 @@ function Review(){
             </div>
           <Button variant="primary" onClick={sendFeedback}>Add review</Button>
         </Form>
-        <p>{JSON.stringify(reviewParams)}</p>
         </Row>
 
     );

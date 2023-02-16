@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form'
+import Badge from 'react-bootstrap/Badge';
 
 function Bookroom(){
     const navigate = useNavigate();
@@ -25,8 +26,6 @@ function Bookroom(){
 
     let performBooking = async ()=>{
         try{
-
-
             let data = {room_id:rid, 
                 customer_email: email, 
                 check_in: location.state.check_in, 
@@ -46,7 +45,7 @@ function Bookroom(){
             const msg = await res.json()
             console.log(msg)
             navigate('/profile')
-          }
+            }
           catch(e)
             {console.log(e)}
     }
@@ -98,11 +97,12 @@ function Bookroom(){
 
         const date1 = new Date(check_in);
         const date2 = new Date(check_out);
-        if(date1 == date2){
+        const diffTime = Math.abs(date2 - date1);
+        if(diffTime==0){
             diffDays =1
+            console.log("diffDays: "+diffDays)
         }
         else{
-           const diffTime = Math.abs(date2 - date1);
           diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         }
         //return location.state.room_price
@@ -125,6 +125,7 @@ function Bookroom(){
         getAddons()
         getDiscount()
         get_total_amount()
+       
     },[total_amount , select_addons])
 
     return(
@@ -187,9 +188,9 @@ function Bookroom(){
         <Row className="align-items-center bg-light shadow-5 p-2 my-3">
         <h4>Payment details</h4>
             <Col xs="auto">
-                <p><span>Total Amount:{total_amount}</span></p>
-                <p><span>Discount(if applicable):</span>{discount}</p> 
-                <p><span>Grand Total:{total_amount - discount}</span></p>
+                <p><span>Total Amount: </span>{total_amount}</p>
+                <p><span>Discount(if applicable): </span><Badge pill lg bg='success'>{discount}</Badge></p> 
+                <p><span>Grand Total: </span>{total_amount - discount}</p>
                 <Button className='btn-lg btn-success' onClick={performBooking}>Confirm booking</Button>
             </Col>  
         </Row>

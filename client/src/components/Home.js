@@ -82,7 +82,7 @@ function App(){
           })}
         </Carousel>  
       
-      <Row className="align-items-center mx-1 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
+      <Row className="align-items-center mx-1 my-3 rounded justify-content-center  bg-dark p-2 bg-opacity-10">
         
         <Col xs="auto">
           <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
@@ -112,8 +112,8 @@ function App(){
 
           <Form.Control type="date"
               name="check_out"
-              disabled={filters.startdate === "" ? true: false}
-              min={filters.startdate ? new Date(filters.startdate).toISOString().split("T")[0]: ""}
+              disabled={filters.check_in === "" ? true: false}
+              min={filters.check_in ? new Date(filters.check_in).toISOString().split("T")[0]: ""}
               onChange={applyFilters}
               required />
         </Col>
