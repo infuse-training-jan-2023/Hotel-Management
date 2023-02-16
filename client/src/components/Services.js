@@ -17,9 +17,6 @@ function Services(){
     }
     return(
         <Container className='min-vh-100 px-0'>
-            <Row className='my-3'>
-        <div style={{backgroundColor : '#f4f6f6', height : '900px',padding :'40px'}}>
-        <Container className='min-vh-120'>
             <Row>
                 <h2 className='text-center fst-italic' style={{paddingBottom:'20px'}}>Services & Add Ons</h2>
             </Row>
