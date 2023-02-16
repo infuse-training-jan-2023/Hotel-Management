@@ -16,11 +16,8 @@ function Services(){
         
     }
     return(
-        <Container className='min-vh-100 px-0'>
-            <Row>
-                <h2 className='text-center fst-italic' style={{paddingBottom:'20px'}}>Services & Add Ons</h2>
-            </Row>
-            <Row>
+        <Container className='min-vh-100'>
+            <Row className='my-3'>
                 <Col style={myStyle}>
                 <Figure>
                 <Figure.Image

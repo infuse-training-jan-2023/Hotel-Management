@@ -106,7 +106,7 @@ function Viewroom(){
                     }
                 </p>
                 <p>{room['description']}</p>
-                <Button className='my-3 btn-lg btn-success' onClick={() => {if(JSON.parse(localStorage.getItem('email'))=="") navigate("/login"); else navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
+                <Button className='my-3 btn-lg btn-success' onClick={() => {if(JSON.parse(localStorage.getItem('email'))==null) navigate("/login"); else navigate("/bookroom", {state:{room_id:rid, check_in: check_in, check_out: check_out, room_price:room.price}})}}>Book now</Button>
                     
                 <p className='fs-4 '>Reviews</p>
                 {
