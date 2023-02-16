@@ -13,7 +13,8 @@ class RoomController:
           'price': room["price"],
           'capacity': room["capacity"],
           'amenities': room["amenities"],
-          'images' : room["images"]
+          'images' : room["images"],
+          'description': room["description"]
            }
         return Response(json_util.dumps(room_data), mimetype='application/json', status=200)
       except Exception as e:

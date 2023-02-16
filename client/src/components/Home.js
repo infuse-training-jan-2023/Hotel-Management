@@ -18,8 +18,8 @@ function App(){
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({})
-  let images = [{msg:"Relaxation at a beautiful peak", url:"https://images.pexels.com/photos/2635038/pexels-photo-2635038.jpeg?cs=srgb&dl=pexels-terry-magallanes-2635038.jpg&fm=jpg&w=1920&h=1282 "},
-        {msg:"It's a home away from home.", url:"https://images.pexels.com/photos/2082087/pexels-photo-2082087.jpeg?cs=srgb&dl=pexels-dmitry-zvolskiy-2082087.jpg&fm=jpg&w=1920&h=1281"},
+  let images = [{msg:"Relaxation at a beautiful peak", url:"https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?cs=srgb&dl=pexels-boonkong-boonpeng-1134176.jpg&fm=jpg&w=1920&h=1281"},
+        {msg:"It's a home away from home.", url:"https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
         {msg:"Impeccable service.", url:"https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?cs=srgb&dl=pexels-jean-van-der-meulen-1457842.jpg&fm=jpg&w=1920&h=1165"}
     ]
   const navigate = useNavigate();
@@ -77,12 +77,12 @@ function App(){
                 alt={item.key}
                 style={{height: "80vh", width:"100vw"}}
               />
-              <Carousel.Caption><span className="display-3 " >{item.msg}</span >     </Carousel.Caption>
+              <Carousel.Caption className="display-3 bg-gray text-white "><span  >{item.msg}</span >     </Carousel.Caption>
             </Carousel.Item>)
           })}
         </Carousel>  
       
-      <Row className="align-items-center mx-1 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
+      <Row className="align-items-center mx-1 my-3 rounded justify-content-center  bg-dark p-2 bg-opacity-10">
         
         <Col xs="auto">
           <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
@@ -112,8 +112,8 @@ function App(){
 
           <Form.Control type="date"
               name="check_out"
-              disabled={filters.startdate === "" ? true: false}
-              min={filters.startdate ? new Date(filters.startdate).toISOString().split("T")[0]: ""}
+              disabled={filters.check_in === "" ? true: false}
+              min={filters.check_in ? new Date(filters.check_in).toISOString().split("T")[0]: ""}
               onChange={applyFilters}
               required />
         </Col>

@@ -9,9 +9,6 @@ rooms_validator = {
         "room_type": {
             "bsonType": "string",
             },
-        "description": {
-            "bsonType": "string",
-            },
         "price": {
             "bsonType": "number",
             },

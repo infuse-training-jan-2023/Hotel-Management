@@ -10,6 +10,7 @@ function Profile(){
     // let email = JSON.parse(localStorage.getItem('email')) || ""
     let [uid, setUid] = useState('')
     let [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')) || "")
+    let [cancel, setCancel] = useState({})
     const [userBookings, setUserBookings] = useState([])
 
     let handleLogout = () => {
@@ -71,7 +72,7 @@ function Profile(){
     //   }, [uid]);
     useEffect(() => {
         email && getAllUserBookings()
-      }, [email]);
+      }, [email, cancel]);
 
     // let downloadInvoice = async ()=> {
     //     console.log('get bill')
@@ -93,38 +94,49 @@ function Profile(){
         }
     }
 
-    return(
-        <Container className="min-vh-100 px-0 text-center">
-            <Row className='my-2 px-0' >
-                <Col xs={12}><h3>Bookings</h3></Col>
-                {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
-            </Row>
-            
-    
+    async function cancelOrder(e){
+        try{
+            const bid = e.target.name
+            //alert(bid)
+            const res = await fetch(`/api/booking`, {method: 'PUT', body:JSON.stringify({id:bid}), headers: {'Content-type': 'application/json charset=UTF-8',}}  )
+            const msg = await res.json()
+            setCancel(msg)
+        }
+        catch(e){
+            console.log(e)
+        }
+    }
 
-            <h4 className='my-3'>Current booking</h4>
+    return(
+        <Container className="w-75">
+            <Row className='my-2 px-3 h-50' >
+                <Col className='fs-3 text-center font-weight-bold'><span>Bookings</span></Col>
+                {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
+            <h4 className='my-3 text-center'>Current</h4>
             {   
 
-              userBookings.map((item, idx)=>{
+              userBookings.length? userBookings.map((item, idx)=>{
     
                if(Date.parse((item.check_out.$date)) > Date.now() && item.isCancelled==false) {
                   return (<Card  className='my-2' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
-                            <Col sm={10}>
+                            <Col sm={6}>
                                 <Card.Title>{item.guest_name}</Card.Title>
                                 <Card.Text>{item.total_amount}</Card.Text>
                                 <Card.Text>{item.special_request}</Card.Text>
                             </Col>  
+                            <Col ><Button variant="danger" name={item._id['$oid']} className='my-3' onClick={cancelOrder}>Cancel</Button></Col>
                             <Col ><Button variant="info" className='my-3' onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button></Col>
                            <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
                         </Row>
                     </Card.Body>
                 </Card>)
-                }})
-            } 
+                }}):<p className='text-center'>None</p>
+            }    
+    
 
-            <h4 className='my-3'>Previous booking</h4>
+            <h4 className='my-3 text-center'>Previous</h4>
             {   
 
               userBookings.map((item, idx)=>{
@@ -133,7 +145,7 @@ function Profile(){
                   return (<Card  className='my-2' height="2rem" key={idx}>
                     <Card.Body>
                         <Row>
-                            <Col sm={10}>
+                            <Col sm={8}>
                                 <Card.Title>{item.guest_name}</Card.Title>
                                 <Card.Text>{item.total_amount}</Card.Text>
                                 <Card.Text>{item.special_request}</Card.Text>
@@ -145,8 +157,8 @@ function Profile(){
                 </Card>)
                 }})
             } 
-            
-            {!userBookings.length  && <h5 className='text-center'>--NONE--</h5>}
+            {!userBookings.length  && <p className='text-center'>None</p>}
+            </Row>
             
 
         </Container>
