@@ -71,6 +71,17 @@ function Profile(){
     // useEffect(() => {
     //     uid && getAllUserBookings()
     //   }, [uid]);
+
+
+    function humanizeDate(date_str) {
+        let month = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      
+        var date_arr = date_str.split('-');
+        
+        return month[Number(date_arr[1]) - 1] + " " + Number(date_arr[2]) + ", " + date_arr[0]
+      }
+
+
     useEffect(() => {
         email && getAllUserBookings()
       }, [email, cancel]);
@@ -126,8 +137,8 @@ function Profile(){
                             <Col sm={9}>
                                 <Card.Title>Guest Name: {item.guest_name}</Card.Title>
                                 <p className='my-1'><span>Registered Email: </span>{item.customer_email}</p>
-                                <p className='my-1'><span>Check In: </span>{item.check_in.$date.split('T')[0]}</p>
-                                <p className='my-1'><span>Check Out: </span>{item.check_out.$date.split('T')[0]}</p>
+                                <p className='my-1'><span>Date: </span>{humanizeDate(item.check_in.$date.split('T')[0])} <span>To</span> {humanizeDate(item.check_out.$date.split('T')[0])}</p>
+        
                                 <p className='my-1'><span>Total Amount: ₹ </span>{item.total_amount}/-</p>
                             </Col>
                             <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
