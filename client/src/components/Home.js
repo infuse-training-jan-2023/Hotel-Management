@@ -23,7 +23,7 @@ function App(){
     tomorrow.setDate(tomorrow.getDate() + 1);
     return tomorrow.toISOString().split("T")[0]
   }
-  const [filters, setFilters] = useState({check_out:getTomorrowsDate()})
+  const [filters, setFilters] = useState({check_out:getTomorrowsDate(), check_in:new Date().toISOString().split("T")[0]})
   console.log(filters)
   let images = [{msg:"Relaxation at a beautiful peak", url:"https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?cs=srgb&dl=pexels-boonkong-boonpeng-1134176.jpg&fm=jpg&w=1920&h=1281"},
         {msg:"It's a home away from home.", url:"https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
@@ -43,7 +43,7 @@ function App(){
   
   let getRooms = async ()=>{
     try{
-      const res = await fetch("/api/search",{
+      const res = await fetch("/api/get-available-rooms",{
         method:"POST", 
         body:JSON.stringify(filters),
         headers: {'Content-type': 'application/json charset=UTF-8',}

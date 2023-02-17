@@ -8,7 +8,7 @@ load_dotenv()
 
 scenarios('../features/get_room.feature')
 
-get_room_url = os.getenv("url")+"/rooms?room_id=63ea04adcf0530963faef934"
+get_room_url = os.getenv("url")+"/room?room_id=63ea04adcf0530963faef934"
 
 @when('I select a room')
 def get_room():
@@ -17,8 +17,6 @@ def get_room():
 @then('I should get all the details of the room')
 def validate_response_type():
   body = pytest.api_response.get_json()
-  # for room in body:
-  #   assert type(room) == str
   assert type(body) == dict
 
 @then('the api status code should be 200')

@@ -13,7 +13,16 @@ class RoomService:
             raise Exception("Error:", e.__class__)
     
     @staticmethod
-    def get_all_rooms(filters):
+    def get_all_rooms():
+        try:
+            rooms = Connection.db.room.find()
+            return rooms
+        except pymongo.errors.WriteError as e:
+            raise Exception("Error:", e.__class__)
+            
+
+    @staticmethod
+    def get_available_rooms(filters):
         check_in = filters.get('check_in')
         check_out = filters.get('check_out')
         room_type = filters.get('room_type')
