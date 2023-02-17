@@ -6,14 +6,14 @@ from pytest_bdd import scenarios, when, then
 
 scenarios('../features/customer_invoice.feature')
 
-get_invoice = "http://127.0.0.1:5000/api/invoice"
+get_invoice = "http://127.0.0.1:5000/api/invoice?id=63ee1df084568668124971f6"
 
 @when('Customer click Download Invoice')
-def get_all_items():
+def get_customer_response():
     pytest.api_response = requests.get(get_invoice)
 
 @then('Customer can see Invoice')
-def check_items_returned():
+def check_pdf_returned():
     pdf_reader = pypdf.PdfReader(BytesIO(pytest.api_response.content))
     assert len(pdf_reader.pages) == 1
 

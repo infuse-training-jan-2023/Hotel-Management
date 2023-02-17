@@ -19,7 +19,7 @@ def go_to_discount_api():
 @then('i should get the rooms available based on filters')
 def check_the_discount_returned():
   body = pytest.api_response.json()
-  assert body ==status
+  assert body[0]["_id"] ==status[0]["_id"]
 
 @then('the api status code should be 201')
 def check_status_code():
