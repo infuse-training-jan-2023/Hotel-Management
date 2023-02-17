@@ -1,3 +1,7 @@
 span{
   font-weight: bold;
 }
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: all !important;
+}

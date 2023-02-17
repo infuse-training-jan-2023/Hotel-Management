@@ -93,7 +93,7 @@ function Viewroom(){
             </Carousel> 
             </Col>
             <Col>
-                <p className="fs-3 text-capitalize"> {room.title} room </p>
+                <p className="fs-3 text-capitalize"> {room.title}</p>
                 <p className='fs-6'> <span>Room price:</span> Rs. {room.price}/-</p>
                 <p className='fs-6'> <span>Room capacity: </span> {room.capacity}</p>
                 <p className='fs-6'> <span>Amenities: </span> 
@@ -112,13 +112,16 @@ function Viewroom(){
                 {
                     reviews.map((item, idx)=>{
                         return(
-                            <Card  key={idx} className='my-2 bg-light shadow-5'>
+                            <Card  key={idx} className='my-2 bg-light shadow-5 text-center'>
                                 <Card.Body>
                                     <Card.Title>{item.guest_name}</Card.Title>
                                     <Card.Subtitle className="mb-2 text-muted">
 
                                       {
                                         [...Array(item.rating)].map((e, i) => <FontAwesomeIcon className='text-warning' icon={faStar} />)
+                                      }
+                                      {
+                                        [...Array(6-item.rating)].map((e, i) => <FontAwesomeIcon fade className='text-secondary' icon={faStar} />)
                                       }
 
                                     </Card.Subtitle>

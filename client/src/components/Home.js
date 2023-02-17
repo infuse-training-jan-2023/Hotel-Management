@@ -58,6 +58,12 @@ function App(){
     //getRooms()
   }
 
+  let getTomorrowsDate = ()=>{
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split("T")[0]
+  }
+
   useEffect(()=>{
     setLoading(true)
     getRooms()
@@ -86,7 +92,7 @@ function App(){
       <Row className="align-items-center mx-1 my-3 justify-content-center  bg-dark p-2 bg-opacity-25">
         
         <Col xs="auto">
-          <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>{filters.price}</span></Form.Label>
+          <Form.Label className="fs-5" htmlFor="inlineFormInput">Price above <span>₹{filters.price|| 1000}</span></Form.Label>
           <Form.Range id="price" name="price" min="1000" max="10000" defaultValue='1000' onChange={applyFilters} step='100'/>
         </Col>
         <Col xs="auto">
@@ -116,8 +122,8 @@ function App(){
           <Form.Control type="date"
               name="check_out"
               disabled={filters.check_in === "" ? true: false}
-              min={filters.check_in ? new Date(filters.check_in).toISOString().split("T")[0]: ""}
-              defaultValue={new Date().toISOString().split("T")[0]}
+              min={filters.check_out ? new Date(filters.check_out).toISOString().split("T")[0]: ""}
+              defaultValue={getTomorrowsDate()}
               onChange={applyFilters}
               required />
         </Col>
