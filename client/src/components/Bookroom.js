@@ -209,7 +209,7 @@ function Bookroom(){
                     return <p><span>{item.name}:  </span>+ ₹{item.price}</p>
                 })}
                 <p><span>Total Amount: ₹</span>{total_amount}</p>
-                <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/10:0} bookings.</Tooltip>} >
+                <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/100:0} bookings.</Tooltip>} >
                     <p><span>Discount(if applicable): </span><Badge pill bg='success'>-₹{discount}</Badge><FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
                 </OverlayTrigger>
                 <p></p> 
@@ -243,7 +243,7 @@ function Bookroom(){
                             return <p><span>{item.name}:  </span>+ ₹{item.price}</p>
                         })}
                         <p><span>Total Amount: ₹</span>{total_amount}</p>
-                        <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/10:0} bookings.</Tooltip>} >
+                        <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/100:0} bookings.</Tooltip>} >
                             <p><span>Discount(if applicable): </span><Badge pill bg='success'>-₹{discount}</Badge><FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
                         </OverlayTrigger>
                         <p></p> 
