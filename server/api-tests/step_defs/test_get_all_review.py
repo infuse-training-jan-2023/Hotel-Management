@@ -1,19 +1,23 @@
 import pytest
-import requests
+import requests, os
+from dotenv import load_dotenv
+
+load_dotenv() 
 
 from pytest_bdd import scenarios, when, then
-
+from main import app
+app=app.test_client()
 scenarios('../features/get_all_review.feature')
 
-all_review_url = "http://127.0.0.1:5000/api/reviews_of_room?room_id=63ea04adcf0530963faef934"
+all_review_url = os.getenv("url")+"/reviews_of_room?room_id=63ea04adcf0530963faef934"
 
 @when('Customer View Room')
 def get_all_review():
-    pytest.api_response = requests.get(all_review_url)
+    pytest.api_response = app.get(all_review_url)
 
 @then('Customer can see All Customer reviews')
-def check_review_returned():
-    body = pytest.api_response.json()
+def validate_response_type_for_review():
+    body = pytest.api_response.get_json()
     for review in body:
         assert type(review) == dict
 
