@@ -42,7 +42,7 @@ class Invoice:
             total_value = total_value[len(data)]
             c.drawString(100, value, f"Discount: - Rs {cb.get('discount')}")
             c.setFont("Helvetica-Bold", 14)
-            c.drawString(100, total_value, f"Total Amount: Rs {cb.get('total_amount')}") 
+            c.drawString(100, total_value, f"Total Amount: Rs {cb.get('total_amount')}/-") 
             c.save()
             pdf = buffer.getvalue()
             return pdf
