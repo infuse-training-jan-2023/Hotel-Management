@@ -1,13 +1,19 @@
 import pytest
 from pytest_bdd import scenarios, when , then
-import requests
+import requests, os
+from dotenv import load_dotenv
+load_dotenv() 
+
+from main import app
+app=app.test_client()
+
 
 scenarios('../features/book_room.feature')
 
-book_room_url = "http://127.0.0.1:5000/api/booking"
+book_room_url = os.getenv("url")+"/booking"
 
 
-data = {
+dummy_booking_data = {
     "check_in":"2023-2-26",
     "check_out":"2023-2-28",
     "add_ons":[{"name":"Breakfast", "price":200}],
@@ -24,11 +30,11 @@ data = {
 
 @when('I book a room')
 def book_room():
-    pytest.api_response = requests.post(book_room_url , json = data)
+    pytest.api_response = app.post(book_room_url , json = dummy_booking_data)
 
 @then('I should get confirmation message')
-def check_the_msg_returned():
-    body = pytest.api_response.json()
+def validate_response_type():
+    body = pytest.api_response.get_json()
     assert type(body) == dict
 
 @then('The api status code should be 201')
@@ -36,5 +42,5 @@ def check_status_code():
     assert pytest.api_response.status_code == 201
 
 @then('The api Response type should be json')
-def check_content_type():
+def validate_content_type():
     assert pytest.api_response.headers['content-type'] == 'application/json'
