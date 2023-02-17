@@ -1,7 +1,7 @@
 booking_validator = {
     "$jsonSchema": {
     "bsonType": "object",
-    "required": ["check_in","check_out","add_ons","total_amount","room_price","customer_email","room_id","isCancelled","guest_name","phone_number","special_request"],
+    "required": ["check_in","check_out","add_ons","total_amount","room_price","customer_email","room_id","isCancelled","guest_name","phone_number","special_request","discount"],
     "properties":{
         "check_in": {
             "bsonType": "date",
@@ -35,6 +35,9 @@ booking_validator = {
             },
         "special_request": {
             "bsonType": "string"
+            },
+        "discount": {
+            "bsonType": "number"
             }
         }
     }         
