@@ -1,10 +1,7 @@
 import React from 'react';
 import Container from 'react-bootstrap/esm/Container';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Image from 'react-bootstrap/Image'
-import { useNavigate } from 'react-router-dom'
 
 function About(){
     const myStyle={

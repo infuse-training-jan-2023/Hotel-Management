@@ -11,8 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTv, faWifi, faMusic,  faWineGlass, faCouch, faHotTub, faAirFreshener } from '@fortawesome/free-solid-svg-icons'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import placeholder from'../placeholder.png'
-
 
 
 function App(){
@@ -64,11 +62,6 @@ function App(){
     //getRooms()
   }
 
-  // let getTomorrowsDate = ()=>{
-  //   let tomorrow = new Date();
-  //   tomorrow.setDate(tomorrow.getDate() + 1);
-  //   return tomorrow.toISOString().split("T")[0]
-  // }
 
   useEffect(()=>{
     setLoading(true)
@@ -135,8 +128,7 @@ function App(){
               required />
         </Col>
       </Row>
-      {/* <p>{JSON.stringify(filters)}</p>   */}
-      {/* <h3 className="my-3">Available Rooms</h3> */}
+
       <Row xs={1} md={3} lg={4} className="g-4">
         {rooms.map((room, idx) => (
           <Col>

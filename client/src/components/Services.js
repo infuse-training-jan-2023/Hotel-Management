@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from "react"
-import { useNavigate } from "react-router-dom";
 
 import Container from "react-bootstrap/esm/Container"
 import Card from 'react-bootstrap/Card';
@@ -9,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTv, faWifi, faMusic,  faWineGlass, faCouch, faHotTub, faAirFreshener } from '@fortawesome/free-solid-svg-icons'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
-import placeholder from'../placeholder.png'
 
 
 
@@ -17,7 +15,6 @@ function App(){
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const navigate = useNavigate();
 
   let amenities_components = {
     tv: faTv,  

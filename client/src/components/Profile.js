@@ -9,7 +9,6 @@ import Badge from 'react-bootstrap/Badge'
 import Modal from 'react-bootstrap/Modal';
 function Profile(){
     const navigate = useNavigate();
-    // let email = JSON.parse(localStorage.getItem('email')) || ""
     let [bid, setBid] = useState('')
     let [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')) || "")
     let [cancel, setCancel] = useState({})
@@ -19,63 +18,18 @@ function Profile(){
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    let handleLogout = () => {
-        //setUid('')
-        setEmail('')
-        // localStorage.removeItem('uid');
-        
-        localStorage.removeItem('email');
-        navigate('/')
-        window.location.reload()
-    }
-
-    // let getUserDetail = async ()=>{
-    //     try{
-    //         if (localStorage.getItem("uid") === null) {
-    //             // alert('new')
-    //             console.log(email)
-    //             const res = await fetch(`/api/user?email=${email}`)
-    //             const msg = await res.json()
-    //             // alert(msg._id['$oid'])
-    //             setUid(msg._id['$oid'])
-    //             localStorage.setItem('uid', JSON.stringify(msg._id['$oid']));
-    //             console.log(msg)
-    //             return msg
-    //         }
-    //         else{
-    //             console.log(JSON.parse(localStorage.getItem('uid')))
-    //         setUid(JSON.parse(localStorage.getItem('uid')))
-    //         // alert('old')
-    //         }
-    //     }
-    //     catch(e)
-    //         {console.log(e)}
-          
-    // }
 
     let getAllUserBookings = async ()=>{
-        try{
-            // alert(uid)
-            //console.log(uid)
-            console.log('in fetch')
-            
+        try{            
             const res = await fetch(`/api/booking?customer_email=${email}`)
             const msg = await res.json()
-            // console.log(uid)
             console.log(msg)
             setUserBookings(msg);
-            // console.log(`length: ${userBookings} type: ${typeof userBookings}`)
             return msg
         }
         catch(e)
             {console.log(e)}
     }
-    // useEffect(() => {
-    //     getUserDetail()
-    //   }, []);
-    // useEffect(() => {
-    //     uid && getAllUserBookings()
-    //   }, [uid]);
 
 
     function humanizeDate(date_str) {
@@ -91,16 +45,11 @@ function Profile(){
         email && getAllUserBookings()
       }, [email, cancel, show]);
 
-    // let downloadInvoice = async ()=> {
-    //     console.log('get bill')
-    //     const res = await fetch(`/api/invoice?id=${email}`)
-    //     const msg = await res.json()
-    // }
+
 
     async function downloadInvoice(e) {
         try{
             const bid = e.target.name
-            //alert(bid)
             const res = await fetch(`/api/invoice?id=${bid}`)
             const blob = await res.blob()
             const url = window.URL.createObjectURL(new Blob([blob], {type: 'application/pdf'}))
@@ -112,9 +61,7 @@ function Profile(){
     }
 
     async function cancelOrder(){ 
-        // handleShow()
         try{          
-           // alert(bid)       
             const res = await fetch(`/api/booking`, {method: 'PUT', body:JSON.stringify({id:bid}), headers: {'Content-type': 'application/json charset=UTF-8',}}  )
             const msg = await res.json()
             setCancel(msg)
@@ -129,7 +76,6 @@ function Profile(){
         <Container className="w-75">
             <Row className='my-2 px-3 h-50' >
                 <Col className='fs-3 text-center font-weight-bold '><span>Your Bookings</span></Col>
-                {/* <Col xs={2} ><Button variant="danger" onClick={handleLogout}>Logout</Button></Col> */}
             <h4 className='my-3 text-center'>CURRENT</h4>
             {   
               userBookings.length? userBookings.map((item, idx)=>{

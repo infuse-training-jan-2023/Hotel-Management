@@ -9,9 +9,7 @@ function NavigationBar() {
   let [email, setEmail] = useState('')
 
   let handleLogout = () => {
-      //setUid('')
       setEmail('')
-      // localStorage.removeItem('uid');
       
       localStorage.removeItem('email');
       window.location.replace('/')

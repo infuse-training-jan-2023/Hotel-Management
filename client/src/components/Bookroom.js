@@ -17,10 +17,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 function Bookroom(){
     const navigate = useNavigate();
     const location = useLocation(); 
-    // let uid = JSON.parse(localStorage.getItem('uid')) || ""
     let email = JSON.parse(localStorage.getItem('email')) || ""
-    // const [checkin, setCheckin] = useState(0)
-    // const [checkout, setCheckout] = useState(0)
     const [rid, setRid] = useState(0)
     const [addons, setAddons] = useState([])
     const [discount, setDiscount] = useState(10)
@@ -70,7 +67,6 @@ function Bookroom(){
         try{
             const res = await fetch(`/api/addons`)
             const msg = await res.json()
-            //const msg=[{name:'swimming pool', cost:300}, {name:'gym', cost:200}, {name:'sauna', cost:500}]
             console.log(msg)
             setAddons(msg)
         }
@@ -87,7 +83,6 @@ function Bookroom(){
             console.log("add")
         }
         else{
-         //   select_addons.splice(select_addons.findIndex(({name}) => name == addons[idx].name), 1)   
            console.log("remove")
            setSelectAddons(select_addons.filter(function(service){return service.name !=  addons[idx].name;}))
           
@@ -107,8 +102,7 @@ function Bookroom(){
     }
 
     function get_total_amount(){
-        // var check_in =location.state.check_in
-        // var check_out =location.state.check_out
+
         let diffDays=0
 
         const date1 = new Date(check_in);
@@ -121,22 +115,18 @@ function Bookroom(){
         else{
           diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
         }
-        //return location.state.room_price
        
         
         var initialValue=0
         var add_ons_cost = select_addons.reduce((accumulator, service) => accumulator + service.price,initialValue)
-        
+
 
         setTotalAmount((diffDays*location.state.room_price) + add_ons_cost)
-       // return (diffDays*location.state.room_price) + add_ons_cost
-
     }
 
     useEffect(()=>{
         console.log(`start: ${location.state.check_in} end: ${location.state.check_out}`)
-        // setCheckin(location.state.checkin);
-        // setCheckout(location.state.checkout);
+
         setRid(location.state.room_id);
         getAddons()
         getDiscount()
