@@ -32,19 +32,23 @@ function Bookroom(){
     const [modalShow, setModalShow] = useState(false);
     const [modalData, setModalData] = useState({})
     const [buttonDisabled, setButtonDisabled] = useState(false);
-
+    const check_in = new Date(location.state.check_in).toISOString().split("T")[0]
+    const check_out= new Date(location.state.check_out).toISOString().split("T")[0] 
+    console.log(`checkin ${check_in} checkout ${check_out}`)
     let performBooking = async ()=>{
         try{
             let data = {room_id:rid, 
                 customer_email: email, 
-                check_in: location.state.check_in, 
-                check_out: location.state.check_out, 
+                check_in,
+                check_out,
                 add_ons: select_addons, 
                 guest_name: guest_name, 
                 phone_number: phone_number, 
                 discount: discount,
                 special_request:special_request, 
                 room_price:location.state.room_price}
+            console.log(`checkin: ${data.check_in}`)
+            console.log(`checkout: ${data.check_out}`)
             console.log(data)
             const res = await fetch(`/api/booking`,{
                 method:"POST", 
@@ -103,8 +107,8 @@ function Bookroom(){
     }
 
     function get_total_amount(){
-        var check_in =location.state.check_in
-        var check_out =location.state.check_out
+        // var check_in =location.state.check_in
+        // var check_out =location.state.check_out
         let diffDays=0
 
         const date1 = new Date(check_in);
@@ -149,7 +153,7 @@ function Bookroom(){
             <Form.Label htmlFor="inlineFormInput">Check-in date</Form.Label>
                 <Form.Control type="date"
                     name="checkin"
-                    value={location.state.check_in}
+                    value={check_in}
                     disabled
                     required />
             </Col>
@@ -157,7 +161,7 @@ function Bookroom(){
             <Form.Label htmlFor="inlineFormInput">Check-out date</Form.Label>
                 <Form.Control type="date"
                     name="checkout"
-                    value={location.state.check_out}
+                    value={check_out}
                     disabled
                     required />
             </Col>
@@ -228,25 +232,22 @@ function Bookroom(){
                     <Col >
                         <p><span>Guest name:</span> {modalData.guest_name}</p>
                         <p><span>Contact:</span> {modalData.phone_number}</p>
-                    </Col>
-                    <Col>
                         <p><span>Check In:</span> {modalData.check_in}</p>
                         <p><span>Check Out:</span> {modalData.check_out}</p>
+                        <p><span>Special request: </span>{modalData.special_request}</p>
                     </Col>
-                </Row>
 
-                <Row>
                     <Col>
-                    <span>Addons:</span> {
-                        select_addons.map((item, idx)=>{
-                            return <p>{item.name} - ₹{item.price} </p>
-                        })
-                    }
-                    </Col>
-                    <Col xs={6}>
-                    <p><span>Special request: </span>{modalData.special_request}</p>
-                    <p><span>Room price: </span> {modalData.room_price}</p>
-                                       
+                        <p><span>Room Price: ₹</span>{location.state.room_price}</p>
+                        {select_addons.map((item, idx)=>{
+                            return <p><span>{item.name}:  </span>+ ₹{item.price}</p>
+                        })}
+                        <p><span>Total Amount: ₹</span>{total_amount}</p>
+                        <OverlayTrigger placement="right" overlay={<Tooltip>Loyalty discount obtained after placing {discount>0?discount/10:0} bookings.</Tooltip>} >
+                            <p><span>Discount(if applicable): </span><Badge pill bg='success'>-₹{discount}</Badge><FontAwesomeIcon fade className='px-2'icon={faCircleInfo} size="lg" /></p>
+                        </OverlayTrigger>
+                        <p></p> 
+                        <p><span>Grand Total: ₹</span>{total_amount - discount}</p>           
                     </Col>
 
                 </Row>
