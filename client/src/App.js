@@ -21,54 +21,6 @@ import About from "./components/About"
 import Container from "react-bootstrap/esm/Container"
 import Footer from "./components/Footer";
 function App(){
-    //const navigate = useNavigate();
-  const [rooms, setRooms] = useState([])
-//   const [discount, setDiscount] = useState(0)
-  const [loading, setLoading] = useState(true)
-  const [filters, setFilters] = useState({checkin: null, checkout: null , room_type:null, price:null })
-  let getRooms = async ()=>{
-    try{
-      const res = await fetch("/api/search",{
-        method:"POST", 
-        body:JSON.stringify(filters),
-        headers: {'Content-type': 'application/json charset=UTF-8',}
-      })
-      const msg = await res.json()
-      setRooms(msg)
-      console.log(msg)
-      return msg
-    }
-    catch(e)
-      {console.log(e)}
-  }
-
-//   let getDiscount = async ()=>{
-//     try{
-//       const res = await fetch('/api/loyalty-discount?id=63e52044ba29b6d46527fe8b', {method: "GET"} )
-//       const msg = await res.json()
-//       setDiscount(msg)
-//       console.log(msg)
-//     }
-//     catch(e)
-//       {console.log(e)}
-//   }
-
-  function applyFilters(e) {
-    const name = e.target.name
-    const value = e.target.value
-    setFilters({...filters, [name]: value})
-    //getRooms()
-  }
-
-  useEffect(()=>{
-    setLoading(true)
-    getRooms()
-    setLoading(false)
-    console.log()
-  }, [filters])
-
-  if(loading) 
-    return <p>loading</p>
   return(
     <Container fluid className="px-0">
         <NavigationBar/>

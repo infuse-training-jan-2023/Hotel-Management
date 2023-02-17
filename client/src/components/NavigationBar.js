@@ -36,7 +36,7 @@ function NavigationBar() {
             <Nav.Link href='/services'>Services</Nav.Link>
           </Nav>
           <Nav>
-            {email ? <Nav.Link href="/profile">Bookings</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
+            {email ? <Nav.Link href="/profile">Booking</Nav.Link> : <Nav.Link href="/login">Login</Nav.Link>}
             {email ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : ""}
           </Nav>
         </Navbar.Collapse>
