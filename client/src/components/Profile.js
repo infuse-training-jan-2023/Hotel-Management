@@ -177,15 +177,15 @@ function Profile(){
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Confirm cancel</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Do you really want to confirm the cancellation made? </Modal.Body>
+        <Modal.Body>Are you sure you want to cancel? </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           <Button variant="danger" onClick={cancelOrder}>
-            Confirm cancellation
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>
