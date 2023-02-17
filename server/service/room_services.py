@@ -26,6 +26,9 @@ class RoomService:
                 check_out = datetime.strptime(check_out, '%Y-%m-%d')
             else:
                 check_in=check_out=None
+            if room_type=='any':
+                room_type=None
+                
             print(f'checkin: {check_in} checkout: {check_out} room_type: {room_type} price: {price}')
             data = {'check_in':check_in, 'check_out':check_out, 'room_type':room_type, 'price':price}
             filtered = {k: v for k, v in data.items() if v is not None}

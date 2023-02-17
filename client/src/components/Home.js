@@ -103,7 +103,8 @@ function App(){
         </Col>
         <Col xs="auto">
           <Form.Label className="fs-5" htmlFor="inlineFormInput">Room type </Form.Label>
-          <Form.Select aria-label="room type" name="room_type" id="room_type" onClick={applyFilters}>
+          <Form.Select aria-label="room type" name="room_type" id="room_type" onClick={applyFilters} >
+            <option value="any">Any</option>
             <option value="single">Single</option>
             <option value="double">Double</option>
             <option value="penthouse">Penthouse</option>
