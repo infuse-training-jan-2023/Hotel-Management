@@ -18,7 +18,13 @@ import placeholder from'../placeholder.png'
 function App(){
   const [rooms, setRooms] = useState([])
   const [loading, setLoading] = useState(true)
-  const [filters, setFilters] = useState({})
+  let getTomorrowsDate = ()=>{
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    return tomorrow.toISOString().split("T")[0]
+  }
+  const [filters, setFilters] = useState({check_out:getTomorrowsDate()})
+  console.log(filters)
   let images = [{msg:"Relaxation at a beautiful peak", url:"https://images.pexels.com/photos/1134176/pexels-photo-1134176.jpeg?cs=srgb&dl=pexels-boonkong-boonpeng-1134176.jpg&fm=jpg&w=1920&h=1281"},
         {msg:"It's a home away from home.", url:"https://images.pexels.com/photos/460537/pexels-photo-460537.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"},
         {msg:"Impeccable service.", url:"https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?cs=srgb&dl=pexels-jean-van-der-meulen-1457842.jpg&fm=jpg&w=1920&h=1165"}
@@ -58,11 +64,11 @@ function App(){
     //getRooms()
   }
 
-  let getTomorrowsDate = ()=>{
-    let tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split("T")[0]
-  }
+  // let getTomorrowsDate = ()=>{
+  //   let tomorrow = new Date();
+  //   tomorrow.setDate(tomorrow.getDate() + 1);
+  //   return tomorrow.toISOString().split("T")[0]
+  // }
 
   useEffect(()=>{
     setLoading(true)
@@ -122,7 +128,7 @@ function App(){
           <Form.Control type="date"
               name="check_out"
               disabled={filters.check_in === "" ? true: false}
-              min={filters.check_out ? new Date(filters.check_out).toISOString().split("T")[0]: ""}
+              min={getTomorrowsDate()}
               defaultValue={getTomorrowsDate()}
               onChange={applyFilters}
               required />

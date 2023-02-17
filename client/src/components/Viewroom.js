@@ -31,6 +31,7 @@ function Viewroom(){
     const [amenities, setAmenities] = useState([])
     const [check_in, setCheckin] = useState(0)
     const [check_out, setCheckout] = useState(0)
+    console.log(location.state)
     let getRoom = async ()=>{
         try{
           const res = await fetch(`/api/rooms?room_id=${rid}`)
@@ -121,7 +122,7 @@ function Viewroom(){
                                         [...Array(item.rating)].map((e, i) => <FontAwesomeIcon className='text-warning' icon={faStar} />)
                                       }
                                       {
-                                        [...Array(6-item.rating)].map((e, i) => <FontAwesomeIcon fade className='text-secondary' icon={faStar} />)
+                                        [...Array(5-item.rating)].map((e, i) => <FontAwesomeIcon fade className='text-secondary' icon={faStar} />)
                                       }
 
                                     </Card.Subtitle>
