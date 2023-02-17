@@ -19,6 +19,7 @@ import About from "./components/About"
 
 
 import Container from "react-bootstrap/esm/Container"
+import Footer from "./components/Footer";
 function App(){
     //const navigate = useNavigate();
   const [rooms, setRooms] = useState([])
@@ -84,7 +85,7 @@ function App(){
                 <Route path="*" element={<Error/>} />
             </Routes>
         </BrowserRouter>
-        
+        <Footer/>        
     </Container>
   )
 }
