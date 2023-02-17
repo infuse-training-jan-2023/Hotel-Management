@@ -6,13 +6,18 @@ import Row from 'react-bootstrap/Row';
 import { useNavigate } from 'react-router-dom'
 import Container from 'react-bootstrap/esm/Container';
 import Badge from 'react-bootstrap/Badge'
+import Modal from 'react-bootstrap/Modal';
 function Profile(){
     const navigate = useNavigate();
     // let email = JSON.parse(localStorage.getItem('email')) || ""
-    let [uid, setUid] = useState('')
+    let [bid, setBid] = useState('')
     let [email, setEmail] = useState(JSON.parse(localStorage.getItem('email')) || "")
     let [cancel, setCancel] = useState({})
     const [userBookings, setUserBookings] = useState([])
+
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     let handleLogout = () => {
         //setUid('')
@@ -71,9 +76,20 @@ function Profile(){
     // useEffect(() => {
     //     uid && getAllUserBookings()
     //   }, [uid]);
+
+
+    function humanizeDate(date_str) {
+        let month = ['January', 'Feburary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      
+        var date_arr = date_str.split('-');
+        
+        return month[Number(date_arr[1]) - 1] + " " + Number(date_arr[2]) + ", " + date_arr[0]
+      }
+
+
     useEffect(() => {
         email && getAllUserBookings()
-      }, [email, cancel]);
+      }, [email, cancel, show]);
 
     // let downloadInvoice = async ()=> {
     //     console.log('get bill')
@@ -95,16 +111,17 @@ function Profile(){
         }
     }
 
-    async function cancelOrder(e){
-        try{
-            const bid = e.target.name
-            //alert(bid)
+    async function cancelOrder(){ 
+        // handleShow()
+        try{          
+           // alert(bid)       
             const res = await fetch(`/api/booking`, {method: 'PUT', body:JSON.stringify({id:bid}), headers: {'Content-type': 'application/json charset=UTF-8',}}  )
             const msg = await res.json()
             setCancel(msg)
+            handleClose()          
         }
         catch(e){
-            console.log(e)
+            console.log(e)     
         }
     }
 
@@ -123,12 +140,11 @@ function Profile(){
                             <Col sm={9}>
                                 <Card.Title>Guest Name: {item.guest_name}</Card.Title>
                                 <p className='my-1'><span>Registered Email: </span>{item.customer_email}</p>
-                                <p className='my-1'><span>Check In: </span>{item.check_in.$date.split('T')[0]}</p>
-                                <p className='my-1'><span>Check Out: </span>{item.check_out.$date.split('T')[0]}</p>
+                                <p className='my-1'><span>Date: </span>{humanizeDate(item.check_in.$date.split('T')[0])} <span>To</span> {humanizeDate(item.check_out.$date.split('T')[0])}</p>
                                 <p className='my-1'><span>Total Amount: ₹ </span>{item.total_amount}/-</p>
                             </Col>
                             <Col ><Button className='my-3' name={item._id['$oid']} onClick={downloadInvoice}>Invoice</Button></Col>
-                            <Col ><Button variant="danger" name={item._id['$oid']} className='my-3' onClick={cancelOrder}>Cancel</Button></Col>
+                            <Col ><Button variant="danger" name={item._id['$oid']} className='my-3' onClick={(e)=>{setBid(e.target.name);handleShow()}}>Cancel</Button></Col>
                         </Row>
                     </Card.Body>
                 </Card>)
@@ -146,8 +162,7 @@ function Profile(){
                             <Col sm={9}>
                                 <Card.Title>Guest Name: {item.guest_name}</Card.Title>
                                 <p className='my-1'><span>Registered Email: </span>{item.customer_email}</p>
-                                <p className='my-1'><span>Check In: </span>{item.check_in.$date.split('T')[0]}</p>
-                                <p className='my-1'><span>Check Out: </span>{item.check_out.$date.split('T')[0]}</p>
+                                <p className='my-1'><span>Date: </span>{humanizeDate(item.check_in.$date.split('T')[0])} <span>To</span> {humanizeDate(item.check_out.$date.split('T')[0])}</p>
                                 <p className='my-1'><span>Total Amount: ₹ </span>{item.total_amount}/-</p>
                             </Col>
                             <Col >{!item.isCancelled ? <Button variant="info" onClick={()=>navigate(`/review/${item._id['$oid']}`)}>Review</Button>: <Button  role="button" variant='secondary' disabled className='align-middle'>Cancelled</Button>}</Col>
@@ -159,6 +174,21 @@ function Profile(){
             } 
             </Row>
             
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Do you really want to confirm the cancellation made? </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="danger" onClick={cancelOrder}>
+            Confirm cancellation
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
         </Container>
     );
