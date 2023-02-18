@@ -29,33 +29,6 @@ function Bookings() {
     }
   }
 
-  function humanizeDate(date_str) {
-    let month = [
-      "January",
-      "Feburary",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ]
-
-    var date_arr = date_str.split("-")
-
-    return (
-      month[Number(date_arr[1]) - 1] +
-      " " +
-      Number(date_arr[2]) +
-      ", " +
-      date_arr[0]
-    )
-  }
-
   useEffect(() => {
     email && getAllUserBookings()
   }, [email, show])
@@ -117,9 +90,9 @@ function Bookings() {
                         </p>
                         <p className="my-1">
                           <span>Date: </span>
-                          {humanizeDate(item.check_in.$date.split("T")[0])}{" "}
+                          {new Date(item.check_in.$date.split("T")[0]).toDateString()}{" "}
                           <span>To</span>{" "}
-                          {humanizeDate(item.check_out.$date.split("T")[0])}
+                          {new Date(item.check_out.$date.split("T")[0]).toDateString()}
                         </p>
                         <p className="my-1">
                           <span>Total Amount: ₹ </span>
@@ -163,7 +136,7 @@ function Bookings() {
           userBookings.map((item, idx) => {
             if (
               Date.parse(item.check_out.$date) < Date.now() ||
-              item.isCancelled == true
+              item.isCancelled
             ) {
               return (
                 <Card
@@ -181,9 +154,9 @@ function Bookings() {
                         </p>
                         <p className="my-1">
                           <span>Date: </span>
-                          {humanizeDate(item.check_in.$date.split("T")[0])}{" "}
+                          {new Date(item.check_in.$date.split("T")[0]).toDateString()}{" "}
                           <span>To</span>{" "}
-                          {humanizeDate(item.check_out.$date.split("T")[0])}
+                          {new Date(item.check_out.$date.split("T")[0]).toDateString()}
                         </p>
                         <p className="my-1">
                           <span>Total Amount: ₹ </span>
