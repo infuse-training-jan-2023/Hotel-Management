@@ -84,7 +84,7 @@ class BookingService:
     @staticmethod
     def get_user_booking_by_email(customer_email):
         try:
-            Result= Connection.db.booking.find({"customer_email":customer_email}).sort("check_out",-1)
+            Result= Connection.db.booking.find({"customer_email":customer_email}).sort("check_in",-1)
             return Result
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
@@ -93,7 +93,7 @@ class BookingService:
     def calculate_discount(customer_email):
         try:
             bookings = Connection.db.booking.count_documents({'customer_email':customer_email})
-            return bookings*10
+            return bookings*100
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
 

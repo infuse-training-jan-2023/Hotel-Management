@@ -23,8 +23,15 @@ class RoomController:
     
     def get_all_rooms(self):
       try:
+          rooms = RoomService.get_all_rooms()
+          return Response(json_util.dumps(rooms), status=200, mimetype="application/json")
+      except Exception as e:
+          return str(e)
+
+    def get_available_rooms(self):
+      try:
           request_data = request.get_json()
-          rooms = RoomService.get_all_rooms(request_data)
+          rooms = RoomService.get_available_rooms(request_data)
           return Response(json_util.dumps(rooms), status=201, mimetype="application/json")
       except Exception as e:
           return str(e)

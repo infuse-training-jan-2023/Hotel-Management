@@ -1,18 +1,26 @@
-import React from 'react';
+import React from "react"
 
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons"
+import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/esm/Row"
 
-function Error(){
-    const navigate = useNavigate();
+function Error() {
+  const navigate = useNavigate()
 
-    return(
-        <div className="position-absolute top-50 start-50 translate-middle px-0">
-            <span class="display-1 d-block">404</span>
-            <div class="mb-4 lead">Unable to find page</div>
-            <a onClick={() => navigate('/')} >Go to home page</a>
-        </div>
-
-    );
+  return (
+    <Row className="w-50 mx-auto py-5 my-5 text-center">
+      <FontAwesomeIcon
+        className="text-warning"
+        icon={faExclamationTriangle}
+        size="5x"
+        beatFade
+      />
+      <div className="display-6 my-5">Unable to find page</div>
+      <Button onClick={() => navigate("/")}>Go to home page</Button>
+    </Row>
+  )
 }
 
-export default Error;
+export default Error
