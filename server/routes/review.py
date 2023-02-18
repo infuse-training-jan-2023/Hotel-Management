@@ -7,7 +7,7 @@ review_bp=Blueprint('review_bp',__name__)
 def add_review():
     return ReviewController().add_review() 
 
-@review_bp.route("/reviews_of_room", methods = ['GET'])
-def get_reviews_of_room():
-    return ReviewController().get_reviews_of_room()
+@review_bp.route("/reviews/room/<string:roomId>")
+def get_reviews_of_room(roomId):
+    return ReviewController().get_reviews_of_room(roomId)
     

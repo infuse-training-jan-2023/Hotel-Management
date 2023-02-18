@@ -10,10 +10,9 @@ class ReviewController:
         except Exception as e:
             return str(e)
     
-    def get_reviews_of_room(self):
+    def get_reviews_of_room(self, roomId):
         try:
-            room_id =request.args.get('room_id')
-            all_reviews = Review.get_reviews_of_room(room_id)
+            all_reviews = Review.get_reviews_of_room(roomId)
             return Response(json_util.dumps(all_reviews), status=200, mimetype="application/json")
         except Exception as e:
             return str(e)

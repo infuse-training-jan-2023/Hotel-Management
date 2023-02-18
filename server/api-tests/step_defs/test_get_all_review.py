@@ -9,7 +9,7 @@ from main import app
 app=app.test_client()
 scenarios('../features/get_all_review.feature')
 
-all_review_url = os.getenv("url")+"/reviews_of_room?room_id=63ea04adcf0530963faef934"
+all_review_url = os.getenv("url")+"/reviews/room/63ea04adcf0530963faef934"
 
 @when('Customer View Room')
 def get_all_review():

@@ -7,7 +7,7 @@ app=app.test_client()
 load_dotenv() 
 scenarios('../features/get_available_rooms.feature')
 
-search_url = os.getenv("url")+"/get-available-rooms"
+search_url = os.getenv("url")+"/available/rooms"
 data  = {
     "price": "5800",
     "check_in": "2023-04-19",

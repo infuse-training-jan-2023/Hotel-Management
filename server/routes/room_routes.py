@@ -8,11 +8,11 @@ room_bp = Blueprint('room_bp', __name__)
 def get_room_details():
     return RoomController().get_room_details()
     
-@room_bp.route("/get-all-rooms", methods = ['GET'])
+@room_bp.route("/rooms", methods = ['GET'])
 def get_all_rooms():
     return RoomController().get_all_rooms()
     
-@room_bp.route("/get-available-rooms", methods = ['POST'])
+@room_bp.route("/available/rooms", methods = ['POST'])
 def get_available_rooms():
     return RoomController().get_available_rooms()
     
