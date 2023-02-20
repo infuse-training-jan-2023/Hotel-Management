@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react"
-
+import { useNavigate } from "react-router-dom"
 import Container from "react-bootstrap/Container"
 import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 
 function NavigationBar() {
+  const navigate = useNavigate()
   let handleLogout = () => {
     localStorage.removeItem("email")
-    window.location.replace("/")
+    navigate("/")
   }
-
-  const loggedIn = localStorage.getItem("email")
+  const loggedIn = JSON.parse(localStorage.getItem("email"))
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">

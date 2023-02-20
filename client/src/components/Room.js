@@ -129,7 +129,10 @@ function Room() {
           <Button
             className="my-3 btn-lg btn-success"
             onClick={() => {
-              if (JSON.parse(localStorage.getItem("email")) === "")
+              if (
+                JSON.parse(localStorage.getItem("email")) == null ||
+                JSON.parse(localStorage.getItem("email")) == ""
+              )
                 navigate("/login")
               else
                 navigate("/bookroom", {

@@ -20,8 +20,8 @@ import Footer from "./components/Footer"
 function App() {
   return (
     <Container fluid className="px-0">
-      <NavigationBar />
       <BrowserRouter>
+        <NavigationBar />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

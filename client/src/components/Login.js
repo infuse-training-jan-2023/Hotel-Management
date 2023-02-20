@@ -29,7 +29,6 @@ function Login() {
           type="submit"
           onClick={() => {
             navigate("/bookings")
-            window.location.reload()
           }}
         >
           Login
