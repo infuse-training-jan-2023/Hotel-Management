@@ -15,8 +15,7 @@ class Review:
     @staticmethod
     def get_reviews_of_room(room_id):
         try:
-            room  = Connection.db.room.find({"_id":ObjectId(room_id)})
-            get_all_review_data = Connection.db.review.find({"room_id": ObjectId(room[0]["_id"])})
+            get_all_review_data = Connection.db.review.find({"room_id": ObjectId(room_id)})
             return get_all_review_data
         except pymongo.errors.WriteError as e:
             raise Exception("Error:", e.__class__)
