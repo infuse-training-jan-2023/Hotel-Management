@@ -28,7 +28,7 @@ function Login() {
           variant="primary"
           type="submit"
           onClick={() => {
-            navigate("/profile")
+            navigate("/bookings")
             window.location.reload()
           }}
         >

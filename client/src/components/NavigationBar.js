@@ -5,19 +5,12 @@ import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 
 function NavigationBar() {
-  let [email, setEmail] = useState("")
-
   let handleLogout = () => {
-    setEmail("")
-
     localStorage.removeItem("email")
     window.location.replace("/")
   }
 
-  useEffect(() => {
-    const email = JSON.parse(localStorage.getItem("email"))
-    if (email) setEmail(email)
-  }, [])
+  const loggedIn = localStorage.getItem("email")
 
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -32,12 +25,12 @@ function NavigationBar() {
             <Nav.Link href="/services">Services</Nav.Link>
           </Nav>
           <Nav>
-            {email ? (
+            {loggedIn ? (
               <Nav.Link href="/bookings">Booking</Nav.Link>
             ) : (
               <Nav.Link href="/login">Login</Nav.Link>
             )}
-            {email ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : ""}
+            {loggedIn ? <Nav.Link onClick={handleLogout}>Logout</Nav.Link> : ""}
           </Nav>
         </Navbar.Collapse>
       </Container>

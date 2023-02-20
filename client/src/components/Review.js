@@ -26,7 +26,7 @@ function Review() {
         headers: { "Content-type": "application/json charset=UTF-8" },
       })
       const msg = await res.json()
-      navigate("/profile")
+      navigate("/bookings")
     } catch (e) {
       console.log(e)
     }
