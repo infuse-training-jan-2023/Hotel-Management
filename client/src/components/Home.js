@@ -133,7 +133,7 @@ function App() {
             aria-label="room type"
             name="room_type"
             id="room_type"
-            onClick={applyFilters}
+            onChange={applyFilters}
           >
             <option value="any">Any</option>
             <option value="single">Single</option>
@@ -201,6 +201,7 @@ function App() {
                 </Card.Title>
                 <Card.Text>
                   <p>Capacity: {room["capacity"]}</p>
+                  <p>Price: ₹{room["price"]}</p>
                   <p>
                     Amenities:
                     {room["amenities"].map((item, idx) => {

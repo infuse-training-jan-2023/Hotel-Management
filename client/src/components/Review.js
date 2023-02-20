@@ -5,6 +5,10 @@ import Row from "react-bootstrap/Row"
 import Button from "react-bootstrap/Button"
 import Form from "react-bootstrap/Form"
 import { useParams } from "react-router-dom"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faStar } from "@fortawesome/free-solid-svg-icons"
+import OverlayTrigger from "react-bootstrap/OverlayTrigger"
+import Tooltip from "react-bootstrap/Tooltip"
 
 function Review() {
   const navigate = useNavigate()
@@ -53,8 +57,16 @@ function Review() {
             name="rating"
             type="radio"
             value="1"
+            className="mx-2"
             id="inline-radio-1"
             onChange={addReviewParams}
+          />
+          <FontAwesomeIcon
+            fade
+            className="text-warning"
+            style={{ marginRight: "20px", marginLeft: "-5px" }}
+            icon={faStar}
+            size="lg"
           />
           <Form.Check
             inline
@@ -62,17 +74,33 @@ function Review() {
             name="rating"
             type="radio"
             value="2"
+            className="mx-2"
             id="inline-radio-3"
             onChange={addReviewParams}
+          />
+          <FontAwesomeIcon
+            fade
+            className="text-warning"
+            style={{ marginRight: "20px", marginLeft: "-5px" }}
+            icon={faStar}
+            size="lg"
           />
           <Form.Check
             inline
             label="3"
+            className="mx-2"
             name="rating"
             type="radio"
             value="3"
-            id="inline-radio-2"
+            id="inline-radio"
             onChange={addReviewParams}
+          />
+          <FontAwesomeIcon
+            fade
+            className="text-warning "
+            icon={faStar}
+            style={{ marginRight: "20px", marginLeft: "-5px" }}
+            size="lg"
           />
           <Form.Check
             inline
@@ -80,8 +108,16 @@ function Review() {
             name="rating"
             type="radio"
             value="4"
+            className="mx-2"
             id="inline-radio-4"
             onChange={addReviewParams}
+          />
+          <FontAwesomeIcon
+            fade
+            className="text-warning"
+            style={{ marginRight: "20px", marginLeft: "-5px" }}
+            icon={faStar}
+            size="lg"
           />
           <Form.Check
             inline
@@ -89,8 +125,16 @@ function Review() {
             name="rating"
             type="radio"
             value="5"
+            className="mx-2"
             id="inline-radio-5"
             onChange={addReviewParams}
+          />
+          <FontAwesomeIcon
+            fade
+            className="text-warning"
+            style={{ marginRight: "20px", marginLeft: "-5px" }}
+            icon={faStar}
+            size="lg"
           />
         </div>
         <Button variant="primary" onClick={postReview}>
