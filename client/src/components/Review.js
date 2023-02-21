@@ -30,7 +30,7 @@ function Review() {
         headers: { "Content-type": "application/json charset=UTF-8" },
       })
       const msg = await res.json()
-      navigate("/bookings")
+      navigate("/")
     } catch (e) {
       console.log(e)
     }

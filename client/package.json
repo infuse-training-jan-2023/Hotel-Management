@@ -25,6 +25,7 @@
   "scripts": {
     "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
+    "start-api": "..\\server\\myenv\\Scripts\\activate ; cd ..\\server\\ ; flask run",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
